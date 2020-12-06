@@ -1,14 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const { isAuth } = require('../controller/auth');
+const { userById, readProfil } = require('../controller/user');
 
-router.get('/', isAuth, (req, res) => {
-  res.json({
-    posts: {
-      title: 'Verify if token work',
-      description: 'I think it is kindda work',
-    },
-  });
-});
+router.get('/user/:userId', isAuth, readProfil);
+
+router.param('userId', userById);
 
 module.exports = router;
