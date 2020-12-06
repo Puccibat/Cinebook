@@ -1,8 +1,10 @@
 const User = require('../model/User');
 const bcrypt = require('bcryptjs');
-const { signupValidation } = require('../validation');
+const jwt = require('jsonwebtoken');
+const { signupValidation, signinValidation } = require('../validation');
 
-signup = async (req, res) => {
+//Register a new user
+const signup = async (req, res) => {
   //Validate user before saving
   const { error } = signupValidation(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -30,4 +32,49 @@ signup = async (req, res) => {
   }
 };
 
-module.exports = { signup };
+//Login a user
+const signin = async (req, res) => {
+  //Validate user before login
+  const { error } = signinValidation(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  //Checking if the email exists
+  const user = await User.findOne({ email: req.body.email });
+  if (!user)
+    return res
+      .status(400)
+      .send(
+        'Email or password is wrong, if you are not registered, please go to signup'
+      );
+
+  //Checking if the password is correct
+  const validPass = await bcrypt.compare(req.body.password, user.password);
+  if (!validPass)
+    return res
+      .status(400)
+      .send(
+        'Email or password is wrong, if you are not registered, please go to signup'
+      );
+
+  //Create and assign a token
+  const token = jwt.sign({ _id: user._id }, process.env.SECRET_TOKEN);
+  res.header('auth-token', token).send(token);
+
+  res.send('Logged in!');
+};
+
+//Verify if the user is authenticated
+const isAuth = (req, res, next) => {
+  const userToken = req.header('auth-token');
+  if (!userToken) return res.status(401).send('Access Denied');
+
+  try {
+    const verified = jwt.verify(userToken, process.env.SECRET_TOKEN);
+    req.user = verified;
+    next();
+  } catch (error) {
+    res.status(400).send('Invalid Token');
+  }
+};
+
+module.exports = { signup, signin, isAuth };

@@ -14,11 +14,13 @@ mongoose.connect(
 
 //Import Routes
 const authRoute = require('./routes/auth');
+const userRoute = require('./routes/user');
 
 //Middleware
 app.use(express.json());
 
 //Route middlewares
 app.use('/api/user', authRoute);
+app.use('/api/test', userRoute);
 
 app.listen(3000, () => console.log('Server is running at port 3000'));
