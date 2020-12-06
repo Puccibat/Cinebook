@@ -16,6 +16,6 @@ const readProfil = (req, res) => {
   return res.json(req.body);
 };
 
-const updateProfil = (req, res) => {};
+//const updateProfil = (req, res) => {};
 
-module.exports = { userById, readProfil, updateProfil };
+module.exports = { userById, readProfil };

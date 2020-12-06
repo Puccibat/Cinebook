@@ -11,7 +11,7 @@ router.get('/admin/:userId', isAuth, isAdmin, (req, res) => {
 
 router.get('/user/:userId', isAuth, readProfil);
 
-router.put('/user/:userId', isAuth, updateProfil);
+//router.put('/user/:userId', isAuth, updateProfil);
 
 router.param('userId', userById);
 
