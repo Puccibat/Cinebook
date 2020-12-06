@@ -75,4 +75,14 @@ const isAuth = (req, res, next) => {
   }
 };
 
-module.exports = { signup, signin, isAuth };
+//Admin connection
+const isAdmin = (req, res, next) => {
+  if (req.body.role === 0) {
+    return res.status(403).json({
+      error: 'You are not allowed to go there !',
+    });
+  }
+  next();
+};
+
+module.exports = { signup, signin, isAuth, isAdmin };
