@@ -25,14 +25,16 @@ const movieSchema = new mongoose.Schema({
     maxlength: 128,
   },
   casting: {
-    type: Array,
-    default: [],
+    type: String,
+    trim: true,
     required: true,
+    maxlength: 1024,
   },
   genre: {
-    type: Array,
-    default: [],
+    type: String,
+    trim: true,
     required: true,
+    maxlength: 1024,
   },
   classification: {
     type: String,
@@ -42,7 +44,10 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  //Poster image
+  poster: {
+    data: Buffer,
+    contentType: String,
+  },
 });
 
 module.exports = mongoose.model('Movie', movieSchema);
