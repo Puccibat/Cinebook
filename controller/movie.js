@@ -78,4 +78,16 @@ const createMovie = (req, res) => {
   });
 };
 
-module.exports = { createMovie, movieById, readMovie };
+const removeMovie = (req, res) => {
+  let movie = req.movie;
+  movie.remove((err) => {
+    if (err) {
+      res.status(400).json(err);
+    }
+    res.json({
+      message: 'Movie deleted successfully',
+    });
+  });
+};
+
+module.exports = { createMovie, movieById, readMovie, removeMovie };

@@ -16,7 +16,7 @@ router.get('/movie/:movieId', readMovie);
 
 router.post('/movie/create/:userId', isAuth, isAdmin, userById, createMovie);
 
-// router.delete('/movie/:movieId/:userId', isAuth, isAdmin, removeMovie);
+router.delete('/movie/:movieId/:userId', isAuth, isAdmin, removeMovie);
 
 // router.put('/movie/:movieId/:userId', isAuth, isAdmin, updateMovie);
 
