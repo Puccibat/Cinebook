@@ -121,10 +121,19 @@ const updateMovie = (req, res) => {
   });
 };
 
+const showPoster = (req, res) => {
+  if (req.movie.poster.data) {
+    res.set('Content-Type', req.movie.poster.contentType);
+    return res.send(req.movie.poster.data);
+  }
+  next();
+};
+
 module.exports = {
   createMovie,
   movieById,
   readMovie,
   removeMovie,
   updateMovie,
+  showPoster,
 };

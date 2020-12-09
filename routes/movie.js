@@ -9,7 +9,7 @@ const {
   readMovie,
   movieById,
   list,
-  poster,
+  showPoster,
 } = require('../controller/movie');
 
 router.get('/movie/:movieId', readMovie);
@@ -22,7 +22,7 @@ router.put('/movie/:movieId/:userId', isAuth, isAdmin, updateMovie);
 
 // router.get('/movies', list);
 
-// router.get('/movie/poster/:movieId', poster);
+router.get('/movie/poster/:movieId', showPoster);
 
 router.param('userId', userById);
 router.param('movieId', movieById);
