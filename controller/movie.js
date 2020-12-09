@@ -90,4 +90,41 @@ const removeMovie = (req, res) => {
   });
 };
 
-module.exports = { createMovie, movieById, readMovie, removeMovie };
+const updateMovie = (req, res) => {
+  let form = new formidable.IncomingForm();
+  form.keepExtensions = true;
+  form.parse(req, (err, fields, files) => {
+    if (err) {
+      return res.status(400).json({
+        error: 'Image could not be uploaded',
+      });
+    }
+
+    let movie = req.movie;
+    movie = _.extend(movie, fields);
+    if (files.poster) {
+      if (files.poster.size > 5000000) {
+        return res.status(400).json({
+          error: 'Image should be less than 5Mb',
+        });
+      }
+      movie.poster.data = fs.readFileSync(files.poster.path);
+      movie.poster.contenType = files.poster.type;
+    }
+
+    movie.save((err, result) => {
+      if (err) {
+        return res.status(400).json(err);
+      }
+      res.json(result);
+    });
+  });
+};
+
+module.exports = {
+  createMovie,
+  movieById,
+  readMovie,
+  removeMovie,
+  updateMovie,
+};
