@@ -58,7 +58,16 @@ const signin = async (req, res) => {
 
   //Create and assign a token
   const token = jwt.sign({ _id: user._id }, process.env.SECRET_TOKEN);
-  res.header('auth-token', token).send(token);
+  //res.header('auth-token', token).send(token);
+  res.cookie('t', token, { expire: new Date() + 9999 });
+  const { _id, name, email, role } = user;
+  return res.json({ token, user: { _id, email, name, role } });
+};
+
+//SignOut
+const signout = (req, res) => {
+  res.clearCookie('t');
+  res.json({ message: 'Sign Out successed' });
 };
 
 //Verify if the user is authenticated
@@ -85,4 +94,4 @@ const isAdmin = (req, res, next) => {
   next();
 };
 
-module.exports = { signup, signin, isAuth, isAdmin };
+module.exports = { signup, signin, isAuth, isAdmin, signout };

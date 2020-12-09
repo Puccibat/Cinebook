@@ -13,7 +13,7 @@ const userById = (req, res, next, id) => {
 };
 
 const readProfil = (req, res) => {
-  return res.json(req.body);
+  return res.json('Welcome ' + req.body.name);
 };
 
 //const updateProfil = (req, res) => {};
