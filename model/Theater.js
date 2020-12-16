@@ -12,7 +12,10 @@ const theaterSchema = new mongoose.Schema({
     required: true,
     maxlength: 3,
   },
-  //Poster image
+  image: {
+    data: Buffer,
+    contentType: String,
+  },
 });
 
 module.exports = mongoose.model('Theater', theaterSchema);

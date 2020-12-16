@@ -6,7 +6,10 @@ const carouselImageSchema = new mongoose.Schema({
     trim: true,
     maxlength: 128,
   },
-  //image
+  image: {
+    data: Buffer,
+    contentType: String,
+  },
 });
 
 module.exports = mongoose.model('CarouselImage', carouselImageSchema);

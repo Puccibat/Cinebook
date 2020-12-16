@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const authRoute = require('./routes/auth');
 const userRoute = require('./routes/user');
 const movieRoute = require('./routes/movie');
+const theaterRoute = require('./routes/theater');
 
 dotenv.config();
 
@@ -29,5 +30,6 @@ app.use(express.json());
 app.use('/api', authRoute);
 app.use('/api', userRoute);
 app.use('/api', movieRoute);
+app.use('/api', theaterRoute);
 
 app.listen(3000, () => console.log('Server is running at port 3000'));

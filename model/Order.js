@@ -1,17 +1,16 @@
 const mongoose = require('mongoose');
 const { ObjectId } = mongoose.Schema;
 
-const ticketItemSchema = new mongoose.Schema(
+const ticketSchema = new mongoose.Schema(
   {
     ticketType: { type: ObjectId, ref: 'TicketType' },
-    name: String,
-    price: Number,
+    ticketPrice: { type: ObjectId, ref: 'TicketType' },
     count: Number,
   },
   { timestamps: true }
 );
 
-const TicketItem = mongoose.model('TicketItem', ticketItemSchema);
+const Ticket = mongoose.model('Ticket', ticketSchema);
 
 const orderSchema = new mongoose.Schema(
   {
@@ -49,4 +48,4 @@ const orderSchema = new mongoose.Schema(
 
 const Order = mongoose.model('Order', orderSchema);
 
-module.exports = { Order, TicketItem };
+module.exports = { Order, Ticket };
