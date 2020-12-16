@@ -2,12 +2,14 @@ const express = require('express');
 const app = express();
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 //Import Routes
 const authRoute = require('./routes/auth');
 const userRoute = require('./routes/user');
 const movieRoute = require('./routes/movie');
 const theaterRoute = require('./routes/theater');
+const ticketTypeRoute = require('./routes/ticketType');
 
 dotenv.config();
 
@@ -25,11 +27,13 @@ mongoose.connect(
 
 //Middleware
 app.use(express.json());
+app.use(bodyParser.json());
 
 //Route middlewares
 app.use('/api', authRoute);
 app.use('/api', userRoute);
 app.use('/api', movieRoute);
 app.use('/api', theaterRoute);
+app.use('/api', ticketTypeRoute);
 
 app.listen(3000, () => console.log('Server is running at port 3000'));
