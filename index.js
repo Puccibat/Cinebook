@@ -27,6 +27,11 @@ mongoose.connect(
 
 //Middleware
 app.use(express.json());
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
 app.use(bodyParser.json());
 
 //Route middlewares

@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const { isAuth, isAdmin } = require('../controller/auth');
-const { userById } = require('../controller/user');
 const {
   createMovie,
   updateMovie,
@@ -14,17 +13,16 @@ const {
 
 router.get('/movie/:movieId', readMovie);
 
-router.post('/movie/create/:userId', isAuth, isAdmin, createMovie);
+router.post('/movie/create', isAuth, isAdmin, createMovie);
 
-router.delete('/movie/:movieId/:userId', isAuth, isAdmin, removeMovie);
+router.delete('/movie/:movieId', isAuth, isAdmin, removeMovie);
 
-router.put('/movie/:movieId/:userId', isAuth, isAdmin, updateMovie);
+router.put('/movie/:movieId', isAuth, isAdmin, updateMovie);
 
 // router.get('/movies', list);
 
 router.get('/movie/poster/:movieId', showPoster);
 
-router.param('userId', userById);
 router.param('movieId', movieById);
 
 module.exports = router;

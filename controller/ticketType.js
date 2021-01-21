@@ -1,7 +1,7 @@
 const TicketType = require('../model/TicketType');
 
 const ticketTypeById = (req, res, next, id) => {
-  ticketType.findById(id).exec((err, ticketType) => {
+  TicketType.findById(id).exec((err, ticketType) => {
     if (err || !ticketType) {
       return res.status(400).json({
         error: 'Ticket type not found',
@@ -28,7 +28,7 @@ const createTicketType = (req, res) => {
 };
 
 const removeTicketType = (req, res) => {
-  let ticketType = req.ticketType;
+  const ticketType = req.ticketType;
   ticketType.remove((err) => {
     if (err) {
       res.status(400).json(err);
@@ -40,7 +40,10 @@ const removeTicketType = (req, res) => {
 };
 
 const updateTicketType = (req, res) => {
-  let ticketType = req.ticketType;
+  const ticketType = req.ticketType;
+  ticketType.name = req.body.name;
+  ticketType.description = req.body.description;
+  ticketType.price = req.body.price;
 
   ticketType.save((err, data) => {
     if (err) {

@@ -1,4 +1,5 @@
 const User = require('../model/User');
+const UserService = require('../service/userService');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { signupValidation, signinValidation } = require('../validation');
@@ -73,6 +74,7 @@ const signout = (req, res) => {
 //Verify if the user is authenticated
 const isAuth = (req, res, next) => {
   const userToken = req.header('auth-token');
+
   if (!userToken) return res.status(401).send('Access Denied');
 
   try {
@@ -85,8 +87,10 @@ const isAuth = (req, res, next) => {
 };
 
 //Admin connection
-const isAdmin = (req, res, next) => {
-  if (req.body.role === 0) {
+const isAdmin = async (req, res, next) => {
+  const user = await UserService.getUserById(req.user._id);
+
+  if (user.role === 0) {
     return res.status(403).json({
       error: 'You are not allowed to go there !',
     });
