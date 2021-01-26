@@ -5,11 +5,13 @@ const sessionSchema = new mongoose.Schema({
   movie: {
     type: ObjectId,
     ref: 'Movie',
+    name: String,
     required: true,
   },
   theater: {
     type: ObjectId,
     ref: 'Theater',
+    name: String,
     required: true,
   },
   date: {

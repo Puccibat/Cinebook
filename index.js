@@ -10,6 +10,7 @@ const userRoute = require('./routes/user');
 const movieRoute = require('./routes/movie');
 const theaterRoute = require('./routes/theater');
 const ticketTypeRoute = require('./routes/ticketType');
+const sessionRoute = require('./routes/session');
 
 dotenv.config();
 
@@ -40,5 +41,6 @@ app.use('/api', userRoute);
 app.use('/api', movieRoute);
 app.use('/api', theaterRoute);
 app.use('/api', ticketTypeRoute);
+app.use('/api', sessionRoute);
 
 app.listen(3000, () => console.log('Server is running at port 3000'));

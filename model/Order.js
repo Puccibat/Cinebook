@@ -1,20 +1,21 @@
 const mongoose = require('mongoose');
 const { ObjectId } = mongoose.Schema;
 
-const ticketSchema = new mongoose.Schema(
+const TicketSchema = new mongoose.Schema(
   {
     ticketType: { type: ObjectId, ref: 'TicketType' },
-    ticketPrice: { type: ObjectId, ref: 'TicketType' },
+    name: String,
+    price: Number,
     count: Number,
   },
   { timestamps: true }
 );
 
-const Ticket = mongoose.model('Ticket', ticketSchema);
+const Ticket = mongoose.model('Ticket', TicketSchema);
 
 const orderSchema = new mongoose.Schema(
   {
-    tickets: [ticketItemSchema],
+    tickets: [ticketSchema],
     amount: {
       type: Number,
     },
