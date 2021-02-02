@@ -1,139 +1,89 @@
 const Movie = require('../model/Movie');
-const formidable = require('formidable');
-const _ = require('lodash');
-const fs = require('fs');
 
-const movieById = (req, res, next, id) => {
-  Movie.findById(id).exec((err, movie) => {
-    if (err || !movie) {
-      return res.status(400).json({
-        error: 'Movie not found',
-      });
-    }
-    req.movie = movie;
-    next();
-  });
+//Movie by ID
+const readMovieById = async (req, res) => {
+  const movie = await Movie.findById(req.params.id);
+
+  if (movie) {
+    res.json(movie);
+  } else {
+    res.status(404).json({ message: 'Movie not found' });
+  }
 };
 
-const readMovie = (req, res) => {
-  req.movie.poster = undefined;
-  return res.json(req.movie);
+//List of movies
+const listMovies = async (req, res) => {
+  const movies = await Movie.find({});
+  res.json(movies);
 };
 
 //Create a movie
-const createMovie = (req, res) => {
-  let form = new formidable.IncomingForm();
-  form.keepExtensions = true;
-  form.parse(req, (err, fields, files) => {
-    if (err) {
-      return res.status(400).json({
-        error: 'Image could not be uploaded',
-      });
-    }
-    //All fields verification
-    const {
-      title,
-      synopsis,
-      duration,
-      director,
-      casting,
-      genre,
-      classification,
-      availability,
-    } = fields;
-
-    if (
-      !title ||
-      !synopsis ||
-      !duration ||
-      !director ||
-      !casting ||
-      !genre ||
-      !classification ||
-      !availability
-    ) {
-      return res.status(400).json({
-        error: 'All fields are required',
-      });
-    }
-
-    let movie = new Movie(fields);
-
-    if (files.poster) {
-      if (files.poster.size > 5000000) {
-        return res.status(400).json({
-          error: 'Image should be less than 5Mb',
-        });
-      }
-      movie.poster.data = fs.readFileSync(files.poster.path);
-      movie.poster.contenType = files.poster.type;
-    }
-
-    movie.save((err, result) => {
-      if (err) {
-        return res.status(400).json(err);
-      }
-      res.json(result);
-    });
+const createMovie = async (req, res) => {
+  const movie = new Movie({
+    title: req.body.title,
+    synopsis: req.body.synopsis,
+    duration: req.body.duration,
+    director: req.body.director,
+    casting: req.body.casting,
+    genre: req.body.genre,
+    classification: req.body.classification,
+    availability: req.body.availability,
+    poster: req.body.poster,
   });
+  const createdMovie = await movie.save();
+  res.status(201).json(createdMovie);
 };
 
-const removeMovie = (req, res) => {
-  let movie = req.movie;
-  movie.remove((err) => {
-    if (err) {
-      res.status(400).json(err);
-    }
-    res.json({
-      message: 'Movie deleted successfully',
-    });
-  });
-};
+//Delete movie
+const removeMovie = async (req, res) => {
+  const movie = await Movie.findById(req.params.id);
 
-const updateMovie = (req, res) => {
-  let form = new formidable.IncomingForm();
-  form.keepExtensions = true;
-  form.parse(req, (err, fields, files) => {
-    if (err) {
-      return res.status(400).json({
-        error: 'Image could not be uploaded',
-      });
-    }
-
-    let movie = req.movie;
-    movie = _.extend(movie, fields);
-    if (files.poster) {
-      if (files.poster.size > 5000000) {
-        return res.status(400).json({
-          error: 'Image should be less than 5Mb',
-        });
-      }
-      movie.poster.data = fs.readFileSync(files.poster.path);
-      movie.poster.contenType = files.poster.type;
-    }
-
-    movie.save((err, result) => {
-      if (err) {
-        return res.status(400).json(err);
-      }
-      res.json(result);
-    });
-  });
-};
-
-const showPoster = (req, res) => {
-  if (req.movie.poster.data) {
-    res.set('Content-Type', req.movie.poster.contentType);
-    return res.send(req.movie.poster.data);
+  if (movie) {
+    await movie.remove();
+    res.json({ message: 'Movie removed' });
+  } else {
+    res.status(404).json({ message: 'Movie not found' });
   }
-  next();
+};
+
+//update movie
+const updateMovie = async (req, res) => {
+  const {
+    title,
+    synopsis,
+    duration,
+    director,
+    casting,
+    genre,
+    classification,
+    availability,
+    poster,
+  } = req.body;
+
+  const movie = await Movie.findById(req.params.id);
+
+  if (movie) {
+    (movie.title = title),
+      (movie.synopsis = synopsis),
+      (movie.duration = duration),
+      (movie.director = director),
+      (movie.casting = casting),
+      (movie.genre = genre),
+      (movie.classification = classification),
+      (movie.availability = availability),
+      (movie.poster = poster);
+
+    const updateMovie = await movie.save();
+    res.json(updateMovie);
+  } else {
+    res.status(404).json({ message: 'Movie not found' });
+  }
 };
 
 module.exports = {
   createMovie,
-  movieById,
-  readMovie,
+  listMovies,
   removeMovie,
   updateMovie,
-  showPoster,
+  readMovieById,
 };

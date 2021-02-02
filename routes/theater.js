@@ -3,23 +3,20 @@ const router = express.Router();
 const { isAuth, isAdmin } = require('../controller/auth');
 const {
   createTheater,
-  theaterById,
-  readTheater,
+  readTheaterById,
+  listTheater,
   removeTheater,
   updateTheater,
-  showImage,
 } = require('../controller/theater');
 
-router.get('/theater/:theaterId', readTheater);
+router.get('/theater/:id', readTheaterById);
+
+router.get('/theaters', listTheater);
 
 router.post('/theater/create', isAuth, isAdmin, createTheater);
 
-router.delete('/theater/:theaterId', isAuth, isAdmin, removeTheater);
+router.delete('/theater/:id', isAuth, isAdmin, removeTheater);
 
-router.put('/theater/:theaterId', isAuth, isAdmin, updateTheater);
-
-router.get('/theater/image/:theaterId', showImage);
-
-router.param('theaterId', theaterById);
+router.put('/theater/:id', isAuth, isAdmin, updateTheater);
 
 module.exports = router;

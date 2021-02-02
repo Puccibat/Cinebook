@@ -5,24 +5,18 @@ const {
   createMovie,
   updateMovie,
   removeMovie,
-  readMovie,
-  movieById,
-  list,
-  showPoster,
+  readMovieById,
+  listMovies,
 } = require('../controller/movie');
 
-router.get('/movie/:movieId', readMovie);
+router.get('/movie/:id', readMovieById);
+
+router.get('/movies', listMovies);
 
 router.post('/movie/create', isAuth, isAdmin, createMovie);
 
-router.delete('/movie/:movieId', isAuth, isAdmin, removeMovie);
+router.delete('/movie/:id', isAuth, isAdmin, removeMovie);
 
-router.put('/movie/:movieId', isAuth, isAdmin, updateMovie);
-
-// router.get('/movies', list);
-
-router.get('/movie/poster/:movieId', showPoster);
-
-router.param('movieId', movieById);
+router.put('/movie/:id', isAuth, isAdmin, updateMovie);
 
 module.exports = router;

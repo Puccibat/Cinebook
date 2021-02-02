@@ -1,62 +1,68 @@
 const TicketType = require('../model/TicketType');
+const { updateMovie } = require('./movie');
 
-const ticketTypeById = (req, res, next, id) => {
-  TicketType.findById(id).exec((err, ticketType) => {
-    if (err || !ticketType) {
-      return res.status(400).json({
-        error: 'Ticket type not found',
-      });
-    }
-    req.ticketType = ticketType;
-    next();
-  });
+//Ticket type by ID
+const readTicketTypeById = async (req, res) => {
+  const ticketType = await TicketType.findById(req.params.id);
+
+  if (ticketType) {
+    res.json(ticketType);
+  } else {
+    res.status(404).json({ message: 'Ticket type not found' });
+  }
 };
 
-const readTicketType = (req, res) => {
-  return res.json(req.ticketType);
+//List of ticket type
+const listTicketType = async (req, res) => {
+  const ticketTypes = await TicketType.find({});
+  res.json(ticketTypes);
 };
 
 //Create a ticketType
-const createTicketType = (req, res) => {
-  const ticketType = new TicketType(req.body);
-  ticketType.save((err, data) => {
-    if (err) {
-      return res.status(400).json(err);
-    }
-    res.json({ data });
+const createTicketType = async (req, res) => {
+  const ticketType = new TicketType({
+    name: req.body.name,
+    price: req.body.price,
+    description: req.body.description,
   });
+  const createdTicketType = await ticketType.save();
+  res.status(201).json(createdTicketType);
 };
 
-const removeTicketType = (req, res) => {
-  const ticketType = req.ticketType;
-  ticketType.remove((err) => {
-    if (err) {
-      res.status(400).json(err);
-    }
-    res.json({
-      message: 'Ticket type deleted successfully',
-    });
-  });
+//Delete ticket type
+const removeTicketType = async (req, res) => {
+  const ticketType = await TicketType.findById(req.params.id);
+
+  if (ticketType) {
+    await ticketType.remove();
+    res.json({ message: 'Ticket type removed' });
+  } else {
+    res.status(404).json({ message: 'Ticket type not found' });
+  }
 };
 
-const updateTicketType = (req, res) => {
-  const ticketType = req.ticketType;
-  ticketType.name = req.body.name;
-  ticketType.description = req.body.description;
-  ticketType.price = req.body.price;
+//Update ticket type
+const updateTicketType = async (req, res) => {
+  const { name, price, description } = req.body;
 
-  ticketType.save((err, data) => {
-    if (err) {
-      return res.status(400).json(err);
-    }
-    res.json(data);
-  });
+  const ticketType = await TicketType.findById(req.params.id);
+
+  if (ticketType) {
+    (ticketType.name = name),
+      (ticketType.price = price),
+      (ticketType.description = description);
+
+    const updateTicketType = await ticketType.save();
+    res.json(updateTicketType);
+  } else {
+    res.status(404).json({ message: 'Ticket type not found' });
+  }
 };
 
 module.exports = {
   createTicketType,
-  ticketTypeById,
-  readTicketType,
+  readTicketTypeById,
+  listTicketType,
   removeTicketType,
   updateTicketType,
 };
