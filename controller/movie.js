@@ -28,7 +28,7 @@ const createMovie = async (req, res) => {
     genre: req.body.genre,
     classification: req.body.classification,
     availability: req.body.availability,
-    poster: req.body.poster,
+    image: req.body.image,
   });
   const createdMovie = await movie.save();
   res.status(201).json(createdMovie);
@@ -57,7 +57,7 @@ const updateMovie = async (req, res) => {
     genre,
     classification,
     availability,
-    poster,
+    image,
   } = req.body;
 
   const movie = await Movie.findById(req.params.id);
@@ -71,7 +71,7 @@ const updateMovie = async (req, res) => {
       (movie.genre = genre),
       (movie.classification = classification),
       (movie.availability = availability),
-      (movie.poster = poster);
+      (movie.image = image);
 
     const updateMovie = await movie.save();
     res.json(updateMovie);

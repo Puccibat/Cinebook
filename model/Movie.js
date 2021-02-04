@@ -44,9 +44,9 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  poster: {
-    data: Buffer,
-    contentType: String,
+  image: {
+    type: String,
+    required: true,
   },
 });
 

@@ -13,8 +13,8 @@ const theaterSchema = new mongoose.Schema({
     maxlength: 3,
   },
   image: {
-    data: Buffer,
-    contentType: String,
+    type: String,
+    required: true,
   },
 });
 

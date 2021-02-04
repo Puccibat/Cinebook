@@ -7,8 +7,8 @@ const carouselImageSchema = new mongoose.Schema({
     maxlength: 128,
   },
   image: {
-    data: Buffer,
-    contentType: String,
+    type: String,
+    required: true,
   },
 });
 

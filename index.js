@@ -3,6 +3,7 @@ const app = express();
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const path = require('path');
 
 //Import Routes
 const authRoute = require('./routes/auth');
@@ -11,6 +12,7 @@ const movieRoute = require('./routes/movie');
 const theaterRoute = require('./routes/theater');
 const ticketTypeRoute = require('./routes/ticketType');
 const sessionRoute = require('./routes/session');
+const uploadRoute = require('./routes/upload');
 
 dotenv.config();
 
@@ -34,6 +36,7 @@ app.use(
   })
 );
 app.use(bodyParser.json());
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 //Route middlewares
 app.use('/api', authRoute);
@@ -42,6 +45,7 @@ app.use('/api', movieRoute);
 app.use('/api', theaterRoute);
 app.use('/api', ticketTypeRoute);
 app.use('/api', sessionRoute);
+app.use('/api', uploadRoute);
 
 const port = process.env.PORT || 8000;
 
