@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <footer className='bg-red-500 text-gray-900 fixed inset-x-0 p-2 bottom-0 text-sm'>
+    <footer className='bg-red-500 text-gray-900 inset-x-0 p-2 bottom-0 text-sm'>
       <div className='flex flex-col'>
         <div className=' flex justify-center'>
           <h1 className='text-2xl font-semibold '>Cinebook</h1>
@@ -16,7 +16,7 @@ const Footer = () => {
 
       <hr />
       <div className='pt-1'>
-        Cinebook &copy; 2021 - Tous droits réservés &reg;
+        Copyright &copy; 2021 - Tous droits réservés &reg; Cinebook by PucciBat
       </div>
     </footer>
   );

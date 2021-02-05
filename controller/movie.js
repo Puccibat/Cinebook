@@ -40,7 +40,7 @@ const removeMovie = async (req, res) => {
 
   if (movie) {
     await movie.remove();
-    res.json({ message: 'Movie removed' });
+    res.status(200).json({ message: 'Movie removed' });
   } else {
     res.status(404).json({ message: 'Movie not found' });
   }

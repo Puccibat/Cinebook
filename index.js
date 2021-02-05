@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
+const cors = require('cors');
 
 //Import Routes
 const authRoute = require('./routes/auth');
@@ -36,6 +37,7 @@ app.use(
   })
 );
 app.use(bodyParser.json());
+app.use(cors());
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 //Route middlewares

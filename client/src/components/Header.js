@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Header = () => {
   return (
     <header>
-      <div className=' bg-gray-900 mx-auto px-4 py-4'>
+      <div className=' bg-gray-900 mx-auto px-4 py-2'>
         <div className='container flex item-center justify-between mx-auto px-4'>
           <div>
             <Link to='/'>
@@ -13,15 +13,15 @@ const Header = () => {
               </h1>
             </Link>
           </div>
-          <div className='hidden -mx-4 md:flex md:items-center'>
+          <div className=' -mx-4 md:flex md:items-center'>
             <ul>
               <li>
-                <button className='rounded-md py-2 px-4 text-gray-100 bg-red-500 hover:bg-gray-600 focus:outline-none'>
+                <button className='rounded-md py-2 px-4 text-gray-100 bg-red-500 hover:bg-gray-600 hover:text-red-500 focus:outline-none'>
                   Se connecter
                 </button>
               </li>
               <li>
-                <Link className='underline text-xs ml-5 text-red-500 '>
+                <Link className='underline text-xs ml-5 text-red-500 hover:text-white'>
                   créer un compte
                 </Link>
               </li>
@@ -29,9 +29,7 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <div className='bg-red-500 inset-x-0 text-xs'>
-        <span className='text-red-500'>hello</span>
-      </div>
+      <div className='bg-red-500 h-1 '></div>
     </header>
   );
 };
