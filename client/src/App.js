@@ -1,11 +1,21 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Footer from './components/Footer';
+import Header from './components/Header';
 import HomeScreen from './components/HomeScreen';
+import MovieDetail from './components/MovieDetail';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
     <Router>
-      <HomeScreen className='bg-gray-900' />
+      <Header />
+      <Navbar />
+      <Switch>
+        <Route path='/' exact component={HomeScreen} />
+        <Route path='/movie/movieId' exact component={MovieDetail} />
+      </Switch>
+      <Footer />
     </Router>
   );
 }

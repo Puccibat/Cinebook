@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
+  const imageSrc = '../../../uploads/image-1612431353094.jpg';
+
   return (
     <header>
       <div className=' bg-gray-900 mx-auto px-4 py-2'>
@@ -30,6 +32,33 @@ const Header = () => {
         </div>
       </div>
       <div className='bg-red-500 h-1 '></div>
+      <div
+        className='relative pt-16 pb-32 flex content-center items-center justify-center'
+        style={{ minHeight: '55vh' }}
+      >
+        <div
+          className='bg-fixed absolute top-0 w-full h-full bg-center bg-cover'
+          style={{
+            backgroundImage: `url(${imageSrc})`,
+          }}
+        >
+          <span
+            id='blackOverlay'
+            className='w-full h-full absolute opacity-50 bg-black'
+          ></span>
+        </div>
+        <div className='container relative mx-auto'>
+          <div className='items-center flex flex-wrap'>
+            <div className='w-full lg:w-6/12 px-4 ml-auto mr-auto text-center'>
+              <div className='pr-12'>
+                <h1 className='text-white font-semibold text-5xl'>
+                  Votre cinéma ici
+                </h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </header>
   );
 };

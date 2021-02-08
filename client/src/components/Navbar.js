@@ -1,13 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
     <div className='bg-red-500'>
       <div className='lg:px-16 px-6 flex flex-wrap items-center lg:py-0 py-2'>
         <div className='flex-1 flex justify-between items-center'>
-          <a href='#'>
+          <Link to='/'>
             <i className='fa fa-home fa-2x'></i>
-          </a>
+          </Link>
         </div>
         <label for='menu-toggle' className='cursor-pointer lg:hidden block'>
           <svg
