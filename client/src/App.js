@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import HomeScreen from './components/HomeScreen';
+import Infos from './components/Infos';
 import MovieDetail from './components/MovieDetail';
 import Navbar from './components/Navbar';
 
@@ -13,7 +14,8 @@ function App() {
       <Navbar />
       <Switch>
         <Route path='/' exact component={HomeScreen} />
-        <Route path='/movie/movieId' exact component={MovieDetail} />
+        <Route path='/movie/:movieId' exact component={MovieDetail} />
+        <Route path='/infos' exact component={Infos} />
       </Switch>
       <Footer />
     </Router>

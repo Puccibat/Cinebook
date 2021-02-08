@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getMovieById } from '../apiFetching';
 
-const MovieDetail = ({ movie }) => {
+const MovieDetail = ({ match }) => {
   const [movieItem, setMovieItem] = useState({});
 
   const loadSingleMovie = (movieId) => {
@@ -11,7 +11,7 @@ const MovieDetail = ({ movie }) => {
   };
 
   useEffect(() => {
-    const movieId = movie.match.params.movieId;
+    const movieId = match.params.movieId;
     loadSingleMovie(movieId);
   });
 

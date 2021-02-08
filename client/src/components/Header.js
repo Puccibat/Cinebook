@@ -18,7 +18,7 @@ const Header = () => {
           <div className=' -mx-4 md:flex md:items-center'>
             <ul>
               <li>
-                <button className='rounded-md py-2 px-4 text-gray-100 bg-red-500 hover:bg-gray-600 hover:text-red-500 focus:outline-none'>
+                <button className='rounded-md py-2 px-4 text-gray-100 bg-red-500 hover:bg-white hover:text-red-500 focus:outline-none'>
                   Se connecter
                 </button>
               </li>
