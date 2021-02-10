@@ -27,13 +27,6 @@ const Navbar = ({ toggle }) => {
           className='p-3 border-b-2 border-transparent hover:border-white'
           to='/'
         >
-          Films
-        </Link>
-
-        <Link
-          className='p-3 border-b-2 border-transparent hover:border-white'
-          to='/'
-        >
           Nouveautés
         </Link>
 

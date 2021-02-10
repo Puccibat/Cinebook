@@ -34,7 +34,10 @@ const Header = () => {
                 </button>
               </li>
               <li>
-                <Link className='underline text-xs ml-5 text-red-500 hover:text-white'>
+                <Link
+                  to='/'
+                  className='underline text-xs ml-5 text-red-500 hover:text-white'
+                >
                   créer un compte
                 </Link>
               </li>

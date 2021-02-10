@@ -10,6 +10,16 @@ export const getMovies = async () => {
     .catch((error) => console.log(error));
 };
 
+export const getMoviesByAvailability = async (availability) => {
+  return fetch(`${API}/movies/moviesByAvailability/${availability}`, {
+    method: 'GET',
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((error) => console.log(error));
+};
+
 export const getMovieById = async (movieId) => {
   return fetch(`${API}/movie/${movieId}`, {
     method: 'GET',
