@@ -25,7 +25,7 @@ const Navbar = ({ toggle }) => {
       <div className='pr-8 md:block hidden'>
         <Link
           className='p-3 border-b-2 border-transparent hover:border-white'
-          to='/'
+          to='/newMovies'
         >
           Nouveautés
         </Link>

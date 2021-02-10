@@ -8,6 +8,7 @@ import HomeScreen from './components/HomeScreen';
 import Infos from './components/Infos';
 import MovieDetail from './components/MovieDetail';
 import Navbar from './components/Navbar';
+import NewMovies from './components/NewMovies';
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,6 +41,7 @@ function App() {
         <Route path='/movie/:movieId' exact component={MovieDetail} />
         <Route path='/infos' exact component={Infos} />
         <Route path='/about' exact component={About} />
+        <Route path='/newMovies' exact component={NewMovies} />
       </Switch>
       <Footer />
     </Router>
