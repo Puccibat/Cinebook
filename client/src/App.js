@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import About from './components/About';
-import Dropdown from './components/Dropdown';
-import Footer from './components/Footer';
-import Header from './components/Header';
-import HomeScreen from './components/HomeScreen';
-import Infos from './components/Infos';
-import MovieDetail from './components/MovieDetail';
-import Navbar from './components/Navbar';
-import NewMovies from './components/NewMovies';
-import Register from './components/Register';
+import About from './core/About';
+import Dropdown from './core/Dropdown';
+import Footer from './core/Footer';
+import Header from './core/Header';
+import HomeScreen from './core/HomeScreen';
+import Infos from './core/Infos';
+import MovieDetail from './core/MovieDetail';
+import Navbar from './core/Navbar';
+import NewMovies from './core/NewMovies';
+import Register from './user/Register';
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);

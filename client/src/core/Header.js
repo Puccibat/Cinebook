@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import SignInModal from './SignInModal';
+import SignInModal from '../user/SignInModal';
 
 const Header = () => {
   const [showModal, setShowModal] = useState(false);
