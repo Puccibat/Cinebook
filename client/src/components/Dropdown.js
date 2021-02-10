@@ -13,14 +13,7 @@ const Dropdown = ({ isOpen, toggle }) => {
     >
       <Link
         className='p-4 border-b-2 border-transparent hover:border-white'
-        to='/'
-      >
-        Films
-      </Link>
-
-      <Link
-        className='p-4 border-b-2 border-transparent hover:border-white'
-        to='/'
+        to='/newMovies'
       >
         Nouveautés
       </Link>
@@ -41,7 +34,7 @@ const Dropdown = ({ isOpen, toggle }) => {
 
       <Link
         className='p-4 border-b-2 border-transparent hover:border-white'
-        to='/'
+        to='/about'
       >
         A propos
       </Link>

@@ -35,7 +35,7 @@ const Header = () => {
               </li>
               <li>
                 <Link
-                  to='/'
+                  to='/register'
                   className='underline text-xs ml-5 text-red-500 hover:text-white'
                 >
                   créer un compte
