@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import SignInModal from './SignInModal';
 
 const Header = () => {
+  const [showModal, setShowModal] = useState(false);
+
   const imageSrc = '../../../uploads/image-1612431353094.jpg';
+
+  const openModal = () => {
+    setShowModal((prev) => !prev);
+  };
 
   return (
     <header>
+      <SignInModal showModal={showModal} setShowModal={setShowModal} />
       <div className=' bg-gray-900 mx-auto px-4 py-2'>
         <div className='container flex item-center justify-between mx-auto px-4'>
           <div>
@@ -18,7 +26,10 @@ const Header = () => {
           <div className=' -mx-4 md:flex md:items-center'>
             <ul>
               <li>
-                <button className='rounded-md py-2 px-4 text-gray-100 bg-red-500 hover:bg-white hover:text-red-500 focus:outline-none'>
+                <button
+                  onClick={openModal}
+                  className='rounded-md py-2 px-4 text-gray-100 bg-red-500 hover:bg-white hover:text-red-500 focus:outline-none'
+                >
                   Se connecter
                 </button>
               </li>
