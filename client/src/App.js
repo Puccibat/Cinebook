@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import AdminDashoard from './admin/AdminDashoard';
+import PrivateRoute from './auth/PrivateRoute';
 import About from './core/About';
-import Dropdown from './core/Dropdown';
 import Footer from './core/Footer';
 import Header from './core/Header';
 import HomeScreen from './core/HomeScreen';
 import Infos from './core/Infos';
 import MovieDetail from './core/MovieDetail';
-import Navbar from './core/Navbar';
 import NewMovies from './core/NewMovies';
+import MyProfile from './user/MyProfile';
 import Register from './user/Register';
 
 function App() {
@@ -34,9 +35,7 @@ function App() {
 
   return (
     <Router>
-      <Header />
-      <Navbar toggle={toggle} />
-      <Dropdown isOpen={isOpen} toggle={toggle} />
+      <Header toggle={toggle} isOpen={isOpen} />
       <Switch>
         <Route path='/' exact component={HomeScreen} />
         <Route path='/movie/:movieId' exact component={MovieDetail} />
@@ -44,6 +43,8 @@ function App() {
         <Route path='/about' exact component={About} />
         <Route path='/newMovies' exact component={NewMovies} />
         <Route path='/register' exact component={Register} />
+        <Route path='/profil' exact component={MyProfile} />
+        <PrivateRoute path='/adminDashboard' exact component={AdminDashoard} />
       </Switch>
       <Footer />
     </Router>

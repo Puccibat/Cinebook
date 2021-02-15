@@ -1,4 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
+import { signin, authenticate } from '../auth/ApiAuth';
+import { Link } from 'react-router-dom';
 
 const SignInModal = ({ showModal, setShowModal }) => {
   const modalRef = useRef();
@@ -9,10 +11,39 @@ const SignInModal = ({ showModal, setShowModal }) => {
     }
   };
 
+  const [values, setValues] = useState({
+    email: '',
+    password: '',
+    redirectToReferrer: false,
+  });
+
+  const { email, password } = values;
+
+  const handleChange = (email) => (event) => {
+    setValues({ ...values, [email]: event.target.value });
+  };
+
+  const clickSubmit = (event) => {
+    event.preventDefault();
+    setValues({ ...values });
+    signin({ email, password }).then((data) => {
+      if (data.error) {
+        setValues({ ...values });
+      } else {
+        authenticate(data, () => {
+          setValues({
+            ...values,
+          });
+        });
+        setShowModal(false);
+      }
+    });
+  };
+
   return (
     <>
       {showModal ? (
-        <div className=''>
+        <form>
           <div
             className='w-full z-10 h-full fixed justify-center items-center bg-black opacity-80'
             onClick={closeModal}
@@ -26,30 +57,33 @@ const SignInModal = ({ showModal, setShowModal }) => {
               Connectez-vous
             </h1>
             <div className='mb-4 pl-5 pt-4'>
-              <label className='font-semibold text-grey-900 block mb-2'>
-                Email
-              </label>
+              <label className='font-semibold block mb-2'>Email</label>
               <input
-                type='text'
-                className='block bg-white rounded shadow pl-2'
+                type='email'
+                onChange={handleChange('email')}
+                value={email}
+                className='block bg-white rounded shadow pl-2 text-gray-900'
                 placeholder='votre@email.com'
               />
             </div>
             <div className='mb-4 pl-5 pt-2'>
-              <label className='font-semibold text-grey-900 block mb-2'>
-                Mot de Passe
-              </label>
+              <label className='font-semibold block mb-2'>Mot de Passe</label>
               <input
-                type='text'
-                className='block bg-white rounded shadow pl-2'
+                type='password'
+                onChange={handleChange('password')}
+                value={password}
+                className='block bg-white rounded shadow pl-2 text-gray-900 '
                 placeholder='******'
               />
             </div>
-            <button className='rounded-md py-2 px-4 w-28 mx-auto mb-3 text-gray-100 bg-red-500 hover:bg-white hover:text-red-500 focus:outline-none'>
-              Connexion
+            <button
+              onClick={clickSubmit}
+              className='rounded-md py-2 px-4 w-28 mx-auto mb-3 text-gray-100 bg-red-500 hover:bg-white hover:text-red-500 focus:outline-none'
+            >
+              <Link to='/profil'>Connexion</Link>
             </button>
           </div>
-        </div>
+        </form>
       ) : null}
     </>
   );

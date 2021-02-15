@@ -1,14 +1,23 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SignInModal from '../user/SignInModal';
+import { isAuth, signout } from '../auth/ApiAuth';
+import Navbar from './Navbar';
+import Dropdown from './Dropdown';
 
-const Header = () => {
+const Header = ({ isOpen, toggle }) => {
   const [showModal, setShowModal] = useState(false);
+  const [isLogged, setIsLogged] = useState(true);
 
   const imageSrc = '../../../uploads/image-1612431353094.jpg';
 
   const openModal = () => {
     setShowModal((prev) => !prev);
+  };
+
+  const logout = () => {
+    signout();
+    setIsLogged(false);
   };
 
   return (
@@ -25,22 +34,36 @@ const Header = () => {
           </div>
           <div className=' -mx-4 md:flex md:items-center'>
             <ul>
-              <li>
-                <button
-                  onClick={openModal}
-                  className='rounded-md py-2 px-4 text-gray-100 bg-red-500 hover:bg-white hover:text-red-500 focus:outline-none'
-                >
-                  Se connecter
-                </button>
-              </li>
-              <li>
-                <Link
-                  to='/register'
-                  className='underline text-xs ml-5 text-red-500 hover:text-white'
-                >
-                  créer un compte
-                </Link>
-              </li>
+              {isAuth() && isLogged ? (
+                <li>
+                  <button
+                    onClick={logout}
+                    className='rounded-md py-2 px-4 text-gray-100 bg-red-500 hover:bg-white hover:text-red-500 focus:outline-none'
+                  >
+                    Déconnexion
+                  </button>
+                </li>
+              ) : (
+                <li>
+                  <button
+                    onClick={openModal}
+                    className='rounded-md py-2 px-4 text-gray-100 bg-red-500 hover:bg-white hover:text-red-500 focus:outline-none'
+                  >
+                    Se connecter
+                  </button>
+                </li>
+              )}
+
+              {isAuth() ? null : (
+                <li>
+                  <Link
+                    to='/register'
+                    className='underline text-xs ml-5 text-red-500 hover:text-white'
+                  >
+                    créer un compte
+                  </Link>
+                </li>
+              )}
             </ul>
           </div>
         </div>
@@ -73,6 +96,8 @@ const Header = () => {
           </div>
         </div>
       </div>
+      <Navbar toggle={toggle} />
+      <Dropdown isOpen={isOpen} toggle={toggle} />
     </header>
   );
 };
