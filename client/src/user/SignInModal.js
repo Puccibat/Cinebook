@@ -14,7 +14,6 @@ const SignInModal = ({ showModal, setShowModal, setIsLogged }) => {
   const [values, setValues] = useState({
     email: '',
     password: '',
-    redirectToReferrer: false,
   });
 
   const { email, password } = values;
@@ -37,6 +36,10 @@ const SignInModal = ({ showModal, setShowModal, setIsLogged }) => {
           });
         });
         setShowModal(false);
+        setValues({
+          email: '',
+          password: '',
+        });
       }
     });
   };
