@@ -4,6 +4,8 @@ import SignInModal from '../user/SignInModal';
 import { isAuth, signout } from '../auth/ApiAuth';
 import Navbar from './Navbar';
 import Dropdown from './Dropdown';
+import AdminNavbar from '../admin/AdminNavbar';
+import AdminDropdown from '../admin/AdminDropdown';
 
 const Header = ({ isOpen, toggle }) => {
   const [showModal, setShowModal] = useState(false);
@@ -96,8 +98,16 @@ const Header = ({ isOpen, toggle }) => {
           </div>
         </div>
       </div>
-      <Navbar toggle={toggle} />
-      <Dropdown isOpen={isOpen} toggle={toggle} />
+      {isAuth() && isAuth().user.role === 1 ? (
+        <AdminNavbar toggle={toggle} />
+      ) : (
+        <Navbar toggle={toggle} />
+      )}
+      {isAuth() && isAuth().user.role === 1 ? (
+        <AdminDropdown isOpen={isOpen} toggle={toggle} />
+      ) : (
+        <Dropdown isOpen={isOpen} toggle={toggle} />
+      )}
     </header>
   );
 };
