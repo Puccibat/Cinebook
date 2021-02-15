@@ -12,6 +12,12 @@ const AdminDropdown = ({ isOpen, toggle }) => {
       onClick={toggle}
     >
       <Link
+        className='p-3 border-b-2 border-transparent hover:border-white'
+        to='/adminDashboard'
+      >
+        Dashboard
+      </Link>
+      <Link
         className='p-4 border-b-2 border-transparent hover:border-white'
         to='/movieList'
       >

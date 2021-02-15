@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { signin, authenticate } from '../auth/ApiAuth';
 import { Link } from 'react-router-dom';
 
-const SignInModal = ({ showModal, setShowModal }) => {
+const SignInModal = ({ showModal, setShowModal, setIsLogged }) => {
   const modalRef = useRef();
 
   const closeModal = (e) => {
@@ -31,6 +31,7 @@ const SignInModal = ({ showModal, setShowModal }) => {
         setValues({ ...values });
       } else {
         authenticate(data, () => {
+          setIsLogged(true);
           setValues({
             ...values,
           });

@@ -7,9 +7,8 @@ import Dropdown from './Dropdown';
 import AdminNavbar from '../admin/AdminNavbar';
 import AdminDropdown from '../admin/AdminDropdown';
 
-const Header = ({ isOpen, toggle }) => {
+const Header = ({ isOpen, toggle, setIsLogged, isLogged }) => {
   const [showModal, setShowModal] = useState(false);
-  const [isLogged, setIsLogged] = useState(true);
 
   const imageSrc = '../../../uploads/image-1612431353094.jpg';
 
@@ -24,7 +23,11 @@ const Header = ({ isOpen, toggle }) => {
 
   return (
     <header>
-      <SignInModal showModal={showModal} setShowModal={setShowModal} />
+      <SignInModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        setIsLogged={setIsLogged}
+      />
       <div className=' bg-gray-900 mx-auto px-4 py-2'>
         <div className='container flex item-center justify-between mx-auto px-4'>
           <div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import AdminDashoard from './admin/AdminDashoard';
+import AdminMovieList from './admin/AdminMovieList';
 import AdminRoute from './auth/AdminRoute';
 import PrivateRoute from './auth/PrivateRoute';
 import About from './core/About';
@@ -12,6 +13,7 @@ import MovieDetail from './core/MovieDetail';
 import NewMovies from './core/NewMovies';
 import MyProfile from './user/MyProfile';
 import Register from './user/Register';
+import { isAuth } from './auth/ApiAuth';
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,6 +22,7 @@ function App() {
     setIsOpen(!isOpen);
   };
 
+  const [isLogged, setIsLogged] = useState(isAuth());
   useEffect(() => {
     const hideMenu = () => {
       if (window.innerWidth > 768 && isOpen) {
@@ -36,7 +39,12 @@ function App() {
 
   return (
     <Router>
-      <Header toggle={toggle} isOpen={isOpen} />
+      <Header
+        toggle={toggle}
+        isOpen={isOpen}
+        setIsLogged={setIsLogged}
+        isLogged={isLogged}
+      />
       <Switch>
         <Route path='/' exact component={HomeScreen} />
         <Route path='/movie/:movieId' exact component={MovieDetail} />
@@ -46,6 +54,7 @@ function App() {
         <Route path='/register' exact component={Register} />
         <PrivateRoute path='/profil' exact component={MyProfile} />
         <AdminRoute path='/adminDashboard' exact component={AdminDashoard} />
+        <AdminRoute path='/movieList' exact component={AdminMovieList} />
       </Switch>
       <Footer />
     </Router>

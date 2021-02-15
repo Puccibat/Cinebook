@@ -25,6 +25,12 @@ const AdminNavbar = ({ toggle }) => {
       <div className='pr-8 md:block hidden'>
         <Link
           className='p-3 border-b-2 border-transparent hover:border-white'
+          to='/adminDashboard'
+        >
+          Dashboard
+        </Link>
+        <Link
+          className='p-3 border-b-2 border-transparent hover:border-white'
           to='/movieList'
         >
           Films
