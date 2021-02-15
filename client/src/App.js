@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import AdminDashoard from './admin/AdminDashoard';
+import AdminRoute from './auth/AdminRoute';
 import PrivateRoute from './auth/PrivateRoute';
 import About from './core/About';
 import Footer from './core/Footer';
@@ -43,8 +44,8 @@ function App() {
         <Route path='/about' exact component={About} />
         <Route path='/newMovies' exact component={NewMovies} />
         <Route path='/register' exact component={Register} />
-        <Route path='/profil' exact component={MyProfile} />
-        <PrivateRoute path='/adminDashboard' exact component={AdminDashoard} />
+        <PrivateRoute path='/profil' exact component={MyProfile} />
+        <AdminRoute path='/adminDashboard' exact component={AdminDashoard} />
       </Switch>
       <Footer />
     </Router>
