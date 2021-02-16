@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { createMovie } from '../apiFetching';
+import { createMovie, uploadFileHandler } from '../apiFetching';
 import { isAuth } from '../auth/ApiAuth';
 
 const AddMovie = () => {
@@ -24,7 +24,12 @@ const AddMovie = () => {
     setMovie({ ...movie, [name]: value });
   };
 
-  const saveMovie = () => {
+  const handleInputImageChange = (event) => {
+    const { name, files } = event.target;
+    setMovie({ ...movie, [name]: files[0] });
+  };
+  const saveMovie = async () => {
+    const urlImage = await uploadFileHandler(token, movie.image);
     let data = {
       title: movie.title,
       synopsis: movie.synopsis,
@@ -34,24 +39,12 @@ const AddMovie = () => {
       genre: movie.genre,
       classification: movie.classification,
       availability: movie.availability,
-      // image: movie.image,
+      image: urlImage,
     };
     console.log(data);
-    createMovie(token, data)
+    createMovie(token, data, movie.image)
       .then((res) => {
-        console.log('toto');
-        console.log(res);
-        setMovie({
-          title: res.data.title,
-          synopsis: res.data.synopsis,
-          duration: res.data.duration,
-          director: res.data.director,
-          casting: res.data.casting,
-          genre: res.data.genre,
-          classification: res.data.classification,
-          availability: res.data.availability,
-          // image: res.data.image,
-        });
+        console.log('youpi');
         // setSubmitted(true);
       })
       .catch((error) => {
@@ -59,29 +52,10 @@ const AddMovie = () => {
       });
   };
 
-  // const uploadFileHandler = async (e) => {
-  //   const file = e.target.files[0]
-  //   const formData = new FormData()
-  //   formData.append('image', file)
-
-  //   try {
-  //     const config = {
-  //       headers: {
-  //         'Content-Type': 'multipart/form-data',
-  //       },
-  //     }
-
-  //     const { data } = await axios.post('/api/upload', formData, config)
-
-  //   } catch (error) {
-  //     console.error(error)
-  //   }
-  // }
-
-  const newMovie = () => {
-    setMovie(initialMovieState);
-    // setSubmitted(false);
-  };
+  // const newMovie = () => {
+  //   setMovie(initialMovieState);
+  //   // setSubmitted(false);
+  // };
 
   return (
     <div className='container text-white my-5 mx-auto px-4 md:px-12'>
@@ -196,8 +170,7 @@ const AddMovie = () => {
           </label>
           <input
             type='file'
-            onChange={handleInputChange}
-            value={movie.image}
+            onChange={handleInputImageChange}
             name='image'
             className='w-64 p-2 rounded text-gray-900 h-10 my-auto'
           />

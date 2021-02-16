@@ -1,4 +1,5 @@
 import { API } from './config';
+import axios from 'axios';
 
 export const getMovies = async () => {
   return fetch(`${API}/movies`, {
@@ -30,7 +31,7 @@ export const getMovieById = async (movieId) => {
     .catch((error) => console.log(error));
 };
 
-export const createMovie = (token, movie) => {
+export const createMovie = (token, movie, file) => {
   return fetch(`${API}/movie/create`, {
     method: 'POST',
     headers: {
@@ -39,6 +40,7 @@ export const createMovie = (token, movie) => {
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(movie),
+    file,
   })
     .then((response) => {
       return response.json();
@@ -46,4 +48,23 @@ export const createMovie = (token, movie) => {
     .catch((err) => {
       console.log(err);
     });
+};
+
+export const uploadFileHandler = async (token, file) => {
+  const formData = new FormData();
+  formData.append('image', file);
+
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const { data } = await axios.post(`${API}/upload`, formData, config);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
 };

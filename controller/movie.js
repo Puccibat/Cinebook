@@ -20,6 +20,7 @@ const listMovies = async (req, res) => {
 //Create a movie
 const createMovie = async (req, res) => {
   console.log(req.body);
+
   const movie = new Movie({
     title: req.body.title,
     synopsis: req.body.synopsis,
@@ -31,8 +32,12 @@ const createMovie = async (req, res) => {
     availability: req.body.availability,
     image: req.body.image,
   });
-  const createdMovie = await movie.save();
-  res.status(201).json(createdMovie);
+  try {
+    const createdMovie = await movie.save();
+    res.status(201).json(createdMovie);
+  } catch (e) {
+    res.status(500).json('plouf');
+  }
 };
 
 //Delete movie
