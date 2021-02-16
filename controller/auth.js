@@ -73,16 +73,27 @@ const signout = (req, res) => {
 
 //Verify if the user is authenticated
 const isAuth = (req, res, next) => {
-  const userToken = req.header('auth-token');
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith('Bearer')
+  ) {
+    try {
+      const userToken = req.headers.authorization.split(' ')[1];
 
-  if (!userToken) return res.status(401).send('Access Denied');
+      if (!userToken) return res.status(401).send('Access Denied');
 
-  try {
-    const verified = jwt.verify(userToken, process.env.SECRET_TOKEN);
-    req.user = verified;
-    next();
-  } catch (error) {
-    res.status(400).send('Invalid Token');
+      try {
+        const verified = jwt.verify(userToken, process.env.SECRET_TOKEN);
+        req.user = verified;
+        next();
+      } catch (error) {
+        res.status(400).send('Invalid Token');
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(401);
+      throw new Error('Not authorized, token failed');
+    }
   }
 };
 

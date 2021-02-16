@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { signup } from '../auth/ApiAuth';
 
 const Register = () => {
@@ -9,8 +10,10 @@ const Register = () => {
 
   const { email, password } = values;
 
-  const handleChange = (email) => (event) => {
-    setValues({ ...values, [email]: event.target.value });
+  const history = useHistory();
+
+  const handleChange = (value) => (event) => {
+    setValues({ ...values, [value]: event.target.value });
   };
 
   const onSubmit = (event) => {
@@ -23,6 +26,7 @@ const Register = () => {
         password: '',
       });
     });
+    history.goBack();
   };
 
   return (

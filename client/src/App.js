@@ -14,6 +14,8 @@ import NewMovies from './core/NewMovies';
 import MyProfile from './user/MyProfile';
 import Register from './user/Register';
 import { isAuth } from './auth/ApiAuth';
+import AddMovie from './admin/AddMovie';
+import Registered from './user/Registered';
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -52,9 +54,11 @@ function App() {
         <Route path='/about' exact component={About} />
         <Route path='/newMovies' exact component={NewMovies} />
         <Route path='/register' exact component={Register} />
+        <Route path='/registered' exact component={Registered} />
         <PrivateRoute path='/profil' exact component={MyProfile} />
         <AdminRoute path='/adminDashboard' exact component={AdminDashoard} />
         <AdminRoute path='/movieList' exact component={AdminMovieList} />
+        <AdminRoute path='/addMovie' exact component={AddMovie} />
       </Switch>
       <Footer />
     </Router>

@@ -53,10 +53,7 @@ const SignInModal = ({ showModal, setShowModal, setIsLogged }) => {
             onClick={closeModal}
             ref={modalRef}
           ></div>
-          <div
-            showModal={showModal}
-            className='fixed grid z-20 rounded-lg w-96 h-72 m-auto inset-x-0 inset-y-0 bg-gray-900 text-white'
-          >
+          <div className='fixed grid z-20 rounded-lg w-96 h-72 m-auto inset-x-0 inset-y-0 bg-gray-900 text-white'>
             <h1 className='text-center pt-6 text-2xl font-semibold'>
               Connectez-vous
             </h1>

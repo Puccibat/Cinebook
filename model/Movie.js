@@ -47,7 +47,7 @@ const movieSchema = new mongoose.Schema(
     },
     image: {
       type: String,
-      required: true,
+      // required: true,
     },
   },
   { timestamps: true }

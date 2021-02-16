@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const AdminMovieCard = ({ movie }) => {
   return (
@@ -9,10 +10,14 @@ const AdminMovieCard = ({ movie }) => {
           {movie.title}
         </h5>
         <button className='bg-blue-800 hover:bg-blue-600 text-white px-4 py-2 i mt-4 rounded '>
-          Modifier <i className='fas fa-pen'></i>
+          <Link to='/'>
+            Modifier <i className='fas fa-pen'></i>
+          </Link>
         </button>
         <button className='bg-red-800 hover:bg-red-600 text-white px-4 py-2  mt-4 rounded '>
-          Supprimer <i className='fas fa-trash-alt'></i>
+          <Link to='/'>
+            Supprimer <i className='fas fa-trash-alt'></i>
+          </Link>
         </button>
       </div>
     </div>
