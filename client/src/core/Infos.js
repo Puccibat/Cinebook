@@ -1,6 +1,14 @@
 import React from 'react';
 
 const Infos = () => {
+  // const [ticketTypes, setTicketTypes] = useState([]);
+
+  // const loadTicketTypes = () => {
+  //   getTicketTypes().then((data) => {
+  //     setTicketTypes(data);
+  //   });
+  // };
+
   return (
     <div className='container text-white my-5 mx-auto px-4 md:px-12'>
       <h1 className='text-3xl font-semibold'>Infos pratiques</h1>

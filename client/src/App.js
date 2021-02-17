@@ -64,7 +64,11 @@ function App() {
         <AdminRoute path='/adminDashboard' exact component={AdminDashoard} />
         <AdminRoute path='/movieList' exact component={AdminMovieList} />
         <AdminRoute path='/addMovie' exact component={AddMovie} />
-        <AdminRoute path='/updateMovie' exact component={UpdateMovie} />
+        <AdminRoute
+          path='/updateMovie/:movieId'
+          exact
+          component={UpdateMovie}
+        />
         <AdminRoute path='/theaterList' exact component={TheaterList} />
         <AdminRoute path='/addTheater' exact component={AddTheater} />
         <AdminRoute path='/addTicketType' exact component={AddTicketType} />

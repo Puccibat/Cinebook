@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { updateMovie, uploadFileHandler } from '../apiFetching';
+import { updateMovie, uploadFileHandler, getMovieById } from '../apiFetching';
 import { isAuth } from '../auth/ApiAuth';
 
 const UpdateMovie = ({ match }) => {
@@ -17,17 +17,40 @@ const UpdateMovie = ({ match }) => {
   };
   const [movie, setMovie] = useState(initialMovieState);
 
+  const [loadMovie, setLoadMovie] = useState(true);
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setMovie({ ...movie, [name]: value });
   };
 
+  if (loadMovie) {
+    getMovieById(match?.params?.movieId)
+      .then((movie) => {
+        setMovie(movie);
+        setLoadMovie(false);
+      })
+      .catch();
+  }
   const handleInputImageChange = (event) => {
-    const { name, files } = event.target;
-    setMovie({ ...movie, [name]: files[0] });
+    const { files } = event.target;
+    const file = files[0];
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onloadend = function (e) {
+      setMovie({
+        ...movie,
+        imageFile: file,
+        previewImage: reader.result,
+      });
+    };
   };
   const saveMovie = async () => {
-    const urlImage = await uploadFileHandler(token, movie.image);
+    let urlImage = movie.image;
+    if (movie.imageFile != null) {
+      urlImage = await uploadFileHandler(token, movie.imageFile);
+    }
     const data = {
       title: movie.title,
       synopsis: movie.synopsis,
@@ -148,6 +171,11 @@ const UpdateMovie = ({ match }) => {
             className='w-64 p-2 rounded text-gray-900 h-10 my-auto'
           />
 
+          {movie.previewImage ? (
+            <img src={movie.previewImage} alt='Preview movie' />
+          ) : movie.image ? (
+            <img src={movie.image} alt='Movie poster' />
+          ) : null}
           <label className='text-2xl font-semibold pt-6 mx-auto'>
             Affiche:
           </label>
