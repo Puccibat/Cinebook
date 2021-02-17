@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import AdminDashoard from './admin/AdminDashoard';
 import AdminMovieList from './admin/AdminMovieList';
+import TheaterList from './admin/TheaterList';
+import TicketTypeList from './admin/TicketTypeList';
 import AdminRoute from './auth/AdminRoute';
 import PrivateRoute from './auth/PrivateRoute';
 import About from './core/About';
@@ -15,7 +17,10 @@ import MyProfile from './user/MyProfile';
 import Register from './user/Register';
 import { isAuth } from './auth/ApiAuth';
 import AddMovie from './admin/AddMovie';
+import AddTheater from './admin/AddTheater';
+import AddTicketType from './admin/AddTicketType';
 import Registered from './user/Registered';
+import UpdateMovie from './admin/UpdateMovie';
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -59,6 +64,11 @@ function App() {
         <AdminRoute path='/adminDashboard' exact component={AdminDashoard} />
         <AdminRoute path='/movieList' exact component={AdminMovieList} />
         <AdminRoute path='/addMovie' exact component={AddMovie} />
+        <AdminRoute path='/updateMovie' exact component={UpdateMovie} />
+        <AdminRoute path='/theaterList' exact component={TheaterList} />
+        <AdminRoute path='/addTheater' exact component={AddTheater} />
+        <AdminRoute path='/addTicketType' exact component={AddTicketType} />
+        <AdminRoute path='/ticketTypeList' exact component={TicketTypeList} />
       </Switch>
       <Footer />
     </Router>

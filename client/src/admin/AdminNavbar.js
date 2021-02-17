@@ -52,7 +52,7 @@ const AdminNavbar = ({ toggle }) => {
 
         <Link
           className='p-3 border-b-2 border-transparent hover:border-white'
-          to='/sessions'
+          to='/planning'
         >
           Planning
         </Link>

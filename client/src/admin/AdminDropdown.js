@@ -40,7 +40,7 @@ const AdminDropdown = ({ isOpen, toggle }) => {
 
       <Link
         className='p-4 border-b-2 border-transparent hover:border-white'
-        to='/sessions'
+        to='/planning'
       >
         Planning
       </Link>

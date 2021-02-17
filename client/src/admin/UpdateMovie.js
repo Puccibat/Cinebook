@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { createMovie, uploadFileHandler } from '../apiFetching';
+import { updateMovie, uploadFileHandler } from '../apiFetching';
 import { isAuth } from '../auth/ApiAuth';
 
-const AddMovie = () => {
+const UpdateMovie = ({ match }) => {
   const { token } = isAuth();
 
   const initialMovieState = {
@@ -40,9 +40,9 @@ const AddMovie = () => {
       image: urlImage,
     };
 
-    const movieSaved = await createMovie(token, data);
+    const movieSaved = await updateMovie(token, match.params.movieId, data);
     if (movieSaved) {
-      alert('Film ajouté');
+      alert('Film modifié');
       setMovie(initialMovieState);
     } else {
       alert('error');
@@ -51,7 +51,9 @@ const AddMovie = () => {
 
   return (
     <div className='container text-white my-5 mx-auto px-4 md:px-12'>
-      <h1 className='text-4xl text-center font-semibold'>Ajoutez un film</h1>
+      <h1 className='text-4xl text-center font-semibold'>
+        Modifiez votre film
+      </h1>
 
       <div>
         <div className='grid grid-cols-2 pt-4 '>
@@ -165,9 +167,8 @@ const AddMovie = () => {
           </button>
         </div>
       </div>
-      {/* )} */}
     </div>
   );
 };
 
-export default AddMovie;
+export default UpdateMovie;

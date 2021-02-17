@@ -19,10 +19,10 @@ const listTheater = async (req, res) => {
 
 //Create a theater
 const createTheater = async (req, res) => {
-  console.log(req.body);
   const theater = new Theater({
     name: req.body.name,
     seats: req.body.seats,
+    image: req.body.image,
   });
   const createdTheater = await theater.save();
   res.status(201).json(createdTheater);

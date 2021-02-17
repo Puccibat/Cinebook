@@ -8,9 +8,15 @@ const Footer = () => {
           <h1 className='text-2xl font-semibold '>Cinebook</h1>
         </div>
         <div className='flex pb-1 justify-center space-x-5 '>
-          <div className='fa fa-instagram text-xl hover:text-white'></div>
-          <div className='fa fa-facebook text-xl hover:text-white'></div>
-          <div className='fa fa-twitter text-xl hover:text-white'></div>
+          <div className='text-xl hover:text-white'>
+            <i className='fab fa-instagram'></i>
+          </div>
+          <div className='text-xl hover:text-white'>
+            <i className='fab fa-facebook'></i>
+          </div>
+          <div className='text-xl hover:text-white'>
+            <i className='fab fa-twitter'></i>
+          </div>
         </div>
       </div>
 

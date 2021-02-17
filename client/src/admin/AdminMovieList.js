@@ -12,9 +12,13 @@ const AdminMovieList = () => {
     });
   };
 
+  const deleteMovie = (movieDeleted) => {
+    setMovies(movies.filter((movie) => movie._id !== movieDeleted._id));
+  };
+
   useEffect(() => {
     loadMovies();
-  }, []);
+  });
 
   return (
     <div className='text-center'>
@@ -27,7 +31,11 @@ const AdminMovieList = () => {
       <div className='container my-5 mx-auto px-4 md:px-12'>
         <div className='grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-4'>
           {movies.map((movie) => (
-            <AdminMovieCard movie={movie} key={movie._id} />
+            <AdminMovieCard
+              movie={movie}
+              key={movie._id}
+              deleteMovie={deleteMovie}
+            />
           ))}
         </div>
       </div>

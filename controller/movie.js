@@ -19,8 +19,6 @@ const listMovies = async (req, res) => {
 
 //Create a movie
 const createMovie = async (req, res) => {
-  console.log(req.body);
-
   const movie = new Movie({
     title: req.body.title,
     synopsis: req.body.synopsis,
