@@ -8,7 +8,7 @@ const MovieCard = ({ movie }) => {
         <Link to={`/movie/${movie._id}`}>
           <img
             alt='Placeholder'
-            className='w-full lg:m-auto'
+            className='w-full lg:m-auto lg:max-h-96'
             src={movie.image}
           />
         </Link>

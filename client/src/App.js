@@ -21,6 +21,7 @@ import AddTheater from './admin/AddTheater';
 import AddTicketType from './admin/AddTicketType';
 import Registered from './user/Registered';
 import UpdateMovie from './admin/UpdateMovie';
+import UpdateTheater from './admin/UpdateTheater';
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -69,6 +70,12 @@ function App() {
           exact
           component={UpdateMovie}
         />
+        <AdminRoute
+          path='/updateTheater/:theaterId'
+          exact
+          component={UpdateTheater}
+        />
+
         <AdminRoute path='/theaterList' exact component={TheaterList} />
         <AdminRoute path='/addTheater' exact component={AddTheater} />
         <AdminRoute path='/addTicketType' exact component={AddTicketType} />

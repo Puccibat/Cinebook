@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { updateMovie, uploadFileHandler, getMovieById } from '../apiFetching';
 import { isAuth } from '../auth/ApiAuth';
 
-const UpdateMovie = ({ match }) => {
+const UpdateMovie = ({ match, history }) => {
   const { token } = isAuth();
 
   const initialMovieState = {
@@ -67,6 +67,7 @@ const UpdateMovie = ({ match }) => {
     if (movieSaved) {
       alert('Film modifié');
       setMovie(initialMovieState);
+      history.push('/movieList');
     } else {
       alert('error');
     }

@@ -127,6 +127,23 @@ export const getTheaters = async () => {
   }
 };
 
+export const getTheaterById = async (theaterId) => {
+  try {
+    const config = {
+      headers: {
+        Accept: 'application/json',
+      },
+    };
+
+    const { data } = await axios.get(`${API}/theater/${theaterId}`, config);
+
+    return data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 export const createTheater = async (token, theater) => {
   try {
     const config = {
@@ -161,6 +178,29 @@ export const removeTheater = async (theaterId, token) => {
     };
 
     await axios.delete(`${API}/theater/${theaterId}`, config);
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const updateTheater = async (token, theaterId, theater) => {
+  try {
+    const config = {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const { data } = await axios.put(
+      `${API}/theater/${theaterId}`,
+      JSON.stringify(theater),
+      config
+    );
+
+    return data;
   } catch (error) {
     console.error(error);
     return null;

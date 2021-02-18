@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { removeMovie } from '../apiFetching';
 import { isAuth } from '../auth/ApiAuth';
 
@@ -26,7 +26,11 @@ const AdminMovieCard = ({ movie, deleteMovie }) => {
   }
   return (
     <div className='my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-full'>
-      <img src={movie.image} className='w-full' alt='Movie poster' />
+      <img
+        src={movie.image}
+        className='w-full lg:max-h-96'
+        alt='Movie poster'
+      />
       <div className='p-4 bg-white rounded-b-lg grid grid-cols-1'>
         <h5 className='text-sm text-gray-900 font-semibold tracking-widest mb-2 uppercase '>
           {movie.title}
