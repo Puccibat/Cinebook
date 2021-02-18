@@ -1,10 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import { removeTicketType } from '../apiFetching';
 import { isAuth } from '../auth/ApiAuth';
 
 const TicketTypeCard = ({ ticketType, deleteTicketType }) => {
   const { token } = isAuth();
+  const [redirect, setRedirect] = useState(false);
 
   const destroy = (ticketTypeId) => {
     const ticketTypeRemoved = removeTicketType(ticketTypeId, token);
@@ -16,16 +17,25 @@ const TicketTypeCard = ({ ticketType, deleteTicketType }) => {
     }
   };
 
+  const redirectAction = () => {
+    setRedirect(true);
+  };
+  if (redirect) {
+    const url = `/updateTicketType/${ticketType._id}`;
+    return <Redirect to={url} />;
+  }
+
   return (
     <div className='my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-full'>
       <div className='p-4 bg-white rounded-b-lg grid grid-cols-1'>
         <h5 className='text-sm text-gray-900 font-semibold tracking-widest mb-2 uppercase '>
           {ticketType.name}
         </h5>
-        <button className='bg-blue-800 hover:bg-blue-600 text-white px-4 py-2 i mt-4 rounded '>
-          <Link to='/updateTheater'>
-            Modifier <i className='fas fa-pen'></i>
-          </Link>
+        <button
+          onClick={redirectAction}
+          className='bg-blue-800 hover:bg-blue-600 text-white px-4 py-2 i mt-4 rounded '
+        >
+          Modifier <i className='fas fa-pen'></i>
         </button>
         <button
           onClick={() => destroy(ticketType._id)}
