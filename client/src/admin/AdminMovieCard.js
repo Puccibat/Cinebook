@@ -10,7 +10,7 @@ const AdminMovieCard = ({ movie, deleteMovie }) => {
   const destroy = (movieId) => {
     const movieRemoved = removeMovie(movieId, token);
     if (movieRemoved) {
-      alert('Film supprimé');
+      alert(`Le film a été supprimé avec succès`);
       deleteMovie(movieRemoved);
     } else {
       alert('Il y a une erreur');

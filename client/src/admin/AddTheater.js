@@ -17,11 +17,21 @@ const AddTheater = () => {
   };
 
   const handleInputImageChange = (event) => {
-    const { name, files } = event.target;
-    setTheater({ ...theater, [name]: files[0] });
+    const { files } = event.target;
+    const file = files[0];
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onloadend = function (e) {
+      setTheater({
+        ...theater,
+        imageFile: file,
+        previewImage: reader.result,
+      });
+    };
   };
   const saveTheater = async () => {
-    const urlImage = await uploadFileHandler(token, theater.image);
+    const urlImage = await uploadFileHandler(token, theater.imageFile);
     console.log(urlImage);
     const data = {
       name: theater.name,
@@ -68,8 +78,11 @@ const AddTheater = () => {
             className='w-64 p-2 rounded text-gray-900 h-10 my-auto'
           />
 
+          {theater.previewImage ? (
+            <img src={theater.previewImage} alt='Preview theater' />
+          ) : null}
           <label className='text-2xl font-semibold pt-6 mx-auto'>
-            Photo de la salle:
+            Affiche:
           </label>
           <input
             type='file'
