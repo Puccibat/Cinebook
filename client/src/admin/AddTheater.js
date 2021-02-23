@@ -77,10 +77,6 @@ const AddTheater = () => {
             placeholder='Ex: 120'
             className='w-64 p-2 rounded text-gray-900 h-10 my-auto'
           />
-
-          {theater.previewImage ? (
-            <img src={theater.previewImage} alt='Preview theater' />
-          ) : null}
           <label className='text-2xl font-semibold pt-6 mx-auto'>
             Affiche:
           </label>
@@ -88,8 +84,16 @@ const AddTheater = () => {
             type='file'
             onChange={handleInputImageChange}
             name='image'
-            className='w-64 p-2 rounded text-gray-900 h-10 my-auto'
+            className='w-64 p-2 text-gray-900 h-10 my-auto'
           />
+          <div></div>
+          {theater.previewImage ? (
+            <img
+              src={theater.previewImage}
+              alt='Preview theater'
+              className='max-h-96 py-5'
+            />
+          ) : null}
         </div>
         <div className='text-center'>
           <button

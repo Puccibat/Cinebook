@@ -172,20 +172,29 @@ const UpdateMovie = ({ match, history }) => {
             className='w-64 p-2 rounded text-gray-900 h-10 my-auto'
           />
 
-          {movie.previewImage ? (
-            <img src={movie.previewImage} alt='Preview movie' />
-          ) : movie.image ? (
-            <img src={movie.image} alt='Movie poster' />
-          ) : null}
-          <label className='text-2xl font-semibold pt-6 mx-auto'>
+          <label className='text-2xl font-semibold pt-6 mx-auto my-auto'>
             Affiche:
           </label>
           <input
             type='file'
             onChange={handleInputImageChange}
             name='image'
-            className='w-64 p-2 rounded text-gray-900 h-10 my-auto'
+            className='w-64 p-2 text-gray-900 h-10 my-auto'
           />
+          <div></div>
+          {movie.previewImage ? (
+            <img
+              src={movie.previewImage}
+              alt='Preview movie'
+              className='max-h-96 py-5'
+            />
+          ) : movie.image ? (
+            <img
+              src={movie.image}
+              alt='Movie poster'
+              className='max-h-96 py-5'
+            />
+          ) : null}
         </div>
         <div className='text-center'>
           <button
