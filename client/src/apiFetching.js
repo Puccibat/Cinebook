@@ -1,8 +1,8 @@
-import { API } from './config';
-import axios from 'axios';
+const API = require('./config');
+const axios = require('axios');
 
 //******************Movies requests********************
-export const getMovies = async () => {
+exports.getMovies = async () => {
   try {
     const config = {
       headers: {
@@ -19,17 +19,7 @@ export const getMovies = async () => {
   }
 };
 
-// export const getMoviesByAvailability = async (availability) => {
-//   return fetch(`${API}/movies/moviesByAvailability/${availability}`, {
-//     method: 'GET',
-//   })
-//     .then((response) => {
-//       return response.json();
-//     })
-//     .catch((error) => console.log(error));
-// };
-
-export const getMovieById = async (movieId) => {
+exports.getMovieById = async (movieId) => {
   try {
     const config = {
       headers: {
@@ -46,7 +36,7 @@ export const getMovieById = async (movieId) => {
   }
 };
 
-export const createMovie = async (token, movie) => {
+exports.createMovie = async (token, movie) => {
   try {
     const config = {
       headers: {
@@ -69,7 +59,7 @@ export const createMovie = async (token, movie) => {
   }
 };
 
-export const removeMovie = async (movieId, token) => {
+exports.removeMovie = async (movieId, token) => {
   try {
     const config = {
       headers: {
@@ -86,7 +76,7 @@ export const removeMovie = async (movieId, token) => {
   }
 };
 
-export const updateMovie = async (token, movieId, movie) => {
+exports.updateMovie = async (token, movieId, movie) => {
   try {
     const config = {
       headers: {
@@ -110,7 +100,7 @@ export const updateMovie = async (token, movieId, movie) => {
 };
 
 //***********************Theater requests***************************
-export const getTheaters = async () => {
+exports.getTheaters = async () => {
   try {
     const config = {
       headers: {
@@ -127,7 +117,7 @@ export const getTheaters = async () => {
   }
 };
 
-export const getTheaterById = async (theaterId) => {
+exports.getTheaterById = async (theaterId) => {
   try {
     const config = {
       headers: {
@@ -144,7 +134,7 @@ export const getTheaterById = async (theaterId) => {
   }
 };
 
-export const createTheater = async (token, theater) => {
+exports.createTheater = async (token, theater) => {
   try {
     const config = {
       headers: {
@@ -167,7 +157,7 @@ export const createTheater = async (token, theater) => {
   }
 };
 
-export const removeTheater = async (theaterId, token) => {
+exports.removeTheater = async (theaterId, token) => {
   try {
     const config = {
       headers: {
@@ -184,7 +174,7 @@ export const removeTheater = async (theaterId, token) => {
   }
 };
 
-export const updateTheater = async (token, theaterId, theater) => {
+exports.updateTheater = async (token, theaterId, theater) => {
   try {
     const config = {
       headers: {
@@ -208,7 +198,7 @@ export const updateTheater = async (token, theaterId, theater) => {
 };
 
 //***************Upload file handler *******************************
-export const uploadFileHandler = async (token, file) => {
+exports.uploadFileHandler = async (token, file) => {
   const formData = new FormData();
   formData.append('image', file);
 
@@ -228,7 +218,7 @@ export const uploadFileHandler = async (token, file) => {
 };
 
 //*********************Ticket Type reaquests*****************************
-export const getTicketTypes = async () => {
+exports.getTicketTypes = async () => {
   try {
     const config = {
       headers: {
@@ -245,7 +235,7 @@ export const getTicketTypes = async () => {
   }
 };
 
-export const getTicketTypeById = async (ticketTypeId) => {
+exports.getTicketTypeById = async (ticketTypeId) => {
   try {
     const config = {
       headers: {
@@ -265,7 +255,7 @@ export const getTicketTypeById = async (ticketTypeId) => {
   }
 };
 
-export const createTicketType = async (token, ticketType) => {
+exports.createTicketType = async (token, ticketType) => {
   try {
     const config = {
       headers: {
@@ -288,7 +278,7 @@ export const createTicketType = async (token, ticketType) => {
   }
 };
 
-export const removeTicketType = async (ticketTypeId, token) => {
+exports.removeTicketType = async (ticketTypeId, token) => {
   try {
     const config = {
       headers: {
@@ -305,7 +295,7 @@ export const removeTicketType = async (ticketTypeId, token) => {
   }
 };
 
-export const updateTicketType = async (token, ticketTypeId, ticketType) => {
+exports.updateTicketType = async (token, ticketTypeId, ticketType) => {
   try {
     const config = {
       headers: {

@@ -33,8 +33,8 @@ const createMovie = async (req, res) => {
   try {
     const createdMovie = await movie.save();
     res.status(201).json(createdMovie);
-  } catch (e) {
-    res.status(500).json('plouf');
+  } catch (error) {
+    res.status(500).json('There is an error, please try again');
   }
 };
 

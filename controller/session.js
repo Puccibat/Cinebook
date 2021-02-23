@@ -1,37 +1,70 @@
+const { updateMovie } = require('../client/src/apiFetching');
 const Session = require('../model/Session');
 
-const sessionById = (req, res, next, id) => {
-  Session.findById(id).exec((err, session) => {
-    if (err || !session) {
-      return res.status(400).json({
-        error: 'Session not found',
-      });
-    }
-    req.session = session;
-    next();
-  });
+const sessionById = async (req, res) => {
+  const session = await Session.findById(req.params.id);
+  if (session) {
+    res.json(session);
+  } else {
+    res.status(404).json({ message: 'Session not found' });
+  }
 };
 
-const createSession = (req, res) => {
-  const session = new Session(req.body.session);
-  session.save((err, data) => {
-    if (err) {
-      return res.status(400).json(err);
-    }
-    res.json(data);
-  });
+const listSessions = async (req, res) => {
+  const sessions = await Session.find({});
+  res.json(sessions);
 };
 
-const readSession = () => {};
+const createSession = async (req, res) => {
+  const session = new Session({
+    movie: req.body.movie,
+    theater: req.body.theater,
+    date: req.body.date,
+    startTime: req.body.startTime,
+    endTime: req.body.endTime,
+  });
+  try {
+    const createdSession = await session.save();
+    res.status(201).json(createdSession);
+  } catch (error) {
+    res.status(500).json('There is an error, please try again');
+  }
+};
 
-const updateSession = () => {};
+const removeSession = async (req, res) => {
+  const session = await Session.findById(req.params.id);
 
-const removeSession = () => {};
+  if (session) {
+    await session.remove();
+    res.status(200).json({ message: 'Session removed' });
+  } else {
+    res.status(404).json({ message: 'Session not found' });
+  }
+};
+
+const updateSession = async (req, res) => {
+  const { movie, theater, date, startTime, endTime } = req.body;
+
+  const session = await Session.findById(req.params.id);
+
+  if (session) {
+    (session.movie = movie),
+      (session.theater = theater),
+      (session.date = date),
+      (session.startTime = startTime),
+      (session.endTime = endTime);
+
+    const updateSession = await session.save();
+    res.json(updateSession);
+  } else {
+    res.status(404).json({ message: 'Session not found' });
+  }
+};
 
 module.exports = {
   sessionById,
   createSession,
-  readSession,
   updateSession,
   removeSession,
+  listSessions,
 };
