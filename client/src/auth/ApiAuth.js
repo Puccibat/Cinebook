@@ -1,6 +1,6 @@
-import { API } from '../config';
+const API = require('../config');
 
-export const signup = (user) => {
+exports.signup = (user) => {
   return fetch(`${API}/signup`, {
     method: 'POST',
     headers: {
@@ -17,7 +17,7 @@ export const signup = (user) => {
     });
 };
 
-export const signin = (user) => {
+exports.signin = (user) => {
   //console.log(name, email, password);
   return fetch(`${API}/signin`, {
     method: 'POST',
@@ -35,14 +35,14 @@ export const signin = (user) => {
     });
 };
 
-export const authenticate = (data, next) => {
+exports.authenticate = (data, next) => {
   if (typeof window !== 'undefined') {
     localStorage.setItem('jwt', JSON.stringify(data));
     next();
   }
 };
 
-export const signout = () => {
+exports.signout = () => {
   if (typeof window !== 'undefined') {
     localStorage.removeItem('jwt');
     // next();
@@ -56,7 +56,7 @@ export const signout = () => {
   }
 };
 
-export const isAuth = () => {
+exports.isAuth = () => {
   if (typeof window == 'undefined') {
     return false;
   }

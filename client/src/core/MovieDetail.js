@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { getMovieById } from '../apiFetching';
 
 const MovieDetail = ({ match }) => {
@@ -38,7 +39,7 @@ const MovieDetail = ({ match }) => {
       </div>
       <div className=' text-white text-center py-5'>
         <button className='rounded-md py-2 px-4 bg-red-500 focus:outline-none'>
-          Séances
+          <Link to={`/movie/${movieItem._id}/session`}>Séances</Link>
         </button>
       </div>
     </div>

@@ -13,16 +13,20 @@ import HomeScreen from './core/HomeScreen';
 import Infos from './core/Infos';
 import MovieDetail from './core/MovieDetail';
 import NewMovies from './core/NewMovies';
+import SessionMovie from './core/SessionMovie';
 import MyProfile from './user/MyProfile';
 import Register from './user/Register';
 import { isAuth } from './auth/ApiAuth';
 import AddMovie from './admin/AddMovie';
 import AddTheater from './admin/AddTheater';
 import AddTicketType from './admin/AddTicketType';
+import AddSession from './admin/AddSession';
 import Registered from './user/Registered';
 import UpdateMovie from './admin/UpdateMovie';
 import UpdateTheater from './admin/UpdateTheater';
+import UpdateSession from './admin/UpdateSession';
 import UpdateTicketType from './admin/UpdateTicketType';
+import SessionList from './admin/SessionList';
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -81,11 +85,23 @@ function App() {
           exact
           component={UpdateTicketType}
         />
+        <AdminRoute
+          path='/updateSession/:sessionId'
+          exact
+          component={UpdateSession}
+        />
 
         <AdminRoute path='/theaterList' exact component={TheaterList} />
         <AdminRoute path='/addTheater' exact component={AddTheater} />
         <AdminRoute path='/addTicketType' exact component={AddTicketType} />
+        <AdminRoute path='/addSession' exact component={AddSession} />
         <AdminRoute path='/ticketTypeList' exact component={TicketTypeList} />
+        <AdminRoute path='/sessionList' exact component={SessionList} />
+        <AdminRoute
+          path='/movie/:movieId/session'
+          exact
+          component={SessionMovie}
+        />
       </Switch>
       <Footer />
     </Router>

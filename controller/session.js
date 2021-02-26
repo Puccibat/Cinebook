@@ -10,18 +10,33 @@ const sessionById = async (req, res) => {
   }
 };
 
+const listSessions2 = async (req, res) => {
+  const sessions = await Session.find({}).populate('movie').populate('theater');
+  res.json(sessions);
+};
+
 const listSessions = async (req, res) => {
-  const sessions = await Session.find({});
+  const sessions = await Session.find({
+    startTime: {
+      $gte: new Date(req.query?.beginDate),
+      $lt: new Date(req.query?.endDate),
+    },
+  })
+    .populate('movie')
+    .populate('theater');
   res.json(sessions);
 };
 
 const createSession = async (req, res) => {
+  const beginDate = new Date(`${req.body.date}T${req.body.startTime}`);
+  const endDate = new Date(`${req.body.date}T${req.body.endTime}`);
   const session = new Session({
     movie: req.body.movie,
     theater: req.body.theater,
-    date: req.body.date,
-    startTime: req.body.startTime,
-    endTime: req.body.endTime,
+    date: beginDate,
+    endDate: endDate,
+    startTime: beginDate,
+    endTime: endDate,
   });
   try {
     const createdSession = await session.save();

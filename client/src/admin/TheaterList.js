@@ -20,7 +20,7 @@ const TheaterList = () => {
 
   useEffect(() => {
     loadTheaters();
-  });
+  }, []);
 
   return (
     <div className='text-center'>

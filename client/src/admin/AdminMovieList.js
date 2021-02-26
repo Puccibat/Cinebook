@@ -18,7 +18,7 @@ const AdminMovieList = () => {
 
   useEffect(() => {
     loadMovies();
-  });
+  }, []);
 
   return (
     <div className='text-center'>

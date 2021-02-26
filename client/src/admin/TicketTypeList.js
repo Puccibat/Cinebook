@@ -22,7 +22,7 @@ const TicketTypeList = () => {
 
   useEffect(() => {
     loadTicketTypes();
-  });
+  }, []);
 
   return (
     <div className='text-center'>

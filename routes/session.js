@@ -13,7 +13,8 @@ router.get('/session/:sessionId', sessionById);
 
 router.post('/session/create', isAuth, isAdmin, createSession);
 
-router.get('./sessions', listSessions);
+router.get('/sessions', listSessions);
+
 router.delete('/session/:sessionId', isAuth, isAdmin, removeSession);
 
 router.put('/session/:sessionId', isAuth, isAdmin, updateSession);
