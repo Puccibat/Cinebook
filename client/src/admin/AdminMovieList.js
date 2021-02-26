@@ -5,20 +5,24 @@ import AdminMovieCard from './AdminMovieCard';
 
 const AdminMovieList = () => {
   const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const loadMovies = () => {
     getMovies().then((data) => {
       setMovies(data);
     });
+    setLoading(false);
   };
 
   const deleteMovie = (movieDeleted) => {
     setMovies(movies.filter((movie) => movie._id !== movieDeleted._id));
+    loadMovies();
+    setLoading(true);
   };
 
   useEffect(() => {
     loadMovies();
-  }, []);
+  }, [loading]);
 
   return (
     <div className='text-center'>

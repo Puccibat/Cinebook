@@ -43,7 +43,9 @@ const AdminMovieCard = ({ movie, deleteMovie }) => {
           Modifier <i className='fas fa-pen'></i>
         </button>
         <button
-          onClick={() => destroy(movie._id)}
+          onClick={() => {
+            destroy(movie._id);
+          }}
           className='bg-red-800 hover:bg-red-600 text-white px-4 py-2  mt-4 rounded '
         >
           Supprimer <i className='fas fa-trash-alt'></i>

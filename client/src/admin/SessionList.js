@@ -5,6 +5,7 @@ import SessionCard from './SessionCard';
 
 const SessionList = () => {
   const [sessions, setSessions] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [currentWeek, setCurrentWeek] = useState({
     beginDate: new Date(),
     endDate: getEndDateOfWeek(new Date()),
@@ -14,12 +15,14 @@ const SessionList = () => {
     getSessions(specificWeek).then((data) => {
       setSessions(data);
     });
+    setLoading(false);
   };
 
   const deleteSession = (sessionDeleted) => {
     setSessions(
       sessions.filter((session) => session._id !== sessionDeleted._id)
     );
+    setLoading(true);
   };
 
   const updateWeek = () => {
@@ -35,7 +38,7 @@ const SessionList = () => {
 
   useEffect(() => {
     loadSessions(currentWeek);
-  }, [currentWeek]);
+  }, [loading, currentWeek]);
 
   const getFormatDateToString = (date) => {
     return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
@@ -74,7 +77,7 @@ const SessionList = () => {
                 <SessionCard
                   session={session}
                   key={session._id}
-                  deleteMovie={deleteSession}
+                  deleteSession={deleteSession}
                 />
               ))
             : null}

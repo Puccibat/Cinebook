@@ -5,22 +5,25 @@ import TheaterCard from './TheaterCard';
 
 const TheaterList = () => {
   const [theaters, setTheaters] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const loadTheaters = () => {
     getTheaters().then((data) => {
       setTheaters(data);
     });
+    setLoading(false);
   };
 
   const deleteTheater = (theaterDeleted) => {
     setTheaters(
       theaters.filter((theater) => theater._id !== theaterDeleted._id)
     );
+    setLoading(true);
   };
 
   useEffect(() => {
     loadTheaters();
-  }, []);
+  }, [loading]);
 
   return (
     <div className='text-center'>

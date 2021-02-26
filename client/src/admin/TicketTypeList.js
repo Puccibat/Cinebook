@@ -5,11 +5,13 @@ import TicketTypeCard from './TicketTypeCard';
 
 const TicketTypeList = () => {
   const [ticketTypes, setTicketTypes] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const loadTicketTypes = () => {
     getTicketTypes().then((data) => {
       setTicketTypes(data);
     });
+    setLoading(false);
   };
 
   const deleteTicketType = (ticketTypeDeleted) => {
@@ -18,11 +20,12 @@ const TicketTypeList = () => {
         (ticketType) => ticketType._id !== ticketTypeDeleted._id
       )
     );
+    setLoading(true);
   };
 
   useEffect(() => {
     loadTicketTypes();
-  }, []);
+  }, [loading]);
 
   return (
     <div className='text-center'>
