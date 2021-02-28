@@ -69,10 +69,11 @@ exports.removeMovie = async (movieId, token) => {
       },
     };
 
-    await axios.delete(`${API}/movie/${movieId}`, config);
+    const { data } = await axios.delete(`${API}/movie/${movieId}`, config);
+    return data?.moviedeletedId;
   } catch (error) {
     console.error(error);
-    return null;
+    return error.response?.data?.message;
   }
 };
 
@@ -320,22 +321,7 @@ exports.updateTicketType = async (token, ticketTypeId, ticketType) => {
 
 //***************************Sessions requests******************************
 
-exports.getEndDateOfWeek = (currentDate) => {
-  const currentDay = currentDate.getDay();
-  let numberOfDay = 0;
-
-  if (currentDay <= 2) {
-    numberOfDay = 2 - currentDay;
-  } else {
-    numberOfDay = 6 - currentDay + 3;
-  }
-
-  let dateNextWeek = new Date(currentDate);
-  dateNextWeek.setDate(dateNextWeek.getDate() + numberOfDay);
-  return dateNextWeek;
-};
-
-exports.getSessions = async (currentWeek) => {
+exports.getSessions = async (sessionFilters) => {
   try {
     const config = {
       headers: {
@@ -343,10 +329,12 @@ exports.getSessions = async (currentWeek) => {
       },
     };
 
-    const { data } = await axios.get(
-      `${API}/sessions?beginDate=${currentWeek.beginDate}&endDate=${currentWeek.endDate}`,
-      config
-    );
+    let url = `${API}/sessions?beginDate=${sessionFilters.beginDate}&endDate=${sessionFilters.endDate}`;
+
+    if (sessionFilters.movieId) {
+      url += `&movieId=${sessionFilters.movieId}`;
+    }
+    const { data } = await axios.get(url, config);
 
     return data;
   } catch (error) {
@@ -403,10 +391,11 @@ exports.removeSession = async (sessionId, token) => {
       },
     };
 
-    await axios.delete(`${API}/session/${sessionId}`, config);
+    const { data } = await axios.delete(`${API}/session/${sessionId}`, config);
+    return data?.sessionDeletedId;
   } catch (error) {
     console.error(error);
-    return null;
+    return error.response?.data?.message;
   }
 };
 

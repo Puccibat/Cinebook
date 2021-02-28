@@ -3,17 +3,17 @@ import { Redirect } from 'react-router-dom';
 import { removeMovie } from '../apiFetching';
 import { isAuth } from '../auth/ApiAuth';
 
-const AdminMovieCard = ({ movie, deleteMovie }) => {
+const AdminMovieCard = ({ movie, deletedMovies }) => {
   const { token } = isAuth();
   const [redirect, setRedirect] = useState(false);
 
-  const destroy = (movieId) => {
-    const movieRemoved = removeMovie(movieId, token);
-    if (movieRemoved) {
+  const destroy = async (movieId) => {
+    const result = await removeMovie(movieId, token);
+    if (result === movieId) {
       alert(`Le film a été supprimé avec succès`);
-      deleteMovie(movieRemoved);
+      deletedMovies(result);
     } else {
-      alert('Il y a une erreur');
+      alert(result);
     }
   };
 
@@ -43,7 +43,7 @@ const AdminMovieCard = ({ movie, deleteMovie }) => {
           Modifier <i className='fas fa-pen'></i>
         </button>
         <button
-          onClick={() => {
+          onClick={async () => {
             destroy(movie._id);
           }}
           className='bg-red-800 hover:bg-red-600 text-white px-4 py-2  mt-4 rounded '

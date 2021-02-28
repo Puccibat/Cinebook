@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getSessions, getEndDateOfWeek } from '../apiFetching';
+import { getSessions } from '../apiFetching';
 import SessionCard from './SessionCard';
+
+import {
+  getEndDateOfWeek,
+  getFirstDateOfWeek,
+  formatDate,
+} from '../commun/communDate';
 
 const SessionList = () => {
   const [sessions, setSessions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentWeek, setCurrentWeek] = useState({
-    beginDate: new Date(),
+    beginDate: getFirstDateOfWeek(new Date()),
     endDate: getEndDateOfWeek(new Date()),
   });
 
@@ -25,7 +31,7 @@ const SessionList = () => {
     setLoading(true);
   };
 
-  const updateWeek = () => {
+  const getSessionNextWeek = () => {
     let beginDayOfNextWeekCount = new Date(currentWeek.endDate);
     beginDayOfNextWeekCount.setDate(beginDayOfNextWeekCount.getDate() + 1);
     const specificWeek = {
@@ -33,33 +39,42 @@ const SessionList = () => {
       endDate: getEndDateOfWeek(beginDayOfNextWeekCount),
     };
     setCurrentWeek(specificWeek);
-    loadSessions(specificWeek);
+  };
+
+  const getSessionPreviousWeek = () => {
+    let endDayOfCurrentWeek = new Date(currentWeek.beginDate);
+    endDayOfCurrentWeek.setDate(currentWeek.beginDate.getDate() - 1);
+
+    let firstDayOfCurrentWeek = new Date(endDayOfCurrentWeek);
+    firstDayOfCurrentWeek.setDate(endDayOfCurrentWeek.getDate() - 6);
+    const specificWeek = {
+      beginDate: firstDayOfCurrentWeek,
+      endDate: endDayOfCurrentWeek,
+    };
+    setCurrentWeek(specificWeek);
   };
 
   useEffect(() => {
     loadSessions(currentWeek);
   }, [loading, currentWeek]);
 
-  const getFormatDateToString = (date) => {
-    return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
-  };
   return (
     <div className='text-center'>
       <h1 className='text-2xl text-white py-4'>Vos Séances programmées</h1>
       <div className=''>
         <button
           className=' inline-block rounded-md py-2 px-4 mx-5 bg-gray-300 focus:outline-none'
-          onClick={updateWeek}
+          onClick={getSessionPreviousWeek}
         >
           Previous
         </button>
         <h2 className='inline-block text-xl text-white py-4 col-start-2 col-span-4'>
-          Semaine du {getFormatDateToString(currentWeek?.beginDate)} au{' '}
-          {getFormatDateToString(currentWeek?.endDate)}
+          Semaine du {formatDate(currentWeek?.beginDate)} au{' '}
+          {formatDate(currentWeek?.endDate)}
         </h2>
         <button
           className='inline-block rounded-md py-2 px-4 mx-5 bg-gray-300 focus:outline-none'
-          onClick={updateWeek}
+          onClick={getSessionNextWeek}
         >
           Next
         </button>
@@ -78,6 +93,7 @@ const SessionList = () => {
                   session={session}
                   key={session._id}
                   deleteSession={deleteSession}
+                  formatDate={formatDate}
                 />
               ))
             : null}

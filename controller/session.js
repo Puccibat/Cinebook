@@ -2,7 +2,9 @@ const { updateMovie } = require('../client/src/apiFetching');
 const Session = require('../model/Session');
 
 const sessionById = async (req, res) => {
-  const session = await Session.findById(req.params.id);
+  const session = await Session.findById(req.params.sessionId)
+    .populate('movie')
+    .populate('theater');
   if (session) {
     res.json(session);
   } else {
@@ -16,27 +18,49 @@ const listSessions2 = async (req, res) => {
 };
 
 const listSessions = async (req, res) => {
-  const sessions = await Session.find({
-    startTime: {
-      $gte: new Date(req.query?.beginDate),
-      $lt: new Date(req.query?.endDate),
-    },
-  })
-    .populate('movie')
-    .populate('theater');
-  res.json(sessions);
+  try {
+    const { beginDate, endDate, movieId } = req.query;
+    let filterSession = {};
+    if (beginDate && endDate) {
+      filterSession.date = {
+        $gte: new Date(req.query?.beginDate),
+        $lt: new Date(req.query?.endDate),
+      };
+    }
+    if (movieId) {
+      filterSession.movie = movieId;
+    }
+    const sessions = await Session.find(filterSession)
+      .populate('movie')
+      .populate('theater')
+      .sort({ date: 1 })
+      .sort({ startTime: 1 });
+    res.json(sessions);
+  } catch (e) {
+    res.status(500).json('There is an error, please try again');
+  }
+};
+
+const getSessionsByMovieId = async (movieId) => {
+  try {
+    const sessions = await Session.find({ movie: movieId });
+    return sessions;
+  } catch (e) {
+    return null;
+  } finally {
+  }
 };
 
 const createSession = async (req, res) => {
-  const beginDate = new Date(`${req.body.date}T${req.body.startTime}`);
-  const endDate = new Date(`${req.body.date}T${req.body.endTime}`);
+  const { date, startTime, endTime } = req.body;
+  const sessionDate = new Date(date);
+
   const session = new Session({
     movie: req.body.movie,
     theater: req.body.theater,
-    date: beginDate,
-    endDate: endDate,
-    startTime: beginDate,
-    endTime: endDate,
+    date: sessionDate,
+    startTime,
+    endTime,
   });
   try {
     const createdSession = await session.save();
@@ -47,32 +71,43 @@ const createSession = async (req, res) => {
 };
 
 const removeSession = async (req, res) => {
-  const session = await Session.findById(req.params.id);
+  const sessionDeletedId = req.params.sessionId;
+  const session = await Session.findById(sessionDeletedId);
 
   if (session) {
     await session.remove();
-    res.status(200).json({ message: 'Session removed' });
+    res.status(200).json({ message: 'Session removed', sessionDeletedId });
   } else {
     res.status(404).json({ message: 'Session not found' });
   }
 };
 
 const updateSession = async (req, res) => {
-  const { movie, theater, date, startTime, endTime } = req.body;
+  try {
+    const { movie, theater, date, startTime, endTime } = req.body;
 
-  const session = await Session.findById(req.params.id);
+    const session = await Session.findById(req.params.sessionId);
 
-  if (session) {
-    (session.movie = movie),
-      (session.theater = theater),
-      (session.date = date),
-      (session.startTime = startTime),
-      (session.endTime = endTime);
+    const currentDate = new Date(date);
+    console.log(startTime);
+    console.log(endTime);
+    console.log(currentDate);
+    if (session) {
+      session.movie = movie;
+      session.theater = theater;
+      session.date = currentDate;
+      session.startTime = startTime;
+      session.endTime = endTime;
 
-    const updateSession = await session.save();
-    res.json(updateSession);
-  } else {
-    res.status(404).json({ message: 'Session not found' });
+      console.log(session);
+      const updateSession = await session.save();
+      res.json(updateSession);
+    } else {
+      res.status(404).json({ message: 'Session not found' });
+    }
+  } catch (e) {
+    //console.log(e);
+    res.status(500).json({ message: 'server error' });
   }
 };
 
@@ -82,4 +117,5 @@ module.exports = {
   updateSession,
   removeSession,
   listSessions,
+  getSessionsByMovieId,
 };

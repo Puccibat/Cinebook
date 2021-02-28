@@ -1,4 +1,6 @@
+const { required } = require('joi');
 const Movie = require('../model/Movie');
+const { getSessionsByMovieId } = require('./session');
 
 //Movie by ID
 const readMovieById = async (req, res) => {
@@ -40,11 +42,20 @@ const createMovie = async (req, res) => {
 
 //Delete movie
 const removeMovie = async (req, res) => {
-  const movie = await Movie.findById(req.params.id);
+  const moviedeletedId = req.params.id;
+
+  const sessionsAssociated = await getSessionsByMovieId(moviedeletedId);
+  if (sessionsAssociated.length !== 0) {
+    return res.status(403).json({
+      message: 'Le film ne peux pas être supprimé car il est lié à une session',
+      moviedeletedId,
+    });
+  }
+  const movie = await Movie.findById(moviedeletedId);
 
   if (movie) {
     await movie.remove();
-    res.status(200).json({ message: 'Movie removed' });
+    res.status(200).json({ message: 'Movie removed', moviedeletedId });
   } else {
     res.status(404).json({ message: 'Movie not found' });
   }

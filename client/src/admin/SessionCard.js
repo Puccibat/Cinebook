@@ -3,12 +3,12 @@ import { Redirect } from 'react-router-dom';
 import { removeSession } from '../apiFetching';
 import { isAuth } from '../auth/ApiAuth';
 
-const SessionCard = ({ session, deleteSession }) => {
+const SessionCard = ({ session, deleteSession, formatDate }) => {
   const { token } = isAuth();
   const [redirect, setRedirect] = useState(false);
 
-  const destroy = (sessionId) => {
-    const sessionRemoved = removeSession(sessionId, token);
+  const destroy = async (sessionId) => {
+    const sessionRemoved = await removeSession(sessionId, token);
     if (sessionRemoved) {
       alert(`La séance a été supprimé avec succès`);
       deleteSession(sessionRemoved);
@@ -39,7 +39,7 @@ const SessionCard = ({ session, deleteSession }) => {
           {session.theater?.name}
         </h5>
         <h5 className='text-sm text-gray-900 font-semibold tracking-widest mb-2 uppercase '>
-          {session.date}
+          {formatDate(new Date(session?.date))}
         </h5>
 
         <button
@@ -49,7 +49,7 @@ const SessionCard = ({ session, deleteSession }) => {
           Modifier <i className='fas fa-pen'></i>
         </button>
         <button
-          onClick={() => destroy(session._id)}
+          onClick={async () => destroy(session._id)}
           className='bg-red-800 hover:bg-red-600 text-white px-4 py-2  mt-4 rounded '
         >
           Supprimer <i className='fas fa-trash-alt'></i>
