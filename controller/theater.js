@@ -2,19 +2,27 @@ const Theater = require('../model/Theater');
 
 //Movie by ID
 const readTheaterById = async (req, res) => {
-  const theater = await Theater.findById(req.params.id);
+  try {
+    const theater = await Theater.findById(req.params.id);
 
-  if (theater) {
-    res.json(theater);
-  } else {
-    res.status(404).json({ message: 'Theater not found' });
+    if (theater) {
+      res.json(theater);
+    } else {
+      res.status(404).json({ message: 'Theater not found' });
+    }
+  } catch (e) {
+    res.status(500).json('There is an error, please try again');
   }
 };
 
 //List of theaters
 const listTheater = async (req, res) => {
-  const theaters = await Theater.find({});
-  res.json(theaters);
+  try {
+    const theaters = await Theater.find({});
+    res.json(theaters);
+  } catch (e) {
+    res.status(500).json('There is an error, please try again');
+  }
 };
 
 //Create a theater

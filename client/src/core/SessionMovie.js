@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getMovieById } from '../apiFetching';
 import { getSessions } from '../apiFetching';
-import SessionCard from '../admin/SessionCard';
 
 import {
   getEndDateOfWeek,
@@ -13,17 +12,28 @@ import {
 
 const SessionMovie = ({ match }) => {
   const [movieItem, setMovieItem] = useState({});
+  const [nextStep, setnextStep] = useState(false);
   const [sessions, setSessions] = useState([]);
+  const [sessionSelected, setsessionSelected] = useState({
+    places: null,
+    session: null,
+  });
+
   const [sessionFilters, setSessionFilters] = useState({
     beginDate: getFirstDateOfWeek(new Date()),
     endDate: getEndDateOfWeek(new Date()),
     movieId: null,
   });
-  const loadSessions = () => {
-    getSessions(sessionFilters).then((data) => {
-      setSessions(data);
-    });
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const loadSessions = async (initSessionFilters) => {
+    const session = await getSessions(initSessionFilters);
+    if (session) {
+      setSessions(session);
+    }
   };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const loadSingleMovie = async (movieId) => {
     const movie = await getMovieById(movieId);
     if (movie) {
@@ -32,15 +42,31 @@ const SessionMovie = ({ match }) => {
     }
   };
 
+  const selectSessionHandler = (session) => {
+    setsessionSelected({ ...sessionSelected, session });
+  };
+
+  const selectPlaceHandler = (event) => {
+    let { name, value } = event.target;
+    setsessionSelected({ ...sessionSelected, [name]: parseInt(value) });
+  };
+
   useEffect(() => {
     if (!movieItem._id) {
-      const movieId = match.params.movieId;
-      loadSingleMovie(movieId);
+      loadSingleMovie(match.params.movieId);
     } else {
-      loadSessions();
+      loadSessions(sessionFilters);
     }
-  }, [sessionFilters]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [match.params.movieId, movieItem._id, sessionFilters]);
 
+  const nextStepAction = () => {
+    setnextStep(true);
+  };
+  if (nextStep) {
+    console.log(sessionSelected);
+    return <div>Next Step</div>;
+  }
   return (
     <div className='container my-5 mx-auto px-4 md:px-12'>
       {' '}
@@ -70,8 +96,11 @@ const SessionMovie = ({ match }) => {
       <div className='text-center py-8'>
         {sessions
           ? sessions.map((session) => (
-              <div>
-                <button className='rounded-md py-2 px-4 mx-5 bg-gray-300 focus:outline-none'>
+              <div key={session._id}>
+                <button
+                  className='rounded-md py-2 px-4 mx-5 bg-gray-300 focus:outline-none'
+                  onClick={() => selectSessionHandler(session)}
+                >
                   {formatDate(new Date(session?.date))}
                 </button>
                 {session?.startTime}
@@ -79,15 +108,28 @@ const SessionMovie = ({ match }) => {
             ))
           : null}
       </div>
-      <div className='text-center text-white py-8'>
-        <label>Combien de place ?</label>
-        <input type='number' className='ml-3 w-10' />
-      </div>
-      <div className=' text-white text-center py-5'>
-        <button className='rounded-md py-2 px-4 bg-red-500 focus:outline-none'>
-          Valider
-        </button>
-      </div>
+      {sessionSelected.session ? (
+        <div className='text-center  py-8'>
+          <label className=' text-white'>Combien de place ?</label>
+          <input
+            type='number'
+            className='ml-3 w-10'
+            value={sessionSelected.places}
+            name='places'
+            onChange={selectPlaceHandler}
+          />
+        </div>
+      ) : null}
+      {sessionSelected.places ? (
+        <div className=' text-white text-center py-5'>
+          <button
+            className='rounded-md py-2 px-4 bg-red-500 focus:outline-none'
+            onClick={nextStepAction}
+          >
+            Valider
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 };

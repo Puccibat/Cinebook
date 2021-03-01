@@ -99,14 +99,18 @@ const isAuth = (req, res, next) => {
 
 //Admin connection
 const isAdmin = async (req, res, next) => {
-  const user = await UserService.getUserById(req.user._id);
+  try {
+    const user = await UserService.getUserById(req.user._id);
 
-  if (user.role === 0) {
-    return res.status(403).json({
-      error: 'You are not allowed to go there !',
-    });
+    if (user.role === 0) {
+      return res.status(403).json({
+        error: 'You are not allowed to go there !',
+      });
+    }
+    next();
+  } catch (e) {
+    res.status(500).json('There is an error, please try again');
   }
-  next();
 };
 
 module.exports = { signup, signin, isAuth, isAdmin, signout };

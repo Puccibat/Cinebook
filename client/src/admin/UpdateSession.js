@@ -20,8 +20,8 @@ const UpdateSession = ({ match, history }) => {
   const [movies, setMovies] = useState([]);
   const [theaters, setTheaters] = useState([]);
 
-  const loadSession = async () => {
-    const sessionById = await getSessionById(match?.params?.sessionId);
+  const loadSession = async (sessionId) => {
+    const sessionById = await getSessionById(sessionId);
     if (sessionById) {
       setSession(sessionById);
     }
@@ -40,10 +40,13 @@ const UpdateSession = ({ match, history }) => {
   };
 
   useEffect(() => {
-    loadSession();
-    loadMovies();
-    loadTheater();
-  }, []);
+    const sessionId = match?.params?.sessionId;
+    if (sessionId) {
+      loadSession(sessionId);
+      loadMovies();
+      loadTheater();
+    }
+  }, [match?.params?.sessionId]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;

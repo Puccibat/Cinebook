@@ -2,19 +2,18 @@ const { updateMovie } = require('../client/src/apiFetching');
 const Session = require('../model/Session');
 
 const sessionById = async (req, res) => {
-  const session = await Session.findById(req.params.sessionId)
-    .populate('movie')
-    .populate('theater');
-  if (session) {
-    res.json(session);
-  } else {
-    res.status(404).json({ message: 'Session not found' });
+  try {
+    const session = await Session.findById(req.params.sessionId)
+      .populate('movie')
+      .populate('theater');
+    if (session) {
+      res.json(session);
+    } else {
+      res.status(404).json({ message: 'Session not found' });
+    }
+  } catch (e) {
+    res.status(500).json('There is an error, please try again');
   }
-};
-
-const listSessions2 = async (req, res) => {
-  const sessions = await Session.find({}).populate('movie').populate('theater');
-  res.json(sessions);
 };
 
 const listSessions = async (req, res) => {

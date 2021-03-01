@@ -4,19 +4,27 @@ const { getSessionsByMovieId } = require('./session');
 
 //Movie by ID
 const readMovieById = async (req, res) => {
-  const movie = await Movie.findById(req.params.id);
+  try {
+    const movie = await Movie.findById(req.params.id);
 
-  if (movie) {
-    res.json(movie);
-  } else {
-    res.status(404).json({ message: 'Movie not found' });
+    if (movie) {
+      res.json(movie);
+    } else {
+      res.status(404).json({ message: 'Movie not found' });
+    }
+  } catch (e) {
+    res.status(500).json('There is an error, please try again');
   }
 };
 
 //List of movies
 const listMovies = async (req, res) => {
-  const movies = await Movie.find({});
-  res.json(movies);
+  try {
+    const movies = await Movie.find({});
+    res.json(movies);
+  } catch (e) {
+    res.status(500).json('There is an error, please try again');
+  }
 };
 
 //Create a movie
@@ -63,35 +71,39 @@ const removeMovie = async (req, res) => {
 
 //update movie
 const updateMovie = async (req, res) => {
-  const {
-    title,
-    synopsis,
-    duration,
-    director,
-    casting,
-    genre,
-    classification,
-    availability,
-    image,
-  } = req.body;
+  try {
+    const {
+      title,
+      synopsis,
+      duration,
+      director,
+      casting,
+      genre,
+      classification,
+      availability,
+      image,
+    } = req.body;
 
-  const movie = await Movie.findById(req.params.id);
+    const movie = await Movie.findById(req.params.id);
 
-  if (movie) {
-    (movie.title = title),
-      (movie.synopsis = synopsis),
-      (movie.duration = duration),
-      (movie.director = director),
-      (movie.casting = casting),
-      (movie.genre = genre),
-      (movie.classification = classification),
-      (movie.availability = availability),
-      (movie.image = image);
+    if (movie) {
+      (movie.title = title),
+        (movie.synopsis = synopsis),
+        (movie.duration = duration),
+        (movie.director = director),
+        (movie.casting = casting),
+        (movie.genre = genre),
+        (movie.classification = classification),
+        (movie.availability = availability),
+        (movie.image = image);
 
-    const updateMovie = await movie.save();
-    res.json(updateMovie);
-  } else {
-    res.status(404).json({ message: 'Movie not found' });
+      const updateMovie = await movie.save();
+      res.json(updateMovie);
+    } else {
+      res.status(404).json({ message: 'Movie not found' });
+    }
+  } catch (e) {
+    res.status(500).json('There is an error, please try again');
   }
 };
 
