@@ -15,7 +15,7 @@ const SessionMovie = ({ match }) => {
   const [nextStep, setnextStep] = useState(false);
   const [sessions, setSessions] = useState([]);
   const [sessionSelected, setsessionSelected] = useState({
-    places: null,
+    places: '',
     session: null,
   });
 

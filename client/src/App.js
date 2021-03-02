@@ -97,11 +97,7 @@ function App() {
         <AdminRoute path='/addSession' exact component={AddSession} />
         <AdminRoute path='/ticketTypeList' exact component={TicketTypeList} />
         <AdminRoute path='/sessionList' exact component={SessionList} />
-        <AdminRoute
-          path='/movie/:movieId/session'
-          exact
-          component={SessionMovie}
-        />
+        <Route path='/movie/:movieId/session' exact component={SessionMovie} />
       </Switch>
       <Footer />
     </Router>
