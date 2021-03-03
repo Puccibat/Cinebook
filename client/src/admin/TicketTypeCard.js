@@ -7,11 +7,10 @@ const TicketTypeCard = ({ ticketType, deleteTicketType }) => {
   const { token } = isAuth();
   const [redirect, setRedirect] = useState(false);
 
-  const destroy = (ticketTypeId) => {
-    const ticketTypeRemoved = removeTicketType(ticketTypeId, token);
-    if (ticketTypeRemoved) {
-      alert('Tarif supprimé');
-      deleteTicketType(ticketTypeRemoved);
+  const destroy = async (ticketTypeId) => {
+    const result = await removeTicketType(ticketTypeId, token);
+    if (result === ticketTypeId) {
+      deleteTicketType(result);
     } else {
       alert('Il y a une erreur');
     }

@@ -168,7 +168,8 @@ exports.removeTheater = async (theaterId, token) => {
       },
     };
 
-    await axios.delete(`${API}/theater/${theaterId}`, config);
+    const { data } = await axios.delete(`${API}/theater/${theaterId}`, config);
+    return data?.theaterId;
   } catch (error) {
     console.error(error);
     return null;
@@ -289,7 +290,11 @@ exports.removeTicketType = async (ticketTypeId, token) => {
       },
     };
 
-    await axios.delete(`${API}/ticketType/${ticketTypeId}`, config);
+    const { data } = await axios.delete(
+      `${API}/ticketType/${ticketTypeId}`,
+      config
+    );
+    return data?.ticketTypeId;
   } catch (error) {
     console.error(error);
     return null;

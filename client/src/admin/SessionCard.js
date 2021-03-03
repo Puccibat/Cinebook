@@ -10,7 +10,6 @@ const SessionCard = ({ session, deleteSession, formatDate }) => {
   const destroy = async (sessionId) => {
     const sessionRemoved = await removeSession(sessionId, token);
     if (sessionRemoved) {
-      alert(`La séance a été supprimé avec succès`);
       deleteSession(sessionRemoved);
     } else {
       alert('Il y a une erreur');
@@ -40,6 +39,9 @@ const SessionCard = ({ session, deleteSession, formatDate }) => {
         </h5>
         <h5 className='text-sm text-gray-900 font-semibold tracking-widest mb-2 uppercase '>
           {formatDate(new Date(session?.date))}
+        </h5>
+        <h5 className='text-sm text-gray-900 font-semibold tracking-widest mb-2 uppercase '>
+          {session?.startTime}-{session?.endTime}
         </h5>
 
         <button

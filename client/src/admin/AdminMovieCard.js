@@ -10,10 +10,9 @@ const AdminMovieCard = ({ movie, deletedMovies }) => {
   const destroy = async (movieId) => {
     const result = await removeMovie(movieId, token);
     if (result === movieId) {
-      alert(`Le film a été supprimé avec succès`);
       deletedMovies(result);
     } else {
-      alert(result);
+      alert('error');
     }
   };
 

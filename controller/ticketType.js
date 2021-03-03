@@ -31,11 +31,12 @@ const createTicketType = async (req, res) => {
 
 //Delete ticket type
 const removeTicketType = async (req, res) => {
-  const ticketType = await TicketType.findById(req.params.id);
+  const ticketTypeId = req.params.id;
+  const ticketType = await TicketType.findById(ticketTypeId);
 
   if (ticketType) {
     await ticketType.remove();
-    res.json({ message: 'Ticket type removed' });
+    res.json({ message: 'Ticket type removed', ticketTypeId });
   } else {
     res.status(404).json({ message: 'Ticket type not found' });
   }

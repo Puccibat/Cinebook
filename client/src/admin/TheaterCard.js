@@ -6,11 +6,11 @@ import { isAuth } from '../auth/ApiAuth';
 const TheaterCard = ({ theater, deleteTheater }) => {
   const { token } = isAuth();
   const [redirect, setRedirect] = useState(false);
-  const destroy = (theaterId) => {
-    const theaterRemoved = removeTheater(theaterId, token);
-    if (theaterRemoved) {
-      alert('Salle supprimée');
-      deleteTheater(theaterRemoved);
+
+  const destroy = async (theaterId) => {
+    const result = await removeTheater(theaterId, token);
+    if (result === theaterId) {
+      deleteTheater(result);
     } else {
       alert('Il y a une erreur');
     }
@@ -42,7 +42,7 @@ const TheaterCard = ({ theater, deleteTheater }) => {
           Modifier <i className='fas fa-pen'></i>
         </button>
         <button
-          onClick={() => destroy(theater._id)}
+          onClick={async () => destroy(theater._id)}
           className='bg-red-800 hover:bg-red-600 text-white px-4 py-2  mt-4 rounded '
         >
           Supprimer <i className='fas fa-trash-alt'></i>

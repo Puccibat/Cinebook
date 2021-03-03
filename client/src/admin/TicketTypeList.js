@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { getTicketTypes } from '../apiFetching';
 import TicketTypeCard from './TicketTypeCard';
 
@@ -16,10 +18,13 @@ const TicketTypeList = () => {
 
   const deleteTicketType = (ticketTypeDeleted) => {
     setTicketTypes(
-      ticketTypes.filter(
-        (ticketType) => ticketType._id !== ticketTypeDeleted._id
-      )
+      ticketTypes.filter((ticketType) => ticketType._id !== ticketTypeDeleted)
     );
+    toast('Tarif supprimée', {
+      draggable: true,
+      style: { backgroundColor: 'rgba(239, 68, 68)' },
+      position: toast.POSITION.TOP_CENTER,
+    });
     setLoading(true);
   };
 
@@ -29,6 +34,7 @@ const TicketTypeList = () => {
 
   return (
     <div className='text-center'>
+      <ToastContainer />
       <h1 className='text-2xl text-white py-4'>Vos tarifs</h1>
       <button className='bg-green-600 hover:bg-green-400 text-white px-4 py-2  mt-4 rounded'>
         <Link to='/addTicketType'>

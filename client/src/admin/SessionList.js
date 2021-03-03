@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { getSessions } from '../apiFetching';
 import SessionCard from './SessionCard';
 
@@ -28,6 +30,11 @@ const SessionList = () => {
     setSessions(
       sessions.filter((session) => session._id !== sessionDeleted._id)
     );
+    toast('Séance supprimée', {
+      draggable: true,
+      style: { backgroundColor: 'rgba(239, 68, 68)' },
+      position: toast.POSITION.TOP_CENTER,
+    });
     setLoading(true);
   };
 
@@ -60,13 +67,14 @@ const SessionList = () => {
 
   return (
     <div className='text-center'>
+      <ToastContainer />
       <h1 className='text-2xl text-white py-4'>Vos Séances programmées</h1>
       <div className=''>
         <button
           className=' inline-block rounded-md py-2 px-4 mx-5 bg-gray-300 focus:outline-none'
           onClick={getSessionPreviousWeek}
         >
-          Previous
+          Semaine précédente
         </button>
         <h2 className='inline-block text-xl text-white py-4 col-start-2 col-span-4'>
           Semaine du {formatDate(currentWeek?.beginDate)} au{' '}
@@ -76,7 +84,7 @@ const SessionList = () => {
           className='inline-block rounded-md py-2 px-4 mx-5 bg-gray-300 focus:outline-none'
           onClick={getSessionNextWeek}
         >
-          Next
+          Semaine suivante
         </button>
       </div>
 

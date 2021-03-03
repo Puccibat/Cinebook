@@ -38,11 +38,12 @@ const createTheater = async (req, res) => {
 
 //Delete theater
 const removeTheater = async (req, res) => {
-  const theater = await Theater.findById(req.params.id);
+  const theaterId = req.params.id;
+  const theater = await Theater.findById(theaterId);
 
   if (theater) {
     await theater.remove();
-    res.json({ message: 'Theater removed' });
+    res.json({ message: 'Theater removed', theaterId });
   } else {
     res.status(404).json({ message: 'Theater not found' });
   }
