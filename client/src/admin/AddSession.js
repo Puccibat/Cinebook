@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { createSession, getMovies, getTheaters } from '../apiFetching';
 import { isAuth } from '../auth/ApiAuth';
 
@@ -49,10 +51,18 @@ const AddSession = () => {
 
     const sessionSaved = await createSession(token, data);
     if (sessionSaved) {
-      alert('Séance ajouté');
+      toast('Séance enregistrée', {
+        draggable: true,
+        style: { backgroundColor: 'rgba(239, 68, 68)' },
+        position: toast.POSITION.TOP_CENTER,
+      });
       setSession(initialSessionState);
     } else {
-      alert('error');
+      toast('Une erreur est survenue, veuillez recommencer', {
+        draggable: true,
+        style: { backgroundColor: 'rgba(239, 68, 68)' },
+        position: toast.POSITION.TOP_CENTER,
+      });
     }
   };
 
@@ -135,6 +145,7 @@ const AddSession = () => {
           >
             Valider
           </button>
+          <ToastContainer />
         </div>
       </div>
     </div>

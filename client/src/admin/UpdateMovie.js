@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { updateMovie, uploadFileHandler, getMovieById } from '../apiFetching';
 import { isAuth } from '../auth/ApiAuth';
 
-const UpdateMovie = ({ match, history }) => {
+const UpdateMovie = ({ match }) => {
   const { token } = isAuth();
 
   const initialMovieState = {
@@ -65,11 +67,18 @@ const UpdateMovie = ({ match, history }) => {
 
     const movieSaved = await updateMovie(token, match.params.movieId, data);
     if (movieSaved) {
-      alert('Film modifié');
+      toast('Film modifié', {
+        draggable: true,
+        style: { backgroundColor: 'rgba(239, 68, 68)' },
+        position: toast.POSITION.TOP_CENTER,
+      });
       setMovie(initialMovieState);
-      history.push('/movieList');
     } else {
-      alert('error');
+      toast('Une erreur est survenue, veuillez recommencer', {
+        draggable: true,
+        style: { backgroundColor: 'rgba(239, 68, 68)' },
+        position: toast.POSITION.TOP_CENTER,
+      });
     }
   };
 
@@ -203,6 +212,7 @@ const UpdateMovie = ({ match, history }) => {
           >
             Valider
           </button>
+          <ToastContainer />
         </div>
       </div>
     </div>

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   updateSession,
   getSessionById,
@@ -7,7 +9,7 @@ import {
 } from '../apiFetching';
 import { isAuth } from '../auth/ApiAuth';
 
-const UpdateSession = ({ match, history }) => {
+const UpdateSession = ({ match }) => {
   const { token } = isAuth();
   const initialSessionState = {
     movie: {},
@@ -82,11 +84,18 @@ const UpdateSession = ({ match, history }) => {
       data
     );
     if (sessionSaved) {
-      alert('Film modifié');
+      toast('Séance modifiée', {
+        draggable: true,
+        style: { backgroundColor: 'rgba(239, 68, 68)' },
+        position: toast.POSITION.TOP_CENTER,
+      });
       setSession(initialSessionState);
-      history.push('/sessionList');
     } else {
-      alert('error');
+      toast('Une erreur est survenue, veuillez recommencer', {
+        draggable: true,
+        style: { backgroundColor: 'rgba(239, 68, 68)' },
+        position: toast.POSITION.TOP_CENTER,
+      });
     }
   };
   return (
@@ -170,6 +179,7 @@ const UpdateSession = ({ match, history }) => {
           >
             Valider
           </button>
+          <ToastContainer />
         </div>
       </div>
     </div>

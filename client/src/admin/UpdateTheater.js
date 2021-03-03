@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   updateTheater,
   uploadFileHandler,
@@ -6,7 +8,7 @@ import {
 } from '../apiFetching';
 import { isAuth } from '../auth/ApiAuth';
 
-const UpdateTheater = ({ match, history }) => {
+const UpdateTheater = ({ match }) => {
   const { token } = isAuth();
 
   const initialTheaterState = {
@@ -61,11 +63,18 @@ const UpdateTheater = ({ match, history }) => {
       data
     );
     if (theaterSaved) {
-      alert('Film modifié');
+      toast('Salle modifiée', {
+        draggable: true,
+        style: { backgroundColor: 'rgba(239, 68, 68)' },
+        position: toast.POSITION.TOP_CENTER,
+      });
       setTheater(initialTheaterState);
-      history.push('/theaterList');
     } else {
-      alert('error');
+      toast('Une erreur est survenue, veuillez recommencer', {
+        draggable: true,
+        style: { backgroundColor: 'rgba(239, 68, 68)' },
+        position: toast.POSITION.TOP_CENTER,
+      });
     }
   };
 
@@ -127,6 +136,7 @@ const UpdateTheater = ({ match, history }) => {
           >
             Valider
           </button>
+          <ToastContainer />
         </div>
       </div>
     </div>

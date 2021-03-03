@@ -191,9 +191,7 @@ const AddMovie = () => {
           >
             Valider
           </button>
-          <>
-            <ToastContainer />
-          </>
+          <ToastContainer />
         </div>
       </div>
     </div>

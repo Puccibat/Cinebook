@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { createTheater, uploadFileHandler } from '../apiFetching';
 import { isAuth } from '../auth/ApiAuth';
 
@@ -41,10 +43,18 @@ const AddTheater = () => {
 
     const theaterSaved = await createTheater(token, data);
     if (theaterSaved) {
-      alert('Salle ajoutée');
+      toast('Salle enregistrée', {
+        draggable: true,
+        style: { backgroundColor: 'rgba(239, 68, 68)' },
+        position: toast.POSITION.TOP_CENTER,
+      });
       setTheater(initialTheaterState);
     } else {
-      alert('error');
+      toast('Une erreur est survenue, veuillez recommencer', {
+        draggable: true,
+        style: { backgroundColor: 'rgba(239, 68, 68)' },
+        position: toast.POSITION.TOP_CENTER,
+      });
     }
   };
 
@@ -102,6 +112,7 @@ const AddTheater = () => {
           >
             Valider
           </button>
+          <ToastContainer />
         </div>
       </div>
     </div>

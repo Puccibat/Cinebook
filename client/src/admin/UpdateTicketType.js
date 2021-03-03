@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { updateTicketType, getTicketTypeById } from '../apiFetching';
 import { isAuth } from '../auth/ApiAuth';
 
-const UpdateTicketType = ({ match, history }) => {
+const UpdateTicketType = ({ match }) => {
   const { token } = isAuth();
 
   const initialTicketTypeState = {
@@ -41,11 +43,18 @@ const UpdateTicketType = ({ match, history }) => {
       data
     );
     if (ticketTypeSaved) {
-      alert('Tarif modifié');
+      toast('Tarif enregistrée', {
+        draggable: true,
+        style: { backgroundColor: 'rgba(239, 68, 68)' },
+        position: toast.POSITION.TOP_CENTER,
+      });
       setTicketType(initialTicketTypeState);
-      history.push('/ticketTypeList');
     } else {
-      alert('error');
+      toast('Une erreur est survenue, veuillez recommencer', {
+        draggable: true,
+        style: { backgroundColor: 'rgba(239, 68, 68)' },
+        position: toast.POSITION.TOP_CENTER,
+      });
     }
   };
 
@@ -100,6 +109,7 @@ const UpdateTicketType = ({ match, history }) => {
           >
             Valider
           </button>
+          <ToastContainer />
         </div>
       </div>
     </div>

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { createTicketType } from '../apiFetching';
 import { isAuth } from '../auth/ApiAuth';
 
@@ -26,10 +28,18 @@ const AddTicketType = () => {
 
     const ticketTypeSaved = await createTicketType(token, data);
     if (ticketTypeSaved) {
-      alert('Tarif ajouté');
+      toast('Tarif enregistré', {
+        draggable: true,
+        style: { backgroundColor: 'rgba(239, 68, 68)' },
+        position: toast.POSITION.TOP_CENTER,
+      });
       setTicketType(initialTicketTypeState);
     } else {
-      alert('error');
+      toast('Une erreur est survenue, veuillez recommencer', {
+        draggable: true,
+        style: { backgroundColor: 'rgba(239, 68, 68)' },
+        position: toast.POSITION.TOP_CENTER,
+      });
     }
   };
 
@@ -82,6 +92,7 @@ const AddTicketType = () => {
           >
             Valider
           </button>
+          <ToastContainer />
         </div>
       </div>
     </div>
