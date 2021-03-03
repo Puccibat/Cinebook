@@ -6,8 +6,8 @@ const AddSession = () => {
   const { token } = isAuth();
 
   const initialSessionState = {
-    movie: [],
-    theater: [],
+    movie: {},
+    theater: {},
     date: '',
     startTime: '',
     endTime: '',
@@ -65,7 +65,7 @@ const AddSession = () => {
           <label className='text-2xl font-semibold pt-6 mx-auto'>Film:</label>
           <select
             onChange={handleInputChange}
-            value={session.movie}
+            value={session?.movie}
             name='movie'
             className='w-64 p-2 rounded text-gray-900 h-10 my-auto'
           >

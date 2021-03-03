@@ -1,4 +1,3 @@
-const { updateMovie } = require('../client/src/apiFetching');
 const Session = require('../model/Session');
 
 const sessionById = async (req, res) => {
@@ -22,8 +21,8 @@ const listSessions = async (req, res) => {
     let filterSession = {};
     if (beginDate && endDate) {
       filterSession.date = {
-        $gte: new Date(req.query?.beginDate),
-        $lt: new Date(req.query?.endDate),
+        $gte: new Date(beginDate).setHours(00, 00, 01),
+        $lt: new Date(endDate).setHours(23, 59, 59),
       };
     }
     if (movieId) {
@@ -84,13 +83,9 @@ const removeSession = async (req, res) => {
 const updateSession = async (req, res) => {
   try {
     const { movie, theater, date, startTime, endTime } = req.body;
-
     const session = await Session.findById(req.params.sessionId);
-
     const currentDate = new Date(date);
-    console.log(startTime);
-    console.log(endTime);
-    console.log(currentDate);
+
     if (session) {
       session.movie = movie;
       session.theater = theater;
@@ -98,14 +93,12 @@ const updateSession = async (req, res) => {
       session.startTime = startTime;
       session.endTime = endTime;
 
-      console.log(session);
       const updateSession = await session.save();
       res.json(updateSession);
     } else {
       res.status(404).json({ message: 'Session not found' });
     }
   } catch (e) {
-    //console.log(e);
     res.status(500).json({ message: 'server error' });
   }
 };

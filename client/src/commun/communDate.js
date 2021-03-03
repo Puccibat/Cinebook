@@ -2,7 +2,7 @@ exports.getFirstDateOfWeek = (currentDate) => {
   const currentDay = currentDate.getDay();
   let numberOfDay = 0;
 
-  if (currentDay >= 2) {
+  if (currentDay > 2) {
     numberOfDay = 3 - currentDay;
   } else {
     numberOfDay = currentDay + 2 - 6;

@@ -14,6 +14,7 @@ const theaterRoute = require('./routes/theater');
 const ticketTypeRoute = require('./routes/ticketType');
 const sessionRoute = require('./routes/session');
 const uploadRoute = require('./routes/upload');
+const orderRoute = require('./routes/order');
 
 dotenv.config();
 
@@ -48,6 +49,7 @@ app.use('/api', theaterRoute);
 app.use('/api', ticketTypeRoute);
 app.use('/api', sessionRoute);
 app.use('/api', uploadRoute);
+app.use('/api', orderRoute);
 
 const port = process.env.PORT || 8000;
 
