@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { createMovie, uploadFileHandler } from '../apiFetching';
 import { isAuth } from '../auth/ApiAuth';
 
@@ -52,10 +54,18 @@ const AddMovie = () => {
 
     const movieSaved = await createMovie(token, data);
     if (movieSaved) {
-      alert('Film ajouté');
+      toast('Film enregistré', {
+        draggable: true,
+        style: { backgroundColor: 'rgba(239, 68, 68)' },
+        position: toast.POSITION.TOP_CENTER,
+      });
       setMovie(initialMovieState);
     } else {
-      alert('error');
+      toast('Une erreur est survenue, veuillez recommencer', {
+        draggable: true,
+        style: { backgroundColor: 'rgba(239, 68, 68)' },
+        position: toast.POSITION.TOP_CENTER,
+      });
     }
   };
 
@@ -181,6 +191,9 @@ const AddMovie = () => {
           >
             Valider
           </button>
+          <>
+            <ToastContainer />
+          </>
         </div>
       </div>
     </div>

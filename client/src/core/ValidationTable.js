@@ -76,7 +76,7 @@ const ValidationTable = ({ sessionSelected }) => {
     for (let i = 0; i < sessionSelected.places; i++) {
       rows.push(
         <tr key={i}>
-          <td>
+          <td className='border border-red-500 p-2'>
             <select
               onChange={(e) => handleInputChange(e, i)}
               value={ticketTypes.name}
@@ -92,7 +92,7 @@ const ValidationTable = ({ sessionSelected }) => {
               ))}
             </select>
           </td>
-          <td>{getPriceByPlaceIndex(i)}</td>
+          <td className=' border border-red-500'>{getPriceByPlaceIndex(i)}</td>
         </tr>
       );
     }
@@ -110,7 +110,7 @@ const ValidationTable = ({ sessionSelected }) => {
       <tr>
         <td></td>
         <td></td>
-        <td>{totalPrices}</td>
+        <td className=' border border-red-500'>{totalPrices}</td>
       </tr>
     );
   };
@@ -120,12 +120,12 @@ const ValidationTable = ({ sessionSelected }) => {
       <div className='text-center text-white font-semibold text-xl'>
         Vous avez choisis {sessionSelected.places}{' '}
         {sessionSelected.places > 1 ? 'places' : 'place'}
-        <table className='table-auto'>
+        <table className='table-auto border-collapse border border-red-500 mx-auto my-5 '>
           <thead>
             <tr>
-              <th>Tarif</th>
-              <th>Prix</th>
-              <th>Prix Total</th>
+              <th className=' border border-red-500 p-2'>Tarif</th>
+              <th className=' border border-red-500 p-2'>Prix</th>
+              <th className=' border border-red-500 p-2'>Prix Total</th>
             </tr>
           </thead>
           <tbody>{renderPlaces()}</tbody>
