@@ -27,11 +27,14 @@ const Register = () => {
 
     const userSaved = await signup(data);
     if (userSaved) {
-      toast('Vous êtes bien enregistré', {
-        draggable: true,
-        style: { backgroundColor: 'rgba(239, 68, 68)' },
-        position: toast.POSITION.TOP_CENTER,
-      });
+      toast(
+        'Vous êtes bien enregistré, vous pouvez maintenant vous connecter',
+        {
+          draggable: true,
+          style: { backgroundColor: 'rgba(239, 68, 68)', color: '#fff' },
+          position: toast.POSITION.TOP_CENTER,
+        }
+      );
       setUser(initialUserState);
     } else {
       toast('Une erreur est survenue, veuillez recommencer', {

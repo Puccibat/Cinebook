@@ -11,37 +11,33 @@ const SignInModal = ({ showModal, setShowModal, setIsLogged }) => {
     }
   };
 
-  const [values, setValues] = useState({
+  const initialUserState = {
     email: '',
     password: '',
-  });
-
-  const { email, password } = values;
-
-  const handleChange = (email) => (event) => {
-    setValues({ ...values, [email]: event.target.value });
   };
 
-  const clickSubmit = (event) => {
+  const [user, setUser] = useState(initialUserState);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setUser({ ...user, [name]: value });
+  };
+
+  const clickSubmit = async (event) => {
     event.preventDefault();
-    setValues({ ...values });
-    signin({ email, password }).then((data) => {
-      if (data.error) {
-        setValues({ ...values });
-      } else {
-        authenticate(data, () => {
-          setIsLogged(true);
-          setValues({
-            ...values,
-          });
-        });
-        setShowModal(false);
-        setValues({
-          email: '',
-          password: '',
-        });
-      }
-    });
+    const data = {
+      email: user.email,
+      password: user.password,
+    };
+    const userLogged = await signin(data);
+    if (userLogged) {
+      authenticate(userLogged, () => {
+        setIsLogged(true);
+        setUser({ ...user });
+      });
+      setShowModal(false);
+      setUser(initialUserState);
+    }
   };
 
   return (
@@ -61,8 +57,9 @@ const SignInModal = ({ showModal, setShowModal, setIsLogged }) => {
               <label className='font-semibold block mb-2'>Email</label>
               <input
                 type='email'
-                onChange={handleChange('email')}
-                value={email}
+                onChange={handleInputChange}
+                value={user.email}
+                name='email'
                 className='block bg-white rounded shadow pl-2 text-gray-900'
                 placeholder='votre@email.com'
               />
@@ -71,8 +68,9 @@ const SignInModal = ({ showModal, setShowModal, setIsLogged }) => {
               <label className='font-semibold block mb-2'>Mot de Passe</label>
               <input
                 type='password'
-                onChange={handleChange('password')}
-                value={password}
+                onChange={handleInputChange}
+                value={user.password}
+                name='password'
                 className='block bg-white rounded shadow pl-2 text-gray-900 '
                 placeholder='******'
               />
