@@ -18,7 +18,7 @@ const AdminMovieList = () => {
     setMovies(movies.filter((movie) => movie._id !== deletedMoviesId));
     toast('Film supprimé', {
       draggable: true,
-      style: { backgroundColor: 'rgba(239, 68, 68)' },
+      style: { backgroundColor: 'rgba(239, 68, 68)', color: '#fff' },
       position: toast.POSITION.TOP_CENTER,
     });
   };

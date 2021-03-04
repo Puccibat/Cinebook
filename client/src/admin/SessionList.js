@@ -32,7 +32,7 @@ const SessionList = () => {
     );
     toast('Séance supprimée', {
       draggable: true,
-      style: { backgroundColor: 'rgba(239, 68, 68)' },
+      style: { backgroundColor: 'rgba(239, 68, 68)', color: '#fff' },
       position: toast.POSITION.TOP_CENTER,
     });
     setLoading(true);

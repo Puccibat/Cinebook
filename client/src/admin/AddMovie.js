@@ -56,14 +56,14 @@ const AddMovie = () => {
     if (movieSaved) {
       toast('Film enregistré', {
         draggable: true,
-        style: { backgroundColor: 'rgba(239, 68, 68)' },
+        style: { backgroundColor: 'rgba(239, 68, 68)', color: '#fff' },
         position: toast.POSITION.TOP_CENTER,
       });
       setMovie(initialMovieState);
     } else {
       toast('Une erreur est survenue, veuillez recommencer', {
         draggable: true,
-        style: { backgroundColor: 'rgba(239, 68, 68)' },
+        style: { backgroundColor: 'rgba(239, 68, 68)', color: '#fff' },
         position: toast.POSITION.TOP_CENTER,
       });
     }

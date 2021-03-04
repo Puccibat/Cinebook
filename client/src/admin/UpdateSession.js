@@ -86,14 +86,14 @@ const UpdateSession = ({ match }) => {
     if (sessionSaved) {
       toast('Séance modifiée', {
         draggable: true,
-        style: { backgroundColor: 'rgba(239, 68, 68)' },
+        style: { backgroundColor: 'rgba(239, 68, 68)', color: '#fff' },
         position: toast.POSITION.TOP_CENTER,
       });
       setSession(initialSessionState);
     } else {
       toast('Une erreur est survenue, veuillez recommencer', {
         draggable: true,
-        style: { backgroundColor: 'rgba(239, 68, 68)' },
+        style: { backgroundColor: 'rgba(239, 68, 68)', color: '#fff' },
         position: toast.POSITION.TOP_CENTER,
       });
     }

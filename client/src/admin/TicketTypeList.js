@@ -7,13 +7,11 @@ import TicketTypeCard from './TicketTypeCard';
 
 const TicketTypeList = () => {
   const [ticketTypes, setTicketTypes] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   const loadTicketTypes = () => {
     getTicketTypes().then((data) => {
       setTicketTypes(data);
     });
-    setLoading(false);
   };
 
   const deleteTicketType = (ticketTypeDeleted) => {
@@ -22,15 +20,14 @@ const TicketTypeList = () => {
     );
     toast('Tarif supprimée', {
       draggable: true,
-      style: { backgroundColor: 'rgba(239, 68, 68)' },
+      style: { backgroundColor: 'rgba(239, 68, 68)', color: '#fff' },
       position: toast.POSITION.TOP_CENTER,
     });
-    setLoading(true);
   };
 
   useEffect(() => {
     loadTicketTypes();
-  }, [loading]);
+  }, []);
 
   return (
     <div className='text-center'>

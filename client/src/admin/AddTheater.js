@@ -45,14 +45,14 @@ const AddTheater = () => {
     if (theaterSaved) {
       toast('Salle enregistrée', {
         draggable: true,
-        style: { backgroundColor: 'rgba(239, 68, 68)' },
+        style: { backgroundColor: 'rgba(239, 68, 68)', color: '#fff' },
         position: toast.POSITION.TOP_CENTER,
       });
       setTheater(initialTheaterState);
     } else {
       toast('Une erreur est survenue, veuillez recommencer', {
         draggable: true,
-        style: { backgroundColor: 'rgba(239, 68, 68)' },
+        style: { backgroundColor: 'rgba(239, 68, 68)', color: '#fff' },
         position: toast.POSITION.TOP_CENTER,
       });
     }

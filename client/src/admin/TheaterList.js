@@ -7,23 +7,20 @@ import TheaterCard from './TheaterCard';
 
 const TheaterList = () => {
   const [theaters, setTheaters] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   const loadTheaters = () => {
     getTheaters().then((data) => {
       setTheaters(data);
     });
-    setLoading(false);
   };
 
   const deleteTheater = (theaterDeleted) => {
     setTheaters(theaters.filter((theater) => theater._id !== theaterDeleted));
     toast('Salle supprimée', {
       draggable: true,
-      style: { backgroundColor: 'rgba(239, 68, 68)' },
+      style: { backgroundColor: 'rgba(239, 68, 68)', color: '#fff' },
       position: toast.POSITION.TOP_CENTER,
     });
-    setLoading(true);
   };
 
   useEffect(() => {
