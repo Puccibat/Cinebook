@@ -7,29 +7,32 @@ const { signupValidation, signinValidation } = require('../validation');
 //Register a new user
 const signup = async (req, res) => {
   //Validate user before saving
-  const { error } = signupValidation(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
-
-  //Check if the user is already in the database
-  const checkedEmail = await User.findOne({ email: req.body.email });
-  if (checkedEmail)
-    return res.status(400).send('Email already exists, please go to signin');
-
-  //Hash password
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(req.body.password, salt);
-
-  //Create a new user
-  const user = new User({
-    // name: req.body.name,
-    email: req.body.email,
-    password: hashedPassword,
-  });
   try {
+    const { error } = signupValidation(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
+    //Check if the user is already in the database
+    const checkedEmail = await User.findOne({ email: req.body.email });
+    if (checkedEmail)
+      return res.status(400).send('Email already exists, please go to signin');
+
+    //Hash password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
+    //Create a new user
+    const user = new User({
+      email: req.body.email,
+      userName: req.body.userName,
+      password: hashedPassword,
+    });
+    console.log('after create user', user);
     const savedUser = await user.save();
-    res.send(savedUser);
+    savedUser.password;
+    res.status(201).json(savedUser);
   } catch (error) {
-    res.status(400).send(error);
+    console.error(error);
+    res.status(500).json('There is an error, please try again');
   }
 };
 
@@ -40,7 +43,9 @@ const signin = async (req, res) => {
   if (error) return res.status(400).send(error.details[0].message);
 
   //Checking if the email exists
-  const user = await User.findOne({ email: req.body.email });
+  const user = await User.findOne({ email: req.body.email }).select(
+    '+password'
+  );
   if (!user)
     return res
       .status(400)
@@ -61,8 +66,8 @@ const signin = async (req, res) => {
   const token = jwt.sign({ _id: user._id }, process.env.SECRET_TOKEN);
   //res.header('auth-token', token).send(token);
   res.cookie('t', token, { expire: new Date() + 9999 });
-  const { _id, name, email, role } = user;
-  return res.json({ token, user: { _id, email, name, role } });
+  const { _id, userName, email, role } = user;
+  return res.json({ token, user: { _id, email, userName, role } });
 };
 
 //SignOut

@@ -1,38 +1,49 @@
 const API = require('../config');
+const axios = require('axios');
 
-exports.signup = (user) => {
-  return fetch(`${API}/signup`, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(user),
-  })
-    .then((response) => {
-      return response.json();
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+exports.signup = async (user) => {
+  try {
+    const config = {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const { data } = await axios.post(
+      `${API}/signup`,
+      JSON.stringify(user),
+      config
+    );
+
+    return data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 };
 
-exports.signin = (user) => {
+exports.signin = async (user) => {
   //console.log(name, email, password);
-  return fetch(`${API}/signin`, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(user),
-  })
-    .then((response) => {
-      return response.json();
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  try {
+    const config = {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const { data } = await axios.post(
+      `${API}/signin`,
+      JSON.stringify(user),
+      config
+    );
+
+    return data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 };
 
 exports.authenticate = (data, next) => {

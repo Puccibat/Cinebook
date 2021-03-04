@@ -8,9 +8,15 @@ const userSchema = new mongoose.Schema(
       unique: true,
       required: true,
     },
+    userName: {
+      type: String,
+      trim: true,
+      required: true,
+    },
     password: {
       type: String,
       required: true,
+      select: false,
     },
     role: {
       type: Number,

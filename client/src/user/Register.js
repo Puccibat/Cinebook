@@ -1,36 +1,50 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { signup } from '../auth/ApiAuth';
 
 const Register = () => {
-  const [values, setValues] = useState({
+  const initialUserState = {
     email: '',
+    userName: '',
     password: '',
-  });
-
-  const { email, password } = values;
-
-  const history = useHistory();
-
-  const handleChange = (value) => (event) => {
-    setValues({ ...values, [value]: event.target.value });
   };
 
-  const onSubmit = (event) => {
-    event.preventDefault();
-    setValues({ ...values });
-    signup({ email, password }).then((data) => {
-      setValues({
-        ...values,
-        email: '',
-        password: '',
+  const [user, setUser] = useState(initialUserState);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setUser({ ...user, [name]: value });
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const data = {
+      email: user.email,
+      userName: user.userName,
+      password: user.password,
+    };
+
+    const userSaved = await signup(data);
+    if (userSaved) {
+      toast('Vous êtes bien enregistré', {
+        draggable: true,
+        style: { backgroundColor: 'rgba(239, 68, 68)' },
+        position: toast.POSITION.TOP_CENTER,
       });
-    });
-    history.goBack();
+      setUser(initialUserState);
+    } else {
+      toast('Une erreur est survenue, veuillez recommencer', {
+        draggable: true,
+        style: { backgroundColor: 'rgba(239, 68, 68)' },
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
   };
 
   return (
     <div className='container text-white my-5 mx-auto px-4 md:px-12'>
+      <ToastContainer />
       <h1 className='text-6xl text-center font-semibold'>Inscrivez-vous !</h1>
       <form className='grid grid-cols-1'>
         <label className='text-2xl font-semibold pt-6 mx-auto'>
@@ -39,8 +53,21 @@ const Register = () => {
         <input
           type='email'
           placeholder='votre@email.com'
-          onChange={handleChange('email')}
-          value={email}
+          onChange={handleInputChange}
+          value={user.email}
+          name='email'
+          className='w-64 p-2 rounded text-gray-900 mx-auto'
+        />
+
+        <label className='text-2xl font-semibold pt-6 mx-auto'>
+          Votre Nom:
+        </label>
+        <input
+          type='text'
+          placeholder='Jon Wick'
+          onChange={handleInputChange}
+          value={user.userName}
+          name='userName'
           className='w-64 p-2 rounded text-gray-900 mx-auto'
         />
 
@@ -50,8 +77,9 @@ const Register = () => {
         <input
           type='password'
           placeholder='******'
-          onChange={handleChange('password')}
-          value={password}
+          onChange={handleInputChange}
+          value={user.password}
+          name='password'
           className='w-64 p-2 rounded text-gray-900 mx-auto'
         />
 
