@@ -13,6 +13,7 @@ const SessionMovie = ({ match }) => {
   const [movieItem, setMovieItem] = useState({});
   const [nextStep, setnextStep] = useState(false);
   const [sessions, setSessions] = useState([]);
+  const [activeSession, setActiveSession] = useState(0);
   const [sessionSelected, setsessionSelected] = useState({
     places: '',
     session: null,
@@ -44,6 +45,15 @@ const SessionMovie = ({ match }) => {
   const selectSessionHandler = (session) => {
     setsessionSelected({ ...sessionSelected, session });
   };
+
+  const activeHandler = (id) => setActiveSession(id);
+  console.log(activeSession);
+
+  const inactiveButton =
+    'text-white font-semibold rounded-md py-2 px-4 mt-6  bg-red-500 focus:outline-none';
+
+  const activeButton =
+    'text-red-500 font-semibold rounded-md py-2 px-4 mt-6  bg-white focus:outline-none';
 
   const selectPlaceHandler = (event) => {
     let { name, value } = event.target;
@@ -102,20 +112,29 @@ const SessionMovie = ({ match }) => {
                   </button>
                 </div>
 
-                {sessions
-                  ? sessions.map((session) => (
-                      <div key={session._id}>
-                        <button
-                          className=' text-white font-semibold rounded-md py-2 px-4 mt-6  bg-red-500 focus:outline-none'
-                          onClick={() => selectSessionHandler(session)}
-                        >
-                          {formatDate(new Date(session?.date))}
-                          <br />
-                          {session?.startTime}
-                        </button>
-                      </div>
-                    ))
-                  : null}
+                {sessions ? (
+                  <div className='flex justify-around mt-3.5'>
+                    {' '}
+                    {sessions.map((session, index) => (
+                      <button
+                        key={session._id}
+                        className={
+                          activeSession === session._id
+                            ? activeButton
+                            : inactiveButton
+                        }
+                        onClick={() =>
+                          selectSessionHandler(session) &
+                          activeHandler(session._id)
+                        }
+                      >
+                        {formatDate(new Date(session?.date))}
+                        <br />
+                        {session?.startTime}
+                      </button>
+                    ))}
+                  </div>
+                ) : null}
               </div>
               {sessionSelected.session ? (
                 <div className='text-center  py-8'>
