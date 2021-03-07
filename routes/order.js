@@ -3,6 +3,6 @@ const router = express.Router();
 const { isAuth, isAdmin } = require('../controller/auth');
 const { createOrder } = require('../controller/order');
 
-router.post('/order', isAuth, isAdmin, createOrder);
+router.post('/order', createOrder);
 
 module.exports = router;

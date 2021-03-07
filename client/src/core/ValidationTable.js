@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { getTicketTypes } from '../apiFetching';
-import { createOrderAsync } from '../api/order';
+import { OrderStepEnum } from '../Models/OrderStepEnum';
 
-const ValidationTable = ({ sessionSelected }) => {
+const ValidationTable = ({
+  sessionSelected,
+  orderStepAction,
+  setOrderBilling,
+}) => {
   const initTicketsOrder = () => {
     let ticketsOrder = [];
     for (let i = 0; i < sessionSelected.places; i++) {
@@ -46,16 +50,10 @@ const ValidationTable = ({ sessionSelected }) => {
 
   const validationOrder = async () => {
     if (verifOrderValide()) {
-      const newOrder = {
-        tickets: order.tickets.map((ticket) => ticket.ticketId),
-        session: order.session._id,
-      };
-      const orderCreated = await createOrderAsync(newOrder);
-      if (orderCreated) {
-        //success
-      } else {
-        //error
-      }
+      setOrderBilling({
+        order,
+      });
+      orderStepAction(OrderStepEnum.order);
     }
   };
 

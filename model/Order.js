@@ -12,7 +12,7 @@ const orderSchema = new mongoose.Schema(
       type: ObjectId,
       ref: 'Session',
     },
-    transaction_id: {},
+    transactionId: '',
   },
   { timestamps: true }
 );

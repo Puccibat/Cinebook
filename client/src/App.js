@@ -27,9 +27,14 @@ import UpdateTheater from './admin/UpdateTheater';
 import UpdateSession from './admin/UpdateSession';
 import UpdateTicketType from './admin/UpdateTicketType';
 import SessionList from './admin/SessionList';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
+  const stripePromise = loadStripe(
+    'pk_test_TZ0ioxM8zquxg0nq4RTgDfzN00ND0koU1m'
+  );
 
   const toggle = () => {
     setIsOpen(!isOpen);
@@ -66,6 +71,15 @@ function App() {
         <Route path='/newMovies' exact component={NewMovies} />
         <Route path='/register' exact component={Register} />
         <Route path='/registered' exact component={Registered} />
+
+        <Elements stripe={stripePromise}>
+          <Route
+            path='/movie/:movieId/session'
+            exact
+            component={SessionMovie}
+          />
+        </Elements>
+
         <PrivateRoute path='/profil' exact component={MyProfile} />
         <AdminRoute path='/adminDashboard' exact component={AdminDashoard} />
         <AdminRoute path='/movieList' exact component={AdminMovieList} />
@@ -97,7 +111,6 @@ function App() {
         <AdminRoute path='/addSession' exact component={AddSession} />
         <AdminRoute path='/ticketTypeList' exact component={TicketTypeList} />
         <AdminRoute path='/sessionList' exact component={SessionList} />
-        <Route path='/movie/:movieId/session' exact component={SessionMovie} />
       </Switch>
       <Footer />
     </Router>
