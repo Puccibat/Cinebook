@@ -80,7 +80,7 @@ const ValidationTable = ({ sessionSelected }) => {
             <select
               onChange={(e) => handleInputChange(e, i)}
               value={ticketTypes.name}
-              blabla={i}
+              key={i}
               name='ticketType'
               className='w-64 p-2 rounded text-gray-900 h-10 my-auto'
             >

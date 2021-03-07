@@ -90,13 +90,13 @@ const AddMovie = () => {
           <label className='text-2xl font-semibold pt-6 mx-auto'>
             Synopsis:
           </label>
-          <input
+          <textarea
             type='text'
             onChange={handleInputChange}
             value={movie.synopsis}
             name='synopsis'
             placeholder='Ex: La 6ème aventure des Avengers...'
-            className='w-64 p-2 rounded text-gray-900 h-10 my-auto'
+            className='w-64 p-2 rounded text-gray-900 h-20 my-auto'
           />
 
           <label className='text-2xl font-semibold pt-6 mx-auto'>
@@ -147,24 +147,31 @@ const AddMovie = () => {
           <label className='text-2xl font-semibold pt-6 mx-auto'>
             Classification:
           </label>
-          <input
-            type='text'
+          <select
             onChange={handleInputChange}
             value={movie.classification}
             name='classification'
-            placeholder='Ex: Tout public'
             className='w-64 p-2 rounded text-gray-900 h-10 my-auto'
-          />
+          >
+            <option>Sélectionnez une classification</option>
+            <option>Tout public</option>
+            <option>Pour public averti</option>
+            <option>Interdit -12 ans</option>
+            <option>Interdit -16 ans</option>
+            <option>Interdit -18 ans</option>
+          </select>
 
           <label className='text-2xl font-semibold pt-6 mx-auto'>Statut:</label>
-          <input
-            type='text'
+          <select
             onChange={handleInputChange}
             value={movie.availability}
             name='availability'
-            placeholder='Ex: Nouveau'
             className='w-64 p-2 rounded text-gray-900 h-10 my-auto'
-          />
+          >
+            <option>Sélectionnez le statut du film</option>
+            <option>A l'affiche</option>
+            <option>Nouveauté</option>
+          </select>
 
           <label className='text-2xl font-semibold pt-6 mx-auto my-auto'>
             Affiche:

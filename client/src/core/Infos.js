@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { getTicketTypes } from '../apiFetching';
 
 const Infos = () => {
-  // const [ticketTypes, setTicketTypes] = useState([]);
+  const [ticketTypes, setTicketTypes] = useState([]);
 
-  // const loadTicketTypes = () => {
-  //   getTicketTypes().then((data) => {
-  //     setTicketTypes(data);
-  //   });
-  // };
+  const loadTicketTypes = () => {
+    getTicketTypes().then((data) => {
+      setTicketTypes(data);
+    });
+  };
+
+  useEffect(() => {
+    loadTicketTypes();
+  }, []);
 
   return (
     <div className='container text-white my-5 mx-auto px-4 md:px-12'>
@@ -35,19 +40,15 @@ const Infos = () => {
       </p>
 
       <h1 className='text-3xl font-semibold pt-2'>Tarifs</h1>
-      <h3 className='pt-4 text-xl'>-Tarif étudiant: 7,50€</h3>
-      <p>
-        Pour les étudiants de moins de 26ans sur présentation de la carte
-        étudiante
-      </p>
-
-      <h3 className='pt-4 text-xl'>-Tarif réduit: 6,90€</h3>
-      <p>
-        Pour les personnes de moins de 14ans sur présentation d'une pièce
-        d'identité
-      </p>
-
-      <h3 className='pt-4 text-xl'>-Plein Tarif: 9,00€</h3>
+      {ticketTypes &&
+        ticketTypes.map((ticketType, index) => (
+          <div key={index}>
+            <h3 className='pt-4 text-xl'>
+              -{ticketType.name}: {ticketType.price} €
+            </h3>
+            <p>{ticketType.description}</p>{' '}
+          </div>
+        ))}
     </div>
   );
 };

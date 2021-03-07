@@ -46,7 +46,7 @@ const AdminDashoard = () => {
         Vous pouvez gérer votre planning de programmation mais aussi ajouter ou
         supprimer des films, salles, tarifs.
       </p>
-      <div className='grid lg:grid-cols-9 grid-cols-1 gap-4 my-6'>
+      <div className='grid lg:grid-cols-9 md:grid-cols-3 grid-cols-1 gap-4 my-6'>
         <div className=' bg-white text-red-500 hover:bg-red-500 hover:text-white mx-auto rounded-3xl py-7 lg:col-start-4'>
           <Link to='/movieList'>
             <h1 className='w-32 text-2xl font-semibold text-center'>

@@ -24,7 +24,7 @@ const HomeScreen = () => {
         <div className='container my-5 mx-auto px-4 md:px-12'>
           <div className='grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-4'>
             {movies.map((movie, index) =>
-              movie.availability === 'on screen' ? (
+              movie.availability === "A l'affiche" ? (
                 <MovieCard movie={movie} key={index} />
               ) : null
             )}
@@ -38,7 +38,7 @@ const HomeScreen = () => {
         <div className='container my-5 mx-auto px-4 md:px-12'>
           <div className='grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-4'>
             {movies.map((movie, index) =>
-              movie.availability === 'new' ? (
+              movie.availability === 'Nouveauté' ? (
                 <MovieCard movie={movie} key={index} />
               ) : null
             )}
