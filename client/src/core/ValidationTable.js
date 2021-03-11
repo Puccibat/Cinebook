@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { getTicketTypes } from '../api/apiTicketType';
-import { OrderStepEnum } from '../Models/OrderStepEnum';
 
 const ValidationTable = ({
   sessionSelected,
@@ -13,6 +12,12 @@ const ValidationTable = ({
       ticketsOrder.push({ key: i, ticketId: null });
     }
     return ticketsOrder;
+  };
+
+  const OrderStepEnum = {
+    session: 'session',
+    price: 'price',
+    order: 'order',
   };
 
   const [ticketTypes, setTicketTypes] = useState([]);

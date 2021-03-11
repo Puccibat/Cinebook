@@ -9,10 +9,14 @@ import {
   formatDate,
 } from '../commun/communDate';
 import ValidationTable from './ValidationTable';
-import { OrderStepEnum } from '../Models/OrderStepEnum';
 import CheckoutForm from './CheckoutForm';
 
 const SessionMovie = ({ match }) => {
+  const OrderStepEnum = {
+    session: 'session',
+    price: 'price',
+    order: 'order',
+  };
   const [movieItem, setMovieItem] = useState({});
   const [orderStep, setOrderStep] = useState(OrderStepEnum.session);
   const [orderBilling, setOrderBilling] = useState(OrderStepEnum.session);
