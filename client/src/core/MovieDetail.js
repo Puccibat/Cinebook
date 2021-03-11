@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getMovieById } from '../apiFetching';
+import { getMovieById } from '../api/apiMovie';
 
 const MovieDetail = ({ match }) => {
   const [movieItem, setMovieItem] = useState({});

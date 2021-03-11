@@ -1,5 +1,5 @@
-const { isAuth } = require('../auth/ApiAuth');
-const API = require('../config');
+const { isAuth } = require('./ApiAuth');
+const API = require('./config');
 const axios = require('axios');
 
 exports.createOrderAsync = async (newOrder) => {

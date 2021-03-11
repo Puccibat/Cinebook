@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { removeTicketType } from '../apiFetching';
-import { isAuth } from '../auth/ApiAuth';
+import { removeTicketType } from '../api/apiTicketType';
+import { isAuth } from '../api/ApiAuth';
 
 const TicketTypeCard = ({ ticketType, deleteTicketType }) => {
   const { token } = isAuth();

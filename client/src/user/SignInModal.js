@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { signin, authenticate } from '../auth/ApiAuth';
+import { signin, authenticate } from '../api/ApiAuth';
 import { Link } from 'react-router-dom';
 
 const SignInModal = ({ showModal, setShowModal, setIsLogged }) => {

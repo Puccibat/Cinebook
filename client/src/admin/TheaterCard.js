@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { removeTheater } from '../apiFetching';
-import { isAuth } from '../auth/ApiAuth';
+import { removeTheater } from '../api/apiTheater';
+import { isAuth } from '../api/ApiAuth';
 
 const TheaterCard = ({ theater, deleteTheater }) => {
   const { token } = isAuth();

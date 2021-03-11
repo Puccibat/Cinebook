@@ -1,6 +1,6 @@
 import React from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
-import { createOrderAsync } from '../api/order';
+import { createOrderAsync } from '../api/apiOrder';
 
 const CheckoutForm = ({ orderBilling }) => {
   const stripe = useStripe();

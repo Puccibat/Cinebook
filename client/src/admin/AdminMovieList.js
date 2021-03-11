@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { getMovies } from '../apiFetching';
+import { getMovies } from '../api/apiMovie';
 import AdminMovieCard from './AdminMovieCard';
 
 const AdminMovieList = () => {

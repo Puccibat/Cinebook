@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {
-  updateTheater,
-  uploadFileHandler,
-  getTheaterById,
-} from '../apiFetching';
-import { isAuth } from '../auth/ApiAuth';
+import { updateTheater, getTheaterById } from '../api/apiTheater';
+import { uploadFileHandler } from '../api/apiUpload';
+import { isAuth } from '../api/ApiAuth';
 
 const UpdateTheater = ({ match }) => {
   const { token } = isAuth();

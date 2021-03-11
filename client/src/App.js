@@ -16,7 +16,7 @@ import NewMovies from './core/NewMovies';
 import SessionMovie from './core/SessionMovie';
 import MyProfile from './user/MyProfile';
 import Register from './user/Register';
-import { isAuth } from './auth/ApiAuth';
+import { isAuth } from './api/ApiAuth';
 import AddMovie from './admin/AddMovie';
 import AddTheater from './admin/AddTheater';
 import AddTicketType from './admin/AddTicketType';
@@ -72,14 +72,6 @@ function App() {
         <Route path='/register' exact component={Register} />
         <Route path='/registered' exact component={Registered} />
 
-        <Elements stripe={stripePromise}>
-          <Route
-            path='/movie/:movieId/session'
-            exact
-            component={SessionMovie}
-          />
-        </Elements>
-
         <PrivateRoute path='/profil' exact component={MyProfile} />
         <AdminRoute path='/adminDashboard' exact component={AdminDashoard} />
         <AdminRoute path='/movieList' exact component={AdminMovieList} />
@@ -111,6 +103,13 @@ function App() {
         <AdminRoute path='/addSession' exact component={AddSession} />
         <AdminRoute path='/ticketTypeList' exact component={TicketTypeList} />
         <AdminRoute path='/sessionList' exact component={SessionList} />
+        <Elements stripe={stripePromise}>
+          <Route
+            path='/movie/:movieId/session'
+            exact
+            component={SessionMovie}
+          />
+        </Elements>
       </Switch>
       <Footer />
     </Router>

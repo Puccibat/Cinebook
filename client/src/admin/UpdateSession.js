@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {
-  updateSession,
-  getSessionById,
-  getMovies,
-  getTheaters,
-} from '../apiFetching';
-import { isAuth } from '../auth/ApiAuth';
+import { updateSession, getSessionById } from '../api/apiSession';
+import { getMovies } from '../api/apiMovie';
+import { getTheaters } from '../api/apiTheater';
+import { isAuth } from '../api/ApiAuth';
 
 const UpdateSession = ({ match }) => {
   const { token } = isAuth();

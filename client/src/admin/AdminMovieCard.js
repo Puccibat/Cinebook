@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { removeMovie } from '../apiFetching';
-import { isAuth } from '../auth/ApiAuth';
+import { removeMovie } from '../api/apiMovie';
+import { isAuth } from '../api/ApiAuth';
 
 const AdminMovieCard = ({ movie, deletedMovies }) => {
   const { token } = isAuth();

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { isAuth } from '../auth/ApiAuth';
+import { isAuth } from '../api/ApiAuth';
 
 const Dropdown = ({ isOpen, toggle }) => {
   return (

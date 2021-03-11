@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { updateTicketType, getTicketTypeById } from '../apiFetching';
-import { isAuth } from '../auth/ApiAuth';
+import { updateTicketType, getTicketTypeById } from '../api/apiTicketType';
+import { isAuth } from '../api/ApiAuth';
 
 const UpdateTicketType = ({ match }) => {
   const { token } = isAuth();

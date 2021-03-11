@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SignInModal from '../user/SignInModal';
-import { isAuth, signout } from '../auth/ApiAuth';
+import { isAuth, signout } from '../api/ApiAuth';
 import Navbar from './Navbar';
 import Dropdown from './Dropdown';
 import AdminNavbar from '../admin/AdminNavbar';

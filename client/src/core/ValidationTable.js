@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getTicketTypes } from '../apiFetching';
+import { getTicketTypes } from '../api/apiTicketType';
 import { OrderStepEnum } from '../Models/OrderStepEnum';
 
 const ValidationTable = ({

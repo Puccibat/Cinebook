@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { updateMovie, uploadFileHandler, getMovieById } from '../apiFetching';
-import { isAuth } from '../auth/ApiAuth';
+import { updateMovie, getMovieById } from '../api/apiMovie';
+import { uploadFileHandler } from '../api/apiUpload';
+import { isAuth } from '../api/ApiAuth';
 
 const UpdateMovie = ({ match }) => {
   const { token } = isAuth();

@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { getMovieById, getSessions } from '../apiFetching';
+import { getMovieById } from '../api/apiMovie';
+import { getSessions } from '../api/apiSession';
 import {
   getEndDateOfWeek,
   getFirstDateOfWeek,

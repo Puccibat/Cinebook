@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { getTheaters } from '../apiFetching';
+import { getTheaters } from '../api/apiTheater';
 import TheaterCard from './TheaterCard';
 
 const TheaterList = () => {

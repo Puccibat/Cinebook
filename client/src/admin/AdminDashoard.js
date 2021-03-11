@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getMovies, getTheaters, getTicketTypes } from '../apiFetching';
+import { getMovies } from '../api/apiMovie';
+import { getTheaters } from '../api/apiTheater';
+import { getTicketTypes } from '../api/apiTicketType';
 
 const AdminDashoard = () => {
   const [movies, setMovies] = useState([]);

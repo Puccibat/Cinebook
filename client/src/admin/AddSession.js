@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { createSession, getMovies, getTheaters } from '../apiFetching';
-import { isAuth } from '../auth/ApiAuth';
+import { getMovies } from '../api/apiMovie';
+import { createSession } from '../api/apiSession';
+import { getTheaters } from '../api/apiTheater';
+import { isAuth } from '../api/ApiAuth';
 
 const AddSession = () => {
   const { token } = isAuth();

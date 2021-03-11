@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { removeSession } from '../apiFetching';
-import { isAuth } from '../auth/ApiAuth';
+import { removeSession } from '../api/apiSession';
+import { isAuth } from '../api/ApiAuth';
 
 const SessionCard = ({ session, deleteSession, formatDate }) => {
   const { token } = isAuth();

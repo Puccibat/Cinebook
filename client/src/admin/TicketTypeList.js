@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { getTicketTypes } from '../apiFetching';
+import { getTicketTypes } from '../api/apiTicketType';
 import TicketTypeCard from './TicketTypeCard';
 
 const TicketTypeList = () => {

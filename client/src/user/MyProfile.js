@@ -1,5 +1,5 @@
 import React from 'react';
-import { isAuth } from '../auth/ApiAuth';
+import { isAuth } from '../api/ApiAuth';
 
 const MyProfile = () => {
   const { user } = isAuth();
