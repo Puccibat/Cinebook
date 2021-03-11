@@ -1,4 +1,3 @@
-const { required } = require('joi');
 const Movie = require('../model/Movie');
 const { getSessionsByMovieId } = require('./session');
 

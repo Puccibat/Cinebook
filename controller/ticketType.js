@@ -1,5 +1,4 @@
 const TicketType = require('../model/TicketType');
-const { updateMovie } = require('./movie');
 
 //Ticket type by ID
 const readTicketTypeById = async (req, res) => {

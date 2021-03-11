@@ -1,6 +1,6 @@
 const Theater = require('../model/Theater');
 
-//Movie by ID
+//Theater by ID
 const readTheaterById = async (req, res) => {
   try {
     const theater = await Theater.findById(req.params.id);

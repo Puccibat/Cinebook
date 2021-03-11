@@ -2,7 +2,7 @@ const User = require('../model/User');
 const { getUserById } = require('../controller/user');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { signupValidation, signinValidation } = require('../validation');
+const { signupValidation, signinValidation } = require('./validation');
 
 //Register a new user
 const signup = async (req, res) => {
