@@ -1,5 +1,5 @@
 const User = require('../model/User');
-const UserService = require('../service/userService');
+const { getUserById } = require('../controller/user');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { signupValidation, signinValidation } = require('../validation');
@@ -105,7 +105,7 @@ const isAuth = (req, res, next) => {
 //Admin connection
 const isAdmin = async (req, res, next) => {
   try {
-    const user = await UserService.getUserById(req.user._id);
+    const user = await getUserById(req.user._id);
 
     if (user.role === 0) {
       return res.status(403).json({

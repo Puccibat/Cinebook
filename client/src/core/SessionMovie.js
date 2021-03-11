@@ -7,7 +7,7 @@ import {
   getSessionNextWeek,
   getSessionPreviousWeek,
   formatDate,
-} from '../commun/communDate';
+} from '../common/commonDate';
 import ValidationTable from './ValidationTable';
 import CheckoutForm from './CheckoutForm';
 

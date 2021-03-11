@@ -9,7 +9,7 @@ import {
   getEndDateOfWeek,
   getFirstDateOfWeek,
   formatDate,
-} from '../commun/communDate';
+} from '../common/commonDate';
 
 const SessionList = () => {
   const [sessions, setSessions] = useState([]);
