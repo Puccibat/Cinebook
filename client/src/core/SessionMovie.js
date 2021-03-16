@@ -171,7 +171,7 @@ const SessionMovie = ({ match }) => {
   };
 
   const selectOrder = () => {
-    return <CheckoutForm orderBilling={orderBilling.order} />;
+    return <CheckoutForm orderBilling={orderBilling} />;
   };
   return (
     <div className='container my-5 mx-auto px-4 md:px-12'>

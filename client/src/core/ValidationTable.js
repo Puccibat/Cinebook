@@ -14,6 +14,8 @@ const ValidationTable = ({
     return ticketsOrder;
   };
 
+  let totalPrices = 0;
+
   const OrderStepEnum = {
     session: 'session',
     price: 'price',
@@ -57,6 +59,7 @@ const ValidationTable = ({
     if (verifOrderValide()) {
       setOrderBilling({
         order,
+        totalPrices,
       });
       orderStepAction(OrderStepEnum.order);
     }
@@ -103,8 +106,6 @@ const ValidationTable = ({
   };
 
   const getTotalPrices = () => {
-    let totalPrices = 0;
-
     order.tickets.forEach((ticket, i) => {
       totalPrices += getPriceByPlaceIndex(i) ?? 0;
     });

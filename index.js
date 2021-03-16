@@ -5,6 +5,9 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
+dotenv.config();
+const Stripe = require('stripe');
+const stripe = new Stripe(process.env.STRIPE_CLIENT_SECRET);
 
 //Import Routes
 const authRoute = require('./routes/auth');
@@ -15,8 +18,6 @@ const ticketTypeRoute = require('./routes/ticketType');
 const sessionRoute = require('./routes/session');
 const uploadRoute = require('./routes/upload');
 const orderRoute = require('./routes/order');
-
-dotenv.config();
 
 //DB connection
 mongoose.connect(
@@ -50,6 +51,28 @@ app.use('/api', ticketTypeRoute);
 app.use('/api', sessionRoute);
 app.use('/api', uploadRoute);
 app.use('/api', orderRoute);
+
+//Payment
+app.post('/api/payment', cors(), async (req, res) => {
+  const { amount, id } = req.body;
+  try {
+    const payment = await stripe.paymentIntents.create({
+      amount,
+      currency: 'eur',
+      description: 'Payement Cinebook',
+      payment_method: id,
+      confirm: true,
+    });
+    console.log('Payment', payment);
+    res.json({
+      message: 'Payment successful',
+      success: true,
+    });
+  } catch (err) {
+    console.log('Error', err);
+    res.json({ message: 'Payment failed', success: false });
+  }
+});
 
 const port = process.env.PORT || 8000;
 
