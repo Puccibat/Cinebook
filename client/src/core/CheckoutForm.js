@@ -105,7 +105,7 @@ const CheckoutForm = ({ orderBilling }) => {
 
             <button
               type='submit'
-              className='rounded-md py-2 px-4 col-start-5 row-start-6 bg-red-500 focus:outline-none'
+              className='rounded-md py-4 px-6 col-start-5 row-start-6 font-semibold text-white bg-red-500 focus:outline-none'
               disabled={isProcessing || !stripe}
             >
               {isProcessing
@@ -115,8 +115,10 @@ const CheckoutForm = ({ orderBilling }) => {
           </div>
         </form>
       ) : (
-        <div className=''>
-          <h1>Merci pour le payement</h1>
+        <div className='grid grid-cols-3 '>
+          <h1 className='col-start-2 font-semibold text-3xl text-white mx-auto h-16'>
+            Merci pour le paiement !
+          </h1>
         </div>
       )}
     </>
