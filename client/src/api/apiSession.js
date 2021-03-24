@@ -1,7 +1,7 @@
 const API = require('./config');
 const axios = require('axios');
 
-exports.getSessions = async (sessionFilters) => {
+export const getSessions = async (sessionFilters) => {
   try {
     const config = {
       headers: {
@@ -23,7 +23,7 @@ exports.getSessions = async (sessionFilters) => {
   }
 };
 
-exports.getSessionById = async (sessionId) => {
+export const getSessionById = async (sessionId) => {
   try {
     const config = {
       headers: {
@@ -40,7 +40,7 @@ exports.getSessionById = async (sessionId) => {
   }
 };
 
-exports.createSession = async (token, session) => {
+export const createSession = async (token, session) => {
   try {
     const config = {
       headers: {
@@ -61,7 +61,7 @@ exports.createSession = async (token, session) => {
   }
 };
 
-exports.removeSession = async (sessionId, token) => {
+export const removeSession = async (sessionId, token) => {
   try {
     const config = {
       headers: {
@@ -79,7 +79,7 @@ exports.removeSession = async (sessionId, token) => {
   }
 };
 
-exports.updateSession = async (token, sessionId, session) => {
+export const updateSession = async (token, sessionId, session) => {
   try {
     const config = {
       headers: {

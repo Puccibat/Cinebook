@@ -2,7 +2,7 @@ const { isAuth } = require('./ApiAuth');
 const API = require('./config');
 const axios = require('axios');
 
-exports.createOrderAsync = async (newOrder) => {
+export const createOrderAsync = async (newOrder) => {
   const { token } = isAuth();
   try {
     const config = {

@@ -1,7 +1,7 @@
 const API = require('./config');
 const axios = require('axios');
 
-exports.uploadFileHandler = async (token, file) => {
+export const uploadFileHandler = async (token, file) => {
   const formData = new FormData();
   formData.append('image', file);
 

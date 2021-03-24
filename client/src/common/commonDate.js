@@ -1,4 +1,4 @@
-exports.getFirstDateOfWeek = (currentDate) => {
+export const getFirstDateOfWeek = (currentDate) => {
   const currentDay = currentDate.getDay();
   let numberOfDay = 0;
 
@@ -13,7 +13,7 @@ exports.getFirstDateOfWeek = (currentDate) => {
   return dateNextWeek;
 };
 
-exports.getEndDateOfWeek = (currentDate) => {
+export const getEndDateOfWeek = (currentDate) => {
   const currentDay = currentDate.getDay();
   let numberOfDay = 0;
 
@@ -28,7 +28,7 @@ exports.getEndDateOfWeek = (currentDate) => {
   return dateNextWeek;
 };
 
-exports.getSessionNextWeek = (
+export const getSessionNextWeek = (
   setCurrentWeek,
   getEndDateOfWeek,
   currentWeek
@@ -43,7 +43,7 @@ exports.getSessionNextWeek = (
   setCurrentWeek(specificWeek);
 };
 
-exports.getSessionPreviousWeek = (setCurrentWeek, currentWeek) => {
+export const getSessionPreviousWeek = (setCurrentWeek, currentWeek) => {
   let endDayOfCurrentWeek = new Date(currentWeek.beginDate);
   endDayOfCurrentWeek.setDate(currentWeek.beginDate.getDate() - 1);
 
@@ -57,7 +57,7 @@ exports.getSessionPreviousWeek = (setCurrentWeek, currentWeek) => {
   setCurrentWeek(specificWeek);
 };
 
-exports.formatDate = (date) => {
+export const formatDate = (date) => {
   const month =
     date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
 

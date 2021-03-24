@@ -1,7 +1,7 @@
 const API = require('./config');
 const axios = require('axios');
 
-exports.getTheaters = async () => {
+export const getTheaters = async () => {
   try {
     const config = {
       headers: {
@@ -18,7 +18,7 @@ exports.getTheaters = async () => {
   }
 };
 
-exports.getTheaterById = async (theaterId) => {
+export const getTheaterById = async (theaterId) => {
   try {
     const config = {
       headers: {
@@ -35,7 +35,7 @@ exports.getTheaterById = async (theaterId) => {
   }
 };
 
-exports.createTheater = async (token, theater) => {
+export const createTheater = async (token, theater) => {
   try {
     const config = {
       headers: {
@@ -58,7 +58,7 @@ exports.createTheater = async (token, theater) => {
   }
 };
 
-exports.removeTheater = async (theaterId, token) => {
+export const removeTheater = async (theaterId, token) => {
   try {
     const config = {
       headers: {
@@ -76,7 +76,7 @@ exports.removeTheater = async (theaterId, token) => {
   }
 };
 
-exports.updateTheater = async (token, theaterId, theater) => {
+export const updateTheater = async (token, theaterId, theater) => {
   try {
     const config = {
       headers: {

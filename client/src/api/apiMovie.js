@@ -2,7 +2,7 @@ const API = require('./config');
 const axios = require('axios');
 
 //******************Movies requests********************
-exports.getMovies = async () => {
+export const getMovies = async () => {
   try {
     const config = {
       headers: {
@@ -19,7 +19,7 @@ exports.getMovies = async () => {
   }
 };
 
-exports.getMovieById = async (movieId) => {
+export const getMovieById = async (movieId) => {
   try {
     const config = {
       headers: {
@@ -36,7 +36,7 @@ exports.getMovieById = async (movieId) => {
   }
 };
 
-exports.createMovie = async (token, movie) => {
+export const createMovie = async (token, movie) => {
   try {
     const config = {
       headers: {
@@ -59,7 +59,7 @@ exports.createMovie = async (token, movie) => {
   }
 };
 
-exports.removeMovie = async (movieId, token) => {
+export const removeMovie = async (movieId, token) => {
   try {
     const config = {
       headers: {
@@ -77,7 +77,7 @@ exports.removeMovie = async (movieId, token) => {
   }
 };
 
-exports.updateMovie = async (token, movieId, movie) => {
+export const updateMovie = async (token, movieId, movie) => {
   try {
     const config = {
       headers: {

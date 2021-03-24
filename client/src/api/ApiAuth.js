@@ -1,7 +1,7 @@
 const API = require('./config');
 const axios = require('axios');
 
-exports.signup = async (user) => {
+export const signup = async (user) => {
   try {
     const config = {
       headers: {
@@ -23,7 +23,7 @@ exports.signup = async (user) => {
   }
 };
 
-exports.signin = async (user) => {
+export const signin = async (user) => {
   //console.log(name, email, password);
   try {
     const config = {
@@ -46,14 +46,14 @@ exports.signin = async (user) => {
   }
 };
 
-exports.authenticate = (data, next) => {
+export const authenticate = (data, next) => {
   if (typeof window !== 'undefined') {
     localStorage.setItem('jwt', JSON.stringify(data));
     next();
   }
 };
 
-exports.signout = () => {
+export const signout = () => {
   if (typeof window !== 'undefined') {
     localStorage.removeItem('jwt');
     // next();
@@ -67,7 +67,7 @@ exports.signout = () => {
   }
 };
 
-exports.isAuth = () => {
+export const isAuth = () => {
   if (typeof window == 'undefined') {
     return false;
   }

@@ -1,7 +1,7 @@
 const API = require('./config');
 const axios = require('axios');
 
-exports.getTicketTypes = async () => {
+export const getTicketTypes = async () => {
   try {
     const config = {
       headers: {
@@ -18,7 +18,7 @@ exports.getTicketTypes = async () => {
   }
 };
 
-exports.getTicketTypeById = async (ticketTypeId) => {
+export const getTicketTypeById = async (ticketTypeId) => {
   try {
     const config = {
       headers: {
@@ -38,7 +38,7 @@ exports.getTicketTypeById = async (ticketTypeId) => {
   }
 };
 
-exports.createTicketType = async (token, ticketType) => {
+export const createTicketType = async (token, ticketType) => {
   try {
     const config = {
       headers: {
@@ -61,7 +61,7 @@ exports.createTicketType = async (token, ticketType) => {
   }
 };
 
-exports.removeTicketType = async (ticketTypeId, token) => {
+export const removeTicketType = async (ticketTypeId, token) => {
   try {
     const config = {
       headers: {
@@ -82,7 +82,7 @@ exports.removeTicketType = async (ticketTypeId, token) => {
   }
 };
 
-exports.updateTicketType = async (token, ticketTypeId, ticketType) => {
+export const updateTicketType = async (token, ticketTypeId, ticketType) => {
   try {
     const config = {
       headers: {
