@@ -1,6 +1,6 @@
-const { isAuth } = require('./ApiAuth');
-const API = require('./config');
-const axios = require('axios');
+import { isAuth } from './ApiAuth';
+import axios from 'axios';
+import API from './config';
 
 export const createOrderAsync = async (newOrder) => {
   const { token } = isAuth();

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { createOrderAsync } from '../api/apiOrder';
-import { API } from '../api/config';
+import API from '../api/config';
 import axios from 'axios';
 
 const CheckoutForm = ({ orderBilling }) => {

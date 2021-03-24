@@ -1,5 +1,5 @@
-const API = require('./config');
-const axios = require('axios');
+import axios from 'axios';
+import API from './config';
 
 export const signup = async (user) => {
   try {
