@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { createOrderAsync } from '../api/apiOrder';
 import API from '../api/config';
@@ -114,10 +115,21 @@ const CheckoutForm = ({ orderBilling }) => {
           </div>
         </form>
       ) : (
-        <div className='grid grid-cols-3 '>
+        <div className='grid grid-cols-3 grid-rows-6 gap-2'>
           <h1 className='col-start-2 font-semibold text-3xl text-white mx-auto h-16'>
-            Merci pour le paiement !
+            Merci pour votre achat !
           </h1>
+          <h2 className='row-start-2 col-start-2 font-semibold text-xl text-white mx-auto'>
+            Vos places ont été envoyées à l'adresse suivante:{' '}
+            {credentials.email}
+          </h2>
+
+          <Link
+            to='/'
+            className='row-start-3 col-start-2 font-semibold text-lg text-white mx-auto'
+          >
+            Revenir à la page d'accueil
+          </Link>
         </div>
       )}
     </>

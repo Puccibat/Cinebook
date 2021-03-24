@@ -30,6 +30,15 @@ const createOrder = async (req, res) => {
     res.status(500).json('There is an error, please try again');
   }
 };
+
+const formatDate = (date) => {
+  const month =
+    date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
+
+  const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
+  return `${day}-${month}-${date.getFullYear()}`;
+};
+
 const sendEmailOrder = async (userName, userEmail, session) => {
   try {
     const mailjet = require('node-mailjet').connect(
@@ -51,7 +60,9 @@ const sendEmailOrder = async (userName, userEmail, session) => {
           ],
           Subject: 'Votre réservation',
           TextPart: 'Votre réservation pour la séance du ...',
-          HTMLPart: `<h3>Votre séance du ${session.date} à ${session.startTime} pour ${session.movie.title} est confirmée </h3>
+          HTMLPart: `<h3>Votre séance du ${formatDate(session.date)} à ${
+            session.startTime
+          } pour ${session.movie.title} est confirmée </h3>
             <br />
             May the delivery force be with you!`,
           CustomID: 'AppGettingStartedTest',
