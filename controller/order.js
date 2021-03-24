@@ -33,8 +33,8 @@ const createOrder = async (req, res) => {
 const sendEmailOrder = async (userName, userEmail, session) => {
   try {
     const mailjet = require('node-mailjet').connect(
-      '9a5b1d2b8e4ea022da16ac098086cd7d',
-      '6eaf7bec61978d77fb1b2751c943e768'
+      process.env.MAILJET_PUBLIC_KEY,
+      process.env.MAILJET_SECRET_KEY
     );
     const request = await mailjet.post('send', { version: 'v3.1' }).request({
       Messages: [
