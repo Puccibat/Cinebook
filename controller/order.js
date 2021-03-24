@@ -58,13 +58,26 @@ const sendEmailOrder = async (userName, userEmail, session) => {
               Name: userName,
             },
           ],
-          Subject: 'Votre réservation',
-          TextPart: 'Votre réservation pour la séance du ...',
-          HTMLPart: `<h3>Votre séance du ${formatDate(session.date)} à ${
+          Subject: `Votre réservation pour ${session.movie.title}`,
+          TextPart: 'Votre réservation',
+          HTMLPart: `
+          <h1>
+        Cinebook
+      </h1>
+            <img
+      src="https://cdn.pixabay.com/photo/2017/11/24/10/43/admission-2974645_1280.jpg"
+      alt="image de tickets"
+      style="height: 60vh; width: 100%"
+    />
+    
+      <h1>
+        Merci pour votre achat et bon film !
+      </h1>
+      <h3>
+        Votre séance du ${formatDate(session.date)} à ${
             session.startTime
-          } pour ${session.movie.title} est confirmée </h3>
-            <br />
-            May the delivery force be with you!`,
+          } pour ${session.movie.title} est confirmée
+      </h3>`,
           CustomID: 'AppGettingStartedTest',
         },
       ],
