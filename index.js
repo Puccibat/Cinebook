@@ -18,6 +18,7 @@ const ticketTypeRoute = require('./routes/ticketType');
 const sessionRoute = require('./routes/session');
 const uploadRoute = require('./routes/upload');
 const orderRoute = require('./routes/order');
+const { EMSGSIZE } = require('constants');
 
 //DB connection
 mongoose.connect(
@@ -73,6 +74,14 @@ app.post('/api/payment', cors(), async (req, res) => {
     res.json({ message: 'Payment failed', success: false });
   }
 });
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
 const port = process.env.PORT || 8000;
 
