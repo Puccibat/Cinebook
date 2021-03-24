@@ -2,9 +2,7 @@ const Session = require('../model/Session');
 
 const sessionById = async (req, res) => {
   try {
-    const session = await Session.findById(req.params.sessionId)
-      .populate('movie')
-      .populate('theater');
+    const session = await getSessionById(req.params.sessionId);
     if (session) {
       res.json(session);
     } else {
@@ -12,6 +10,17 @@ const sessionById = async (req, res) => {
     }
   } catch (e) {
     res.status(500).json('There is an error, please try again');
+  }
+};
+
+const getSessionById = async (sessionId) => {
+  try {
+    return await Session.findById(sessionId)
+      .populate('movie')
+      .populate('theater');
+  } catch (e) {
+    console.error(e);
+    return null;
   }
 };
 
@@ -110,4 +119,5 @@ module.exports = {
   removeSession,
   listSessions,
   getSessionsByMovieId,
+  getSessionById,
 };

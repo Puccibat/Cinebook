@@ -12,7 +12,9 @@ const AdminMovieCard = ({ movie, deletedMovies }) => {
     if (result === movieId) {
       deletedMovies(result);
     } else {
-      alert('error');
+      alert(
+        "Vous devez d'abord supprimer les séances de ce film pour pouvoir le supprimer"
+      );
     }
   };
 

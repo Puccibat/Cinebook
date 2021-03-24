@@ -38,13 +38,12 @@ const CheckoutForm = ({ orderBilling }) => {
         });
 
         if (response.data.success) {
-          console.log('Successful payment');
           setSuccess(true);
           const newOrder = {
             tickets: orderBilling.order.tickets.map(
               (ticket) => ticket.ticketId
             ),
-            session: orderBilling.order.session._id,
+            sessionId: orderBilling.order.session._id,
             totalPrice: orderBilling.totalPrices,
             transactionId: paymentMethod.id,
             clientEmail: credentials.email,
