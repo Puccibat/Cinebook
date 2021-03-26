@@ -24,7 +24,6 @@ export const signup = async (user) => {
 };
 
 export const signin = async (user) => {
-  //console.log(name, email, password);
   try {
     const config = {
       headers: {
@@ -56,7 +55,6 @@ export const authenticate = (data, next) => {
 export const signout = () => {
   if (typeof window !== 'undefined') {
     localStorage.removeItem('jwt');
-    // next();
     return fetch(`${API}/signout`, {
       method: 'GET',
     })

@@ -7,12 +7,7 @@ import { isAuth } from '../api/ApiAuth';
 const UpdateTicketType = ({ match }) => {
   const { token } = isAuth();
 
-  const initialTicketTypeState = {
-    name: '',
-    price: '',
-    description: '',
-  };
-  const [ticketType, setTicketType] = useState(initialTicketTypeState);
+  const [ticketType, setTicketType] = useState('');
 
   const [loadTicketType, setLoadTicketType] = useState(true);
 
@@ -30,7 +25,8 @@ const UpdateTicketType = ({ match }) => {
       .catch();
   }
 
-  const saveTicketType = async () => {
+  const saveTicketType = async (event) => {
+    event.preventDefault();
     const data = {
       name: ticketType.name,
       price: ticketType.price,
@@ -48,7 +44,6 @@ const UpdateTicketType = ({ match }) => {
         style: { backgroundColor: 'rgba(239, 68, 68)', color: '#fff' },
         position: toast.POSITION.TOP_CENTER,
       });
-      setTicketType(initialTicketTypeState);
     } else {
       toast('Une erreur est survenue, veuillez recommencer', {
         draggable: true,
@@ -64,54 +59,58 @@ const UpdateTicketType = ({ match }) => {
         Modifiez votre tarif
       </h1>
 
-      <div>
-        <div className='grid grid-cols-2 pt-4 '>
-          <label className='text-2xl font-semibold pt-6 mx-auto'>
+      <form onSubmit={saveTicketType}>
+        <div className='grid grid-cols-4 gap-2 pt-4 '>
+          <label className='text-2xl font-semibold col-start-2 my-auto'>
             Nom du tarif:
           </label>
           <input
+            required
             type='text'
             onChange={handleInputChange}
             value={ticketType.name}
             name='name'
             placeholder='Ex: Salle 3'
-            className='w-64 p-2 rounded text-gray-900 h-10 my-auto'
+            className='p-2 rounded text-gray-900'
           />
 
-          <label className='text-2xl font-semibold pt-6 mx-auto'>
+          <label className='text-2xl font-semibold col-start-2 my-auto'>
             Prix du tarif:
           </label>
           <input
+            required
             type='number'
+            min='1'
             onChange={handleInputChange}
             value={ticketType.price}
             name='price'
             placeholder='Ex: La 6ème aventure des Avengers...'
-            className='w-64 p-2 rounded text-gray-900 h-10 my-auto'
+            className='p-2 rounded text-gray-900'
           />
 
-          <label className='text-2xl font-semibold pt-6 mx-auto'>
+          <label className='text-2xl font-semibold col-start-2 my-auto'>
             Description du tarif:
           </label>
-          <input
+          <textarea
+            required
             type='text'
             onChange={handleInputChange}
             value={ticketType.description}
             name='description'
             placeholder='Ex: Salle 3'
-            className='w-64 p-2 rounded text-gray-900 h-10 my-auto'
+            className='p-2 rounded text-gray-900 h-20'
           />
         </div>
         <div className='text-center'>
           <button
-            onClick={saveTicketType}
+            type='submit'
             className='rounded-md mt-6 py-2 px-4 text-gray-100 bg-red-500 hover:bg-white hover:text-red-500 focus:outline-none'
           >
             Valider
           </button>
           <ToastContainer />
         </div>
-      </div>
+      </form>
     </div>
   );
 };

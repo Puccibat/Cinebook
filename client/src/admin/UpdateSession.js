@@ -8,14 +8,7 @@ import { isAuth } from '../api/ApiAuth';
 
 const UpdateSession = ({ match }) => {
   const { token } = isAuth();
-  const initialSessionState = {
-    movie: {},
-    theater: {},
-    date: '',
-    startTime: '',
-    endTime: '',
-  };
-  const [session, setSession] = useState(initialSessionState);
+  const [session, setSession] = useState('');
   const [movies, setMovies] = useState([]);
   const [theaters, setTheaters] = useState([]);
 
@@ -66,7 +59,8 @@ const UpdateSession = ({ match }) => {
     return `${date.getFullYear()}-${month}-${day}`;
   };
 
-  const saveSession = async () => {
+  const saveSession = async (event) => {
+    event.preventDefault();
     const data = {
       movie: session.movie,
       theater: session.theater,
@@ -86,7 +80,6 @@ const UpdateSession = ({ match }) => {
         style: { backgroundColor: 'rgba(239, 68, 68)', color: '#fff' },
         position: toast.POSITION.TOP_CENTER,
       });
-      setSession(initialSessionState);
     } else {
       toast('Une erreur est survenue, veuillez recommencer', {
         draggable: true,
@@ -101,14 +94,17 @@ const UpdateSession = ({ match }) => {
         Modifiez votre séance
       </h1>
 
-      <div>
-        <div className='grid grid-cols-2 pt-4 '>
-          <label className='text-2xl font-semibold pt-6 mx-auto'>Film:</label>
+      <form onSubmit={saveSession}>
+        <div className='grid grid-cols-4 gap-2 pt-4 '>
+          <label className='text-2xl font-semibold col-start-2 my-auto'>
+            Film:
+          </label>
           <select
+            required
             onChange={handleInputChange}
             value={session.movie?._id}
             name='movie'
-            className='w-64 p-2 rounded text-gray-900 h-10 my-auto'
+            className='p-2 rounded text-gray-900'
           >
             <option>Sélectionnez un film</option>
             {movies &&
@@ -119,12 +115,15 @@ const UpdateSession = ({ match }) => {
               ))}
           </select>
 
-          <label className='text-2xl font-semibold pt-6 mx-auto'>Salle:</label>
+          <label className='text-2xl font-semibold col-start-2 my-auto'>
+            Salle:
+          </label>
           <select
+            required
             onChange={handleInputChange}
             value={session.theater?._id}
             name='theater'
-            className='w-64 p-2 rounded text-gray-900 h-10 my-auto'
+            className='p-2 rounded text-gray-900'
           >
             <option>Sélectionnez une salle</option>
             {theaters &&
@@ -135,50 +134,55 @@ const UpdateSession = ({ match }) => {
               ))}
           </select>
 
-          <label className='text-2xl font-semibold pt-6 mx-auto'>Date:</label>
+          <label className='text-2xl font-semibold col-start-2 my-auto'>
+            Date:
+          </label>
           <input
+            required
             type='date'
             onChange={handleInputChange}
             value={getFormatDateToString(session.date)}
             name='date'
-            placeholder='Ex: 120'
-            className='w-64 p-2 rounded text-gray-900 h-10 my-auto'
+            placeholder='Ex: 24/04'
+            className='p-2 rounded text-gray-900'
           />
 
-          <label className='text-2xl font-semibold pt-6 mx-auto'>
+          <label className='text-2xl font-semibold col-start-2 my-auto'>
             Heure de début:
           </label>
           <input
+            required
             type='time'
             onChange={handleInputChange}
             value={session.startTime}
             name='startTime'
-            placeholder='Ex: Christoper Nolan'
-            className='w-64 p-2 rounded text-gray-900 h-10 my-auto'
+            placeholder='Ex: 12:00'
+            className='p-2 rounded text-gray-900'
           />
 
-          <label className='text-2xl font-semibold pt-6 mx-auto'>
+          <label className='text-2xl font-semibold col-start-2 my-auto'>
             Heure de fin:
           </label>
           <input
+            required
             type='time'
             onChange={handleInputChange}
             value={session.endTime}
             name='endTime'
-            placeholder='Ex: Scarlett Johansson, Bruce Willis, ...'
-            className='w-64 p-2 rounded text-gray-900 h-10 my-auto'
+            placeholder='Ex: 14:00'
+            className='p-2 rounded text-gray-900'
           />
         </div>
         <div className='text-center'>
           <button
-            onClick={saveSession}
+            type='submit'
             className='rounded-md mt-6 py-2 px-4 text-gray-100 bg-red-500 hover:bg-white hover:text-red-500 focus:outline-none'
           >
             Valider
           </button>
           <ToastContainer />
         </div>
-      </div>
+      </form>
     </div>
   );
 };

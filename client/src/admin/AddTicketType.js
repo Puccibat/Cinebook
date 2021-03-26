@@ -19,7 +19,8 @@ const AddTicketType = () => {
     setTicketType({ ...ticketType, [name]: value });
   };
 
-  const saveTicketType = async () => {
+  const saveTicketType = async (event) => {
+    event.preventDefault();
     const data = {
       name: ticketType.name,
       price: ticketType.price,
@@ -47,54 +48,58 @@ const AddTicketType = () => {
     <div className='container text-white my-5 mx-auto px-4 md:px-12'>
       <h1 className='text-4xl text-center font-semibold'>Ajoutez un film</h1>
 
-      <div>
-        <div className='grid grid-cols-2 pt-4 '>
-          <label className='text-2xl font-semibold pt-6 mx-auto'>
+      <form onSubmit={saveTicketType}>
+        <div className='grid grid-cols-4 pt-4 gap-2'>
+          <label className='text-2xl font-semibold col-start-2 my-auto'>
             Libellé du tarif:
           </label>
           <input
+            required
             type='text'
             onChange={handleInputChange}
             value={ticketType.name}
             name='name'
             placeholder='Ex: Tarif réduit'
-            className='w-64 p-2 rounded text-gray-900 h-10 my-auto'
+            className='p-2 rounded text-gray-900'
           />
 
-          <label className='text-2xl font-semibold pt-6 mx-auto'>
+          <label className='text-2xl font-semibold col-start-2 my-auto'>
             Prix du tarif:
           </label>
           <input
+            required
+            min='1'
             type='number'
             onChange={handleInputChange}
             value={ticketType.price}
             name='price'
             placeholder='Ex: 4,50'
-            className='w-64 p-2 rounded text-gray-900 h-10 my-auto'
+            className='p-2 rounded text-gray-900'
           />
 
-          <label className='text-2xl font-semibold pt-6 mx-auto'>
+          <label className='text-2xl font-semibold col-start-2 my-auto'>
             Description du tarif:
           </label>
           <input
+            required
             type='text'
             onChange={handleInputChange}
             value={ticketType.description}
             name='description'
             placeholder='Ex: Tarif élligible pour les enfants de moins de 12 ans...'
-            className='w-64 p-2 rounded text-gray-900 h-10 my-auto'
+            className='p-2 rounded text-gray-900'
           />
         </div>
         <div className='text-center'>
           <button
-            onClick={saveTicketType}
+            type='submit'
             className='rounded-md mt-6 py-2 px-4 text-gray-100 bg-red-500 hover:bg-white hover:text-red-500 focus:outline-none'
           >
             Valider
           </button>
           <ToastContainer />
         </div>
-      </div>
+      </form>
     </div>
   );
 };

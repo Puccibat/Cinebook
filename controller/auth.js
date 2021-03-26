@@ -26,7 +26,6 @@ const signup = async (req, res) => {
       userName: req.body.userName,
       password: hashedPassword,
     });
-    console.log('after create user', user);
     const savedUser = await user.save();
     savedUser.password;
     res.status(201).json(savedUser);

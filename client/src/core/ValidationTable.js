@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getTicketTypes } from '../api/apiTicketType';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ValidationTable = ({
   sessionSelected,
@@ -71,6 +73,11 @@ const ValidationTable = ({
       const currentTicketPrice = getPriceByPlaceIndex(i);
       if (!currentTicketPrice) {
         valideOrder = false;
+        toast('Veuillez sélectionner un tarif avant de valider', {
+          draggable: true,
+          style: { backgroundColor: 'rgba(239, 68, 68)', color: '#fff' },
+          position: toast.POSITION.TOP_CENTER,
+        });
       }
     });
     return valideOrder;
@@ -84,6 +91,7 @@ const ValidationTable = ({
         <tr key={i}>
           <td className='border border-red-500 p-2'>
             <select
+              required
               onChange={(e) => handleInputChange(e, i)}
               value={ticketTypes.name}
               key={i}
@@ -143,6 +151,7 @@ const ValidationTable = ({
         >
           Valider
         </button>
+        <ToastContainer />
       </div>
     </div>
   );

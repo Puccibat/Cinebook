@@ -115,18 +115,18 @@ const CheckoutForm = ({ orderBilling }) => {
           </div>
         </form>
       ) : (
-        <div className='grid lg:grid-cols-3 grid-rows-3 gap-2'>
+        <div className='grid lg:grid-cols-3 gap-8'>
           <h1 className='col-start-2 font-semibold text-3xl text-white m-auto'>
             Merci pour votre achat !
           </h1>
-          <h2 className='row-start-2 col-start-2 font-semibold text-xl text-white m-auto'>
+          <h2 className='col-start-2 font-semibold text-xl text-white m-auto'>
             Vos places ont été envoyées à l'adresse suivante:{' '}
             {credentials.email}
           </h2>
 
           <Link
             to='/'
-            className='row-start-3 col-start-2 font-semibold text-lg text-white m-auto hover:text-red-500'
+            className='col-start-2 font-semibold text-lg m-auto text-red-500 underline'
           >
             Revenir à la page d'accueil
           </Link>

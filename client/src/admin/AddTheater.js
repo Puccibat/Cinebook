@@ -33,9 +33,9 @@ const AddTheater = () => {
       });
     };
   };
-  const saveTheater = async () => {
+  const saveTheater = async (event) => {
+    event.preventDefault();
     const urlImage = await uploadFileHandler(token, theater.imageFile);
-    console.log(urlImage);
     const data = {
       name: theater.name,
       seats: theater.seats,
@@ -63,59 +63,63 @@ const AddTheater = () => {
     <div className='container text-white my-5 mx-auto px-4 md:px-12'>
       <h1 className='text-4xl text-center font-semibold'>Ajoutez un film</h1>
 
-      <div>
-        <div className='grid grid-cols-2 pt-4 '>
-          <label className='text-2xl font-semibold pt-6 mx-auto'>
+      <form onSubmit={saveTheater}>
+        <div className='grid grid-cols-4 pt-4 gap-2'>
+          <label className='text-2xl font-semibold my-auto col-start-2'>
             Nom de la salle:
           </label>
           <input
+            required
             type='text'
             onChange={handleInputChange}
             value={theater.name}
             name='name'
             placeholder='Ex: Salle 3'
-            className='w-64 p-2 rounded text-gray-900 h-10 my-auto'
+            className='p-2 rounded text-gray-900'
           />
 
-          <label className='text-2xl font-semibold pt-6 mx-auto'>
+          <label className='text-2xl font-semibold col-start-2 my-auto'>
             Nombre de siège:
           </label>
           <input
+            required
+            min='1'
             type='number'
             onChange={handleInputChange}
             value={theater.seats}
             name='seats'
             placeholder='Ex: 120'
-            className='w-64 p-2 rounded text-gray-900 h-10 my-auto'
+            className='p-2 rounded text-gray-900'
           />
-          <label className='text-2xl font-semibold pt-6 mx-auto'>
+          <label className='text-2xl font-semibold col-start-2 my-auto'>
             Affiche:
           </label>
           <input
+            required
             type='file'
             onChange={handleInputImageChange}
             name='image'
-            className='w-64 p-2 text-gray-900 h-10 my-auto'
+            className='p-2 text-gray-900'
           />
           <div></div>
           {theater.previewImage ? (
             <img
               src={theater.previewImage}
               alt='Preview theater'
-              className='max-h-96 py-5'
+              className='max-h-96 col-start-3 mx-auto'
             />
           ) : null}
         </div>
         <div className='text-center'>
           <button
-            onClick={saveTheater}
+            type='submit'
             className='rounded-md mt-6 py-2 px-4 text-gray-100 bg-red-500 hover:bg-white hover:text-red-500 focus:outline-none'
           >
             Valider
           </button>
           <ToastContainer />
         </div>
-      </div>
+      </form>
     </div>
   );
 };

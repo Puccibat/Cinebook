@@ -55,7 +55,6 @@ const SessionMovie = ({ match }) => {
   };
 
   const activeHandler = (id) => setActiveSession(id);
-  console.log(activeSession);
 
   const inactiveButton =
     'text-white font-semibold rounded-md py-2 px-4 mt-6  bg-red-500 focus:outline-none';
@@ -148,7 +147,9 @@ const SessionMovie = ({ match }) => {
           <div className='text-center  py-8'>
             <label className=' text-white'>Combien de place ?</label>
             <input
+              required
               type='number'
+              min='1'
               className='ml-3 w-10'
               value={sessionSelected.places}
               name='places'

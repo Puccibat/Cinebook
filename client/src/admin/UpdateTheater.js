@@ -8,11 +8,7 @@ import { isAuth } from '../api/ApiAuth';
 const UpdateTheater = ({ match }) => {
   const { token } = isAuth();
 
-  const initialTheaterState = {
-    name: '',
-    seats: '',
-  };
-  const [theater, setTheater] = useState(initialTheaterState);
+  const [theater, setTheater] = useState('');
 
   const [loadTheater, setLoadTheater] = useState(true);
 
@@ -43,7 +39,8 @@ const UpdateTheater = ({ match }) => {
       });
     };
   };
-  const saveTheater = async () => {
+  const saveTheater = async (event) => {
+    event.preventDefault();
     let urlImage = theater.image;
     if (theater.imageFile != null) {
       urlImage = await uploadFileHandler(token, theater.imageFile);
@@ -65,7 +62,6 @@ const UpdateTheater = ({ match }) => {
         style: { backgroundColor: 'rgba(239, 68, 68)', color: '#fff' },
         position: toast.POSITION.TOP_CENTER,
       });
-      setTheater(initialTheaterState);
     } else {
       toast('Une erreur est survenue, veuillez recommencer', {
         draggable: true,
@@ -81,61 +77,68 @@ const UpdateTheater = ({ match }) => {
         Modifiez votre salle
       </h1>
 
-      <div>
-        <div className='grid grid-cols-2 pt-4 '>
-          <label className='text-2xl font-semibold pt-6 mx-auto'>
+      <form onSubmit={saveTheater}>
+        <div className='grid grid-cols-4 gap-2 pt-4 '>
+          <label className='text-2xl font-semibold col-start-2 my-auto'>
             Nom de la salle:
           </label>
           <input
+            required
             type='text'
             onChange={handleInputChange}
             value={theater.name}
             name='name'
             placeholder='Ex: Salle 3'
-            className='w-64 p-2 rounded text-gray-900 h-10 my-auto'
+            className='p-2 rounded text-gray-900'
           />
 
-          <label className='text-2xl font-semibold pt-6 mx-auto'>
+          <label className='text-2xl font-semibold col-start-2 my-auto'>
             Nombre de siège:
           </label>
           <input
+            required
+            min='1'
             type='number'
             onChange={handleInputChange}
             value={theater.seats}
             name='seats'
             placeholder='Ex: La 6ème aventure des Avengers...'
-            className='w-64 p-2 rounded text-gray-900 h-10 my-auto'
+            className='p-2 rounded text-gray-900'
           />
-          <label className='text-2xl font-semibold pt-6 mx-auto my-auto'>
+          <label className='text-2xl font-semibold col-start-2 my-auto'>
             Affiche:
           </label>
           <input
             type='file'
             onChange={handleInputImageChange}
             name='image'
-            className='w-64 p-2 text-gray-900 h-10 my-auto'
+            className='p-2 text-gray-900'
           />
           <div></div>
           {theater.previewImage ? (
             <img
               src={theater.previewImage}
               alt='Preview theater'
-              className='max-h-96 py-5'
+              className='max-h-96 col-start-3 mx-auto'
             />
           ) : theater.image ? (
-            <img src={theater.image} alt='Theater' className='max-h-96 py-5' />
+            <img
+              src={theater.image}
+              alt='Theater'
+              className='max-h-96 col-start-3 mx-auto'
+            />
           ) : null}
         </div>
         <div className='text-center'>
           <button
-            onClick={saveTheater}
+            type='submit'
             className='rounded-md mt-6 py-2 px-4 text-gray-100 bg-red-500 hover:bg-white hover:text-red-500 focus:outline-none'
           >
             Valider
           </button>
           <ToastContainer />
         </div>
-      </div>
+      </form>
     </div>
   );
 };
